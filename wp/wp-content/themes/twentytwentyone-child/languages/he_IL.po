@@ -1,0 +1,100 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Alut Job Site\n"
+"POT-Creation-Date: 2021-08-18 18:20+0300\n"
+"PO-Revision-Date: 2021-08-18 18:21+0300\n"
+"Last-Translator: Meni Nuriel <nurielmeni@gmail.com>\n"
+"Language-Team: Nuriel Meni\n"
+"Language: he\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.4.3\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n==2 ? 1 : n>10 && n%10==0 ? "
+"2 : 3);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: footer.php:52
+msgid "https://niloosoft.com/he/"
+msgstr ""
+
+#: includes/customizerAdjustments.php:18
+msgid "Theme Options"
+msgstr "אפשרויות תבנית - נילוסופט"
+
+#: includes/customizerAdjustments.php:19
+msgid "Theme Modifications for Niloos FBF sites"
+msgstr "הגדרות תבנית עבור נילוסופט - חבר מביא חבר"
+
+#: includes/nlsFbfFlow.php:16
+msgid "Flow Element - "
+msgstr "אלמנט זרימה - "
+
+#: includes/nlsFbfFlow.php:17 includes/nlsFbfFlow.php:67
+msgid "Settings for the flow elements"
+msgstr "הגדרות לאלמנטים של זרימה"
+
+#: includes/nlsFbfFlow.php:34
+msgid "Title"
+msgstr "כותרת"
+
+#: includes/nlsFbfFlow.php:53
+msgid "Content"
+msgstr "תוכן"
+
+#: includes/nlsFbfFlow.php:66
+msgid "Niloos FBF Flow - General"
+msgstr "נילוס חבר מביא חבר - כללי"
+
+#: includes/nlsFbfFlow.php:84
+msgid "Separator Image"
+msgstr "תמונה למפריד"
+
+#: includes/nlsFbfFlow.php:100
+msgid "Separetor image width (px)"
+msgstr "גודל תמונה למפריד (px)"
+
+#: includes/nlsFooterLogo.php:13
+#, fuzzy
+#| msgid "Niloos FBF Flow - General"
+msgid "Niloos FBF footer logo"
+msgstr "נילוס חבר מביא חבר - כללי"
+
+#: includes/nlsFooterLogo.php:14
+#, fuzzy
+#| msgid "Settings for the flow elements"
+msgid "Settings for footer logo"
+msgstr "הגדרות לאלמנטים של זרימה"
+
+#: includes/nlsFooterLogo.php:28
+msgid "Footer Logo"
+msgstr "לוגו לפוטר"
+
+#: template-parts/content/content-none.php:43
+#, php-format
+msgid "Ready to publish your first post? <a href=\"%s\">Get started here</a>."
+msgstr ""
+
+#~ msgid " social media link for Alut"
+#~ msgstr " קישור לרשת חברתית אלו״ט"
+
+#~ msgid " social media icon for Alut"
+#~ msgstr " תמונה לרשת חברתית אלו״ט"
+
+#~ msgid "Header title for nls-fbf"
+#~ msgstr "כותרת עליונה עבור אלו\"ט"
+
+#~ msgid "Alut Social Networks"
+#~ msgstr "אלוט רשתות חברתיות"
+
+#~ msgid "Set the social icons and url of Alut social pages"
+#~ msgstr "קבע רשת חברתית, קישור לדף ואייקון"
+
+#~ msgid " Url"
+#~ msgstr " קישור"
+
+#~ msgid " Image"
+#~ msgstr " תמונה"

@@ -1,0 +1,356 @@
+/* 
+    Created on : May 10, 2018, 12:02:57 AM
+    Author     : nurielmeni
+*/
+:root {
+  --input-invalid: #ffb9b9;
+  --nls-plugin-secondary: #ff375c;
+  --nls-plugin-text: #ffffff;
+  --nls-plugin-primary: #1e285a;
+  --nls-plugin-accent: #863ad6;
+}
+
+/* Color Classes */
+.bg-white {
+  background-color: var(--nls-plugin-text) !important;
+}
+.fg-white {
+  color: var(--nls-plugin-text) !important;
+}
+
+.bg-primary {
+  background-color: var(--nls-plugin-primary) !important;
+}
+.fg-primary {
+  color: var(--nls-plugin-primary) !important;
+}
+
+.bg-primary {
+  background-color: var(--nls-plugin-primary) !important;
+}
+.fg-primary {
+  color: var(--nls-plugin-primary) !important;
+}
+
+*[disabled="disabled"] {
+  cursor: not-allowed;
+  pointer-events: all;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex.space-between {
+  justify-content: space-between;
+}
+
+.flex.space-around {
+  justify-content: space-around;
+}
+
+.flex.space-evenly {
+  justify-content: space-evenly;
+}
+
+.flex.center {
+  justify-content: center;
+}
+
+.flex.align-center {
+  align-items: center;
+}
+
+.flex.column {
+  flex-direction: column;
+}
+
+.flex.wrap {
+  flex-wrap: wrap;
+}
+
+.flex-push-left {
+  margin-right: auto;
+}
+
+.flex-push-right {
+  margin-left: auto;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.flip {
+  transform: rotate(-180deg);
+}
+
+.width-50 {
+  width: 50% !important;
+}
+
+.mw-100 {
+  max-width: 100% !important;
+}
+
+px-1 {
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.small-text {
+  font-size: 0.75rem;
+  line-height: 1.5rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+form .nls-invalid,
+form .help-block {
+  color: var(--input-invalid) !important;
+}
+
+/** NLS APPLY FORM **/
+section.nls-hunter-fbf-wrapper {
+  background-color: var(--nls-plugin-secondary);
+  margin: 0 !important;
+  color: var(--nls-plugin-text);
+}
+
+section.nls-hunter-fbf-wrapper form {
+  width: 100%;
+}
+
+section.nls-hunter-fbf-wrapper form > .form-section {
+  width: 100%;
+  position: relative;
+  z-index: 5;
+}
+
+section.nls-hunter-fbf-wrapper form > .form-section img {
+  position: absolute;
+  z-index: 10;
+}
+
+section.nls-hunter-fbf-wrapper form > .form-section img.xs-up {
+  top: -136px;
+  left: 0;
+}
+section.nls-hunter-fbf-wrapper form > .form-section img.xs-down {
+  top: -90px;
+  left: 0;
+}
+
+section.nls-hunter-fbf-wrapper form > .form-section.bg-primary {
+  background-color: var(--nls-plugin-primary);
+}
+
+section.nls-hunter-fbf-wrapper form > .form-section > * {
+  padding: 2rem;
+  margin: 0 auto;
+  max-width: 1200px;
+  z-index: 20;
+  position: relative;
+}
+
+section.nls-hunter-fbf-wrapper .friends-details {
+  margin-bottom: 4rem;
+}
+
+.nls-apply-for-jobs .friends-details .friends-container .form-body {
+  border-top: 3px solid;
+  position: relative;
+  margin-top: 60px;
+  padding-top: 50px;
+}
+
+.nls-apply-for-jobs .friends-details .friends-container .form-body:first-child {
+  border-top: none;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.nls-apply-for-jobs .friends-details .friends-container .form-body span.remove {
+  position: absolute;
+  background-image: url("../images/trash-can.svg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 60px;
+  height: 60px;
+  background-color: var(--nls-plugin-secondary);
+  top: -30px;
+  left: calc(50% - 30px);
+  cursor: pointer;
+}
+
+.nls-apply-for-jobs
+  .friends-details
+  .friends-container
+  .form-body:first-child
+  span.remove {
+  display: none;
+}
+
+section.nls-hunter-fbf-wrapper h2.form-title {
+  font-size: 18px;
+  font-weight: 900;
+  margin-bottom: 1rem;
+}
+
+.nls-apply-field {
+  display: flex;
+  flex-direction: column;
+  width: calc(33% - 1rem);
+}
+
+.employee-details .nls-apply-field {
+  width: calc(28% - 1rem);
+}
+
+.nls-apply-field input,
+.nls-apply-field select {
+  height: 2.75rem;
+  border: none !important;
+  border-radius: 2.75rem !important;
+  padding: 0 1rem !important;
+  color: var(--nls-plugin-primary) !important;
+}
+
+.nls-apply-field select {
+  padding-left: 2rem !important;
+}
+
+.nls-apply-field.browse label {
+  cursor: pointer;
+}
+
+.nls-apply-field label {
+  margin-bottom: 0;
+}
+
+.nls-apply-field .help-block {
+  min-height: 2rem;
+  font-size: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.nls-apply-field.browse {
+  width: 100% !important;
+}
+
+.nls-apply-field.browse .file-selected {
+  position: relative;
+}
+.nls-apply-field.browse .file-selected span {
+  padding-left: 3rem;
+}
+
+.nls-apply-field.browse .file-selected:after {
+  content: "\2713";
+  position: absolute;
+  right: 20.5rem;
+  font-size: 34px;
+  top: -12px;
+}
+
+.nls-apply-field.employee-email {
+  position: relative;
+}
+
+section.nls-hunter-fbf-wrapper .text-button.add-resume {
+  text-decoration: underline;
+}
+
+.employee-details .form-body .nls-apply-field {
+  margin-left: 1rem;
+  min-width: 250px;
+}
+
+.nls-button {
+  max-width: 280px;
+  height: 2.75rem;
+  cursor: pointer;
+}
+
+.nls-button > * {
+}
+
+.nls-button:hover > * {
+  border: 1px solid #7c7c7c;
+  box-shadow: 0 0 2px 1px #ffffff;
+}
+
+.nls-button > .button-text {
+  width: calc(100% - 2.75rem - 20px);
+  height: 100%;
+  border-radius: 2.75rem;
+}
+
+.nls-button > .button-icon {
+  width: 2.75rem;
+  height: 100%;
+  border-radius: 50%;
+  background-repeat: no-repeat;
+  background-size: 80% 80%;
+  background-position: center center;
+}
+
+.nls-button > .button-icon.chevron-left.fg-primary {
+  background-image: url("../images/chevron-left-primary.svg");
+}
+
+.nls-button > .button-icon.chevron-left.fg-white {
+  background-image: url("../images/chevron-left-white.svg");
+}
+
+/* NLS Flash Message */
+div.nls-flash-message {
+  display: inline-flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  width: 80%;
+  margin: 1rem auto;
+  position: relative;
+  padding: 0.75rem 1.25rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  visibility: hidden;
+  font-size: 1.25rem;
+}
+
+div.nls-flash-message strong {
+  cursor: pointer;
+}
+
+div.nls-flash-message.info {
+  color: #0c5460 !important;
+  background-color: #d1ecf1 !important;
+  border-color: #bee5eb !important;
+}
+
+div.nls-flash-message.error {
+  color: #cc2c2c !important;
+  color: var(--error-color) !important;
+  background-color: #f8d7da !important;
+  border-color: #f5c6cb !important;
+}
+
+/****** RESPONSIVE DESIGN ********/
+@media all and (max-width: 1200px) {
+  .nls-apply-field.browse {
+    margin-top: 30px;
+  }
+
+  .friends-details .form-footer {
+    margin-top: 2rem;
+  }
+}
+
+@media all and (max-width: 867px) {
+  .nls-apply-field {
+    width: 100% !important;
+  }
+}

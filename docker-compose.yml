@@ -1,0 +1,58 @@
+version: "3.3"
+
+services:
+  db:
+    # For MAC M1
+    platform: linux/x86_64
+
+    image: mysql
+    restart: on-failure
+    environment:
+      MYSQL_ROOT_PASSWORD: Meni1971
+      MYSQL_DATABASE: reichman_db
+      MYSQL_USER: reichman_user
+      MYSQL_PASSWORD: Meni1971
+      #MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - reichman-data:/var/lib/mysql
+    networks:
+      - reichman-net
+  pma:
+    depends_on:
+      - db
+
+    # For MAC M1
+    platform: linux/x86_64
+    
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 8088:80
+    restart: on-failure
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: Meni1971
+    networks:
+      - reichman-net
+  wp:
+    depends_on:
+      - db
+    build: .
+    volumes:
+      - ./wp:/var/www/html
+    ports:
+      - 8080:80
+    restart: on-failure
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: reichman_user
+      WORDPRESS_DB_PASSWORD: Meni1971
+      WORDPRESS_DB_NAME: reichman_db
+      XDEBUG_PORT: 9005
+      XDEBUG_IDEKEY: VSCode
+      WORDPRESS_DEBUG: 1
+    networks:
+      - reichman-net
+networks:
+  reichman-net:
+volumes:
+  reichman-data:

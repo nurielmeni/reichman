@@ -1,0 +1,143 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : May 10, 2018, 4:48:10 PM
+    Author     : nurielmeni
+*/
+
+/*
+.ui-multiselect {
+    padding: 2px 0 2px 4px;
+}
+*/
+:root {
+    --input-placeholder: #707070;
+}
+
+.SumoSelect.open>.optWrapper {
+    top: 52px;
+}
+.SumoSelect.open>.optWrapper > * {
+    background: #ffffff;
+}
+.SumoSelect>.optWrapper.multiple>.options li.opt {
+    padding-right: 35px;
+    padding-left: 0;
+    margin: 0;
+}
+.SumoSelect .select-all {
+    padding: 0 35px 0 0;
+    height: 32px;
+    line-height: 1.2rem;
+    border-bottom: 2px solid #c6d8e6;
+}
+.SumoSelect p.CaptionCont.SelectBox,
+div.nls-field.text input[type="text"] {
+    border: none;
+    background: #F2F3F3; 
+    height: 48px;
+    line-height: 48px;
+    font-size: 1rem;
+    color: #000;
+    width: 100%;
+    box-sizing: border-box;
+}
+.SumoSelect>.optWrapper.multiple>.options li.opt span, 
+.SumoSelect .select-all>span {
+    margin-right: -35px;
+    margin-left: 0;
+}
+.SumoSelect .select-all>label, 
+.SumoSelect>.CaptionCont, 
+.SumoSelect>.CaptionCont>label,
+.SumoSelect>.optWrapper>.options li.opt label,
+.nls-field label{
+    font-size: 1rem;
+    font-weight: normal;
+}
+.SumoSelect>.CaptionCont>label{
+    right: auto;
+    left: 5px;
+    margin-bottom: 0;
+}
+.SumoSelect>.CaptionCont>span {
+    padding-left: 24px;
+    padding-right: 12px;
+    line-height: 48px;
+}
+
+.SumoSelect.open>.CaptionCont, .SumoSelect:focus>.CaptionCont, .SumoSelect:hover>.CaptionCont{
+    box-shadow: none;
+}
+.SumoSelect>.CaptionCont>span,
+.SumoSelect>.CaptionCont>span.placeholder {
+    font-style: normal;
+    font-size: 1rem;
+    line-height: 48px;
+    color: #cccccc;
+    color: var(--input-placeholder);
+}
+
+.SumoSelect .select-all>label, .SumoSelect .select-all>span i {
+    line-height: 2.25rem;
+}
+body #content .SumoSelect>.optWrapper.multiple.okCancelInMulti>.MultiControls>p {
+    margin-bottom: 0;
+}
+#content .SumoSelect>.optWrapper.multiple>.MultiControls>p.btnOk {
+    width: 100%;
+    text-align: center;
+}
+#content .SumoSelect>.optWrapper.multiple>ul.options {
+    margin-bottom: 0;
+}
+
+.SumoSelect .select-all.selected>span i, .SumoSelect>.optWrapper.multiple>.options li.opt.selected span i {
+    background-color: #1672ba;
+}
+.SumoSelect .select-all.partial>span i {
+    background-color: #ccc;
+}
+.SumoSelect>.CaptionCont>label>i {
+  -moz-transition: transform 200ms;
+  -webkit-transition: transform 200ms;
+  transition: transform 200ms;
+}
+
+.SumoSelect>.optWrapper.multiple>.MultiControls>p {
+    padding: 0;
+    line-height: 2.6rem;
+    font-size: 1.25rem;
+}
+
+.SumoSelect.open>.optWrapper.isFloating {
+    max-width: 500px;
+    top: 0;
+}    
+
+.SumoSelect>.optWrapper.multiple>.MultiControls>p.btnOk {
+    border-right: none !important;
+    border-left: 1px solid #DBDBDB;
+    border-radius: 0 0 0 3px;
+}
+
+.SumoSelect>.CaptionCont>label>i {
+    background-image: url(../iconsSVG/arrow-design.svg);
+}
+
+.SumoSelect>.optWrapper>.options li label {
+    text-overflow: initial;
+    white-space: normal;
+}
+
+.SumoSelect>.optWrapper>.options li.opt {
+    margin-right: 0;
+    padding-right: 1rem;
+}
+
+.SumoSelect>.optWrapper.multiple.isFloating {
+    padding-bottom: 5rem;
+}

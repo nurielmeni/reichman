@@ -1,0 +1,22 @@
+/*
+ Theme Name:   Twenty Twenty-One Child theme
+ Theme URI:    https://wordpress.org/themes/twentytwentyone/
+ Description:  Twenty Twenty-One Child Theme
+ Author:       Meni Nuriel
+ Template:     twentytwentyone
+ Version:      2.0.0
+ License:      GNU General Public License v2 or later
+ License URI:  http://www.gnu.org/licenses/gpl-2.0.html
+ Tags:         Yashir Child 
+ Text Domain:  twentytwentyonechild
+*/
+
+/* Fonts 
+@import url("https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=Roboto:wght@400;700&display=swap");
+*/
+/* Variables */
+
+:root {
+  /* Font Family */
+  --heading--font-family: var(--global--font-secondary);
+}
