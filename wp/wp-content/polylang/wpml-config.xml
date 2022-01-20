@@ -1,0 +1,7 @@
+<wpml-config>
+  <admin-texts>
+    <key name='theme_mods_tailpress'>
+      <key name='header_image' />
+    </key>
+  </admin-texts>
+</wpml-config>

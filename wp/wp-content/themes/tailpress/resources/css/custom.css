@@ -1,0 +1,94 @@
+.entry-content, .block-editor-block-list__layout {
+    h1 {
+        @apply text-2xl;
+    }
+
+    h2 {
+        @apply text-xl;
+    }
+
+    h3 {
+        @apply text-lg;
+    }
+
+    p, ul, ol {
+        a {
+            @apply text-blue-500 underline;
+
+            &:hover {
+                @apply no-underline;
+            }
+        }
+
+        @apply mb-8;
+    }
+
+    ul:not(.block-editor-block-variation-picker__variations) {
+        li {
+            @apply list-disc list-inside;
+        }
+    }
+
+    ol {
+        li {
+            @apply list-decimal list-inside;
+        }
+    }
+}
+
+.two-chars{
+    text-overflow: clip;
+    width: 2ch;
+    overflow: hidden;
+    white-space: nowrap;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.transparent-text {
+    color: transparent;
+    font-size: 0;
+}
+
+li[class*='fb-circle-'],
+li[class*='in-circle-'],
+li[class*='mail-circle-'] {
+    min-width: 32px;
+    height: 32px;
+    line-height: 32px;
+    background-size: 32px 32px;
+    background-position-y: center;
+    padding-inline-start: 36px;
+    background-position-x: left;
+}
+
+li.social.he {
+    background-position-x: right;
+}
+
+li.transparent-text {
+    background-position-x: center;
+    padding-inline-start: 0;
+}
+
+.fb-circle-blue {
+    background: url('../images/fb_circle_blue.svg') no-repeat;
+}
+
+.fb-circle-white {
+    background: url('../images/fb_circle_white.svg') no-repeat;
+}
+.in-circle-blue {
+    background: url('../images/in_circle_blue.svg') no-repeat;
+}
+
+.in-circle-white {
+    background: url('../images/in_circle_white.svg') no-repeat;
+}
+.mail-circle-blue {
+    background: url('../images/mail_circle_blue.svg') no-repeat;
+}
+
+.mail-circle-white {
+    background: url('../images/mail_circle_white.svg') no-repeat;
+}

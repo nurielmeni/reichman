@@ -15,7 +15,7 @@
       "name": "Listen: XDebug",
       "type": "php",
       "request": "launch",
-      "port": 9005,
+      "port": 9003,
       "pathMappings": {
         "/var/www/html": "${workspaceRoot}/wp/"
       },
