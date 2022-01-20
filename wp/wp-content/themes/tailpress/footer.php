@@ -10,10 +10,14 @@
 
 <?php do_action('reichman_content_after'); ?>
 
-<footer id="colophon" class="site-footer bg-primary py-12" role="contentinfo">
+<footer id="colophon" class="site-footer bg-primary py-4" role="contentinfo">
 	<?php do_action('reichman_footer'); ?>
 
-	<div class="container mx-auto flex flex-col justify-center lg:flex-row lg:justify-space-between items-top primary text-white">
+	<div class="container mx-auto flex justify-start text-white text-lg pb-4">
+		<?= _e('Contact us', 'reichman') ?>
+	</div>
+
+	<div class="container mx-auto flex flex-col justify-center lg:flex-row lg:justify-between items-top primary text-white">
 	<?php
 	wp_nav_menu(
 		array(
@@ -44,9 +48,9 @@
 		array(
 			'container_id'    => 'footer-social',
 			'container_class' => 'mt-1 mb-2',
-			'menu_class'      => '',
+			'menu_class'      => 'flex justify-start lg:flex-col',
 			'theme_location'  => 'footer-social',
-			'li_class'        => '',
+			'li_class'        => 'px-2 mt-2',
 			'walker' => '',
 			'fallback_cb'     => false,
 		)
@@ -54,8 +58,8 @@
 	?>
 	</div>
 
-	<div class="container mx-auto text-center text-gray-500">
-		&copy; <?php echo date_i18n('Y'); ?> - <?php echo get_bloginfo('name'); ?>
+	<div class="container mx-auto flex justify-start text-white mt-8">
+		&copy; <?php echo date_i18n('Y'); ?> - <?= _e('All rights reserved to Reichman University.', 'reichman') ?>
 	</div>
 </footer>
 

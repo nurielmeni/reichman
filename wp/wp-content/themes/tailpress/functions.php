@@ -40,10 +40,19 @@ function reichman_setup()
 
 	add_theme_support('editor-styles');
 	add_editor_style('css/editor-style.css');
+
+	// Load translations
+	load_theme_textdomain('reichman', get_template_directory() . '/languages');
 }
 
 add_action('after_setup_theme', 'reichman_setup');
-
+ 
+/**
+ * Load translations for wpdocs_theme
+ */
+function wpdocs_theme_setup(){
+   
+}
 /**
  * Enqueue theme assets.
  */

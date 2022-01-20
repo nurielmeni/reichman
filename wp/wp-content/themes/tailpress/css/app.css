@@ -544,6 +544,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-bottom: 3rem;
 }
 
+.mt-8 {
+  margin-top: 2rem;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
 .inline-block {
   display: inline-block;
 }
@@ -616,6 +624,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   align-items: center;
 }
 
+.justify-start {
+  justify-content: flex-start;
+}
+
 .justify-center {
   justify-content: center;
 }
@@ -684,6 +696,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding: 1rem;
 }
 
+.p-2 {
+  padding: 0.5rem;
+}
+
 .px-4 {
   padding-left: 1rem;
   padding-right: 1rem;
@@ -719,12 +735,34 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-right: 1.5rem;
 }
 
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.px-2 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
 .pl-5 {
   padding-left: 1.25rem;
 }
 
 .pb-12 {
   padding-bottom: 3rem;
+}
+
+.pt-12 {
+  padding-top: 3rem;
+}
+
+.pb-4 {
+  padding-bottom: 1rem;
+}
+
+.text-left {
+  text-align: left;
 }
 
 .text-center {
@@ -996,9 +1034,13 @@ li[class*='mail-circle-'] {
   line-height: 32px;
   background-size: 32px 32px;
   background-position-y: center;
-  -webkit-padding-start: 36px;
-          padding-inline-start: 36px;
   background-position-x: left;
+  margin-bottom: 10px;
+}
+
+li.social > a {
+  -webkit-padding-start: 38px;
+          padding-inline-start: 38px;
 }
 
 li.social.he {
@@ -1033,6 +1075,14 @@ li.transparent-text {
 
 .mail-circle-white {
   background: url('../images/mail_circle_white.svg') no-repeat;
+}
+
+/* Responsive design */
+
+@media (max-width: 1023.9px) {
+  ul li.social > a {
+    font-size: 0;
+  }
 }
 
 .marker\:text-green-400 *::marker {
@@ -1070,8 +1120,16 @@ li.transparent-text {
 }
 
 @media (min-width: 640px) {
+  .sm\:flex {
+    display: flex;
+  }
+
   .sm\:w-auto {
     width: auto;
+  }
+
+  .sm\:justify-start {
+    justify-content: flex-start;
   }
 
   .sm\:text-xl {
@@ -1131,6 +1189,10 @@ li.transparent-text {
     flex-direction: row;
   }
 
+  .lg\:flex-col {
+    flex-direction: column;
+  }
+
   .lg\:items-center {
     align-items: center;
   }
@@ -1160,6 +1222,11 @@ li.transparent-text {
   .lg\:text-5xl {
     font-size: 3rem;
     line-height: 1;
+  }
+
+  .lg\:text-base {
+    font-size: 1rem;
+    line-height: 1.5rem;
   }
 
   .lg\:text-white {

@@ -58,8 +58,12 @@ li[class*='mail-circle-'] {
     line-height: 32px;
     background-size: 32px 32px;
     background-position-y: center;
-    padding-inline-start: 36px;
     background-position-x: left;
+    margin-bottom: 10px;;
+}
+
+li.social > a {
+    padding-inline-start: 38px;
 }
 
 li.social.he {
@@ -91,4 +95,11 @@ li.transparent-text {
 
 .mail-circle-white {
     background: url('../images/mail_circle_white.svg') no-repeat;
+}
+
+/* Responsive design */
+@media (max-width: 1023.9px) { 
+    ul li.social > a {
+        font-size: 0;
+    }
 }
