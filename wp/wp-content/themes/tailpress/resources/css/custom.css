@@ -1,105 +1,147 @@
-.entry-content, .block-editor-block-list__layout {
-    h1 {
-        @apply text-2xl;
+.entry-content,
+.block-editor-block-list__layout {
+  h1 {
+    @apply text-2xl;
+  }
+
+  h2 {
+    @apply text-xl;
+  }
+
+  h3 {
+    @apply text-lg;
+  }
+
+  p,
+  ul,
+  ol {
+    a {
+      @apply text-blue-500 underline;
+
+      &:hover {
+        @apply no-underline;
+      }
     }
 
-    h2 {
-        @apply text-xl;
+    @apply mb-8;
+  }
+
+  ul:not(.block-editor-block-variation-picker__variations) {
+    li {
+      @apply list-disc list-inside;
     }
+  }
 
-    h3 {
-        @apply text-lg;
+  ol {
+    li {
+      @apply list-decimal list-inside;
     }
-
-    p, ul, ol {
-        a {
-            @apply text-blue-500 underline;
-
-            &:hover {
-                @apply no-underline;
-            }
-        }
-
-        @apply mb-8;
-    }
-
-    ul:not(.block-editor-block-variation-picker__variations) {
-        li {
-            @apply list-disc list-inside;
-        }
-    }
-
-    ol {
-        li {
-            @apply list-decimal list-inside;
-        }
-    }
+  }
 }
 
-.two-chars{
-    text-overflow: clip;
-    width: 2ch;
-    overflow: hidden;
-    white-space: nowrap;
-    display: flex;
-    flex-direction: row-reverse;
+.two-chars {
+  text-overflow: clip;
+  width: 2ch;
+  overflow: hidden;
+  white-space: nowrap;
+  display: flex;
+  flex-direction: row-reverse;
 }
 
 .transparent-text {
-    color: transparent;
-    font-size: 0;
+  color: transparent;
+  font-size: 0;
 }
 
-li[class*='fb-circle-'],
-li[class*='in-circle-'],
-li[class*='mail-circle-'] {
-    min-width: 32px;
-    height: 32px;
-    line-height: 32px;
-    background-size: 32px 32px;
-    background-position-y: center;
-    background-position-x: left;
-    margin-bottom: 10px;;
+li.social {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  margin-bottom: 10px;
 }
 
 li.social > a {
-    padding-inline-start: 38px;
+  padding-inline-start: 0.5rem;
+}
+
+li.social > span.social-icon {
+  min-width: 32px;
+  height: 32px;
+  background-size: 32px 32px;
+}
+
+li.social > span.social-icon > a {
+  font-size: 1px;
+  padding: 16px;
 }
 
 li.social.he {
-    background-position-x: right;
+  flex-direction: row-reverse;
 }
 
 li.transparent-text {
-    background-position-x: center;
-    padding-inline-start: 0;
+  background-position-x: center;
+  padding-inline-start: 0;
 }
 
-.fb-circle-blue {
-    background: url('../images/fb_circle_blue.svg') no-repeat;
+.fb-circle-blue span.social-icon {
+  background: url("../images/fb_circle_blue.svg") no-repeat;
 }
 
-.fb-circle-white {
-    background: url('../images/fb_circle_white.svg') no-repeat;
+.fb-circle-white span.social-icon {
+  background: url("../images/fb_circle_white.svg") no-repeat;
 }
-.in-circle-blue {
-    background: url('../images/in_circle_blue.svg') no-repeat;
-}
-
-.in-circle-white {
-    background: url('../images/in_circle_white.svg') no-repeat;
-}
-.mail-circle-blue {
-    background: url('../images/mail_circle_blue.svg') no-repeat;
+.in-circle-blue span.social-icon {
+  background: url("../images/in_circle_blue.svg") no-repeat;
 }
 
-.mail-circle-white {
-    background: url('../images/mail_circle_white.svg') no-repeat;
+.in-circle-white span.social-icon {
+  background: url("../images/in_circle_white.svg") no-repeat;
+}
+.mail-circle-blue span.social-icon {
+  background: url("../images/mail_circle_blue.svg") no-repeat;
+}
+
+.mail-circle-white span.social-icon {
+  background: url("../images/mail_circle_white.svg") no-repeat;
 }
 
 /* Responsive design */
-@media (max-width: 1023.9px) { 
-    ul li.social > a {
-        font-size: 0;
+@media (max-width: 1023.9px) {
+  ul li.social > a {
+    font-size: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .wp-block-media-text.is-stacked-on-mobile .wp-block-media-text__media {
+    grid-row: 2;
+  }
+  .wp-block-media-text.is-stacked-on-mobile .wp-block-media-text__content {
+    grid-row: 1;
+  }
+.mb-home-fix-image {
+  margin-bottom: -77px !important;
+}
+}
+
+@media (min-width: 600.9px) {
+    .mb-home-fix-image {
+      margin-bottom: -63px !important;
     }
+}
+@media (min-width: 768px) {
+
+}
+@media (min-width: 1024px) {
+  .mb-home-fix-image {
+    margin-bottom: -70px !important;
+  }
+}
+@media (min-width: 1280px) {
+  .mb-home-fix-image {
+    margin-bottom: -76px !important;
+  }
+}
+@media (min-width: 1536px) {
 }
