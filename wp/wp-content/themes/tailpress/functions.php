@@ -129,3 +129,15 @@ function reichman_nav_menu_add_submenu_class($classes, $args, $depth)
 }
 
 add_filter('nav_menu_submenu_css_class', 'reichman_nav_menu_add_submenu_class', 10, 3);
+
+
+add_action( 'template_redirect', 'wp_deny_direct_post' );
+
+function wp_deny_direct_post()
+{
+    if ( ! is_singular( 'press' ) )
+        return;
+
+    wp_redirect( get_post_type_archive_link( 'press' ), 301 );
+    exit;
+}

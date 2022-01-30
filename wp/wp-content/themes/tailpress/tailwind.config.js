@@ -6,7 +6,9 @@ module.exports = {
     mode: 'jit',
     content: [
         './*/*.php',
+        '../../plugins/NlsHunterFbf/*/*.php',
         './**/*.php',
+        '../../plugins/NlsHunterFbf/**/*.php',
         './resources/css/*.css',
         './resources/js/*.js',
         './safelist.txt'

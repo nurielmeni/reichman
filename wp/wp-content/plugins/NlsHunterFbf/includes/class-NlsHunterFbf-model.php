@@ -203,4 +203,13 @@ class NlsHunterFbf_model
     {
         return $this->nlsCards->searchJobByJobCode($jobCode);
     }
+
+    /**
+     * Return the categories
+     */
+    public function getCategories() {
+        $this->initDirectoryService();
+        $categories = $this->nlsDirectory->getCategories();
+        return $categories;
+    }
 }

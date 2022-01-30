@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Reichman\n"
-"POT-Creation-Date: 2022-01-20 15:36+0200\n"
-"PO-Revision-Date: 2022-01-20 15:37+0200\n"
+"POT-Creation-Date: 2022-01-30 13:17+0200\n"
+"PO-Revision-Date: 2022-01-30 13:19+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: he_IL\n"
@@ -57,11 +57,11 @@ msgstr "תגובות חדשות יותר &rarr;"
 msgid "Comments are closed."
 msgstr "תגובות סגורות."
 
-#: footer.php:17
+#: footer.php:18
 msgid "Contact us"
 msgstr "צרו איתנו קשר"
 
-#: footer.php:62
+#: footer.php:63
 msgid "All rights reserved to Reichman University."
 msgstr "כל הזכויות שמורות לאוניברסיטת רייכמן."
 

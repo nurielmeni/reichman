@@ -27,8 +27,6 @@
  * @subpackage NlsHunterFbf/includes
  * @author     Your Name <email@example.com>
  */
-require_once 'class-NlsHunterFbf-model.php';
-require_once 'class-NlsHunterFbf-modules.php';
 
 class NlsHunterFbf
 {
@@ -111,6 +109,8 @@ class NlsHunterFbf
 		$this->NlsHunterFbf = 'NlsHunterFbf';
 
 		$this->load_dependencies();
+		$this->loader = new NlsHunterFbf_Loader();
+
 		$this->set_locale();
 
 		// Instantiate the modules class
@@ -198,7 +198,8 @@ class NlsHunterFbf
 		 */
 		require_once plugin_dir_path(dirname(__FILE__)) . 'public/class-NlsHunterFbf-public.php';
 
-		$this->loader = new NlsHunterFbf_Loader();
+		require_once 'class-NlsHunterFbf-model.php';
+		require_once 'class-NlsHunterFbf-modules.php';
 	}
 
 	/**
@@ -268,7 +269,9 @@ class NlsHunterFbf
 	{
 
 		// Add Shortcode
-		add_shortcode('nls_hunter_fbf', [$this->modules, 'nlsHunterFbf_render']);
+		add_shortcode('nls_hunter_categories', [$this->modules, 'nlsHunterCategories_render']);
+		add_shortcode('nls_hot_jobs', [$this->modules, 'nlsHotJobs_render']);
+		add_shortcode('nls_hunter_search', [$this->modules, 'nlsHunterSearch_render']);
 	}
 
 	/**
