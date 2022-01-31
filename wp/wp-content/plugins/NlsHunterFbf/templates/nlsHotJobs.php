@@ -1,7 +1,7 @@
-<section class="nls-hunter-hot-jobs-wrapper alignwide">
-  <div class="grid grid-rows-1 grid-cols-4">
+<section class="nls-hunter-hot-jobs-wrapper alignfull">
+  <div class="grid grid-rows-1 grid-cols-4 alignwide">
     <div class="flex justify-start items-end">
-      <button class="btn mb-3"><?= __('All Jobs', 'NlsHunterFbf') ?></button>
+      
     </div>
     <div class="flex flex-col justify-center items-center col-span-2 text-center font-bold">
       <span class=" text-4xl pb-2"><?= __('Jobs we thought would interest you', 'NlsHunterFbf') ?></span>
@@ -13,10 +13,11 @@
     </div>
   </div>
 
-  <div class="p-4 flex justify-between flex-wrap">
+  <div class="flex justify-between flex-wrap w-full bg-sliderbg py-3">
+    <div class="flex justify-end px-8"><button class="btn mb-3"><?= __('All Jobs', 'NlsHunterFbf') ?></button></div>
     <?= render('horizontalSlider', [
       'elements' => $hotJobs,
-      'elementTemplate' => 'hotjob'
+      'elementTemplate' => 'nlsHotJob'
     ]) ?>
   </div>
 </section>

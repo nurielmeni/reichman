@@ -4,16 +4,22 @@
 
 @import "custom.css";
 
-.alignwide {
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-}
-
 @layer components {
-  .card {
+  .category-card {
     background-color: theme("colors.white");
-    padding: theme("spacing.6");
     box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+  }
+
+  .hot-job-card {
+    min-width: 174px;
+    max-width: 174px;
+    min-height: 152px;
+    max-height: 152px;
+    padding: theme("spacing.3");
+    margin-left: theme("spacing.3");
+    margin-right: theme("spacing.3");
+    box-shadow: 0 3px 6px 0 #002952;
+    background-color: theme("colors.white");
   }
 
   .btn {
@@ -28,8 +34,39 @@
   }
 
   .underline-decor {
-    border-bottom: 5px solid  theme("colors.secondary");
+    border-bottom: 5px solid theme("colors.secondary");
     margin-top: theme("spacing.6");
     width: 11rem;
   }
+
+  @media (min-width: 768px) {
+    .hot-job-card {
+      min-width: 376px;
+      max-width: 376px;
+      min-height: 280px;
+      max-height: 280px;
+    }
+  }
+  @media (max-width: 768.9px) {
+    .underline-decor {
+      border-bottom-width: 2px;
+      margin-top: theme("spacing.2");
+      width: 5rem;
+    }
+  
+    .btn {
+      padding-top: theme("spacing.2");
+      padding-bottom: theme("spacing.2");
+      padding-left: theme("spacing.4");
+      padding-right: theme("spacing.4");
+    }
+  }
+  
 }
+
+/* Customizing default theme */
+.alignwide {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+

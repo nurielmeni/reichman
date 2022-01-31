@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: NlsHunterFbf\n"
-"POT-Creation-Date: 2022-01-30 15:35+0200\n"
-"PO-Revision-Date: 2022-01-30 15:36+0200\n"
+"POT-Creation-Date: 2022-01-31 15:45+0200\n"
+"PO-Revision-Date: 2022-01-31 15:45+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: he_IL\n"
@@ -172,9 +172,17 @@ msgstr "הפרטים נקלטו בהצלחה"
 msgid "Categories"
 msgstr "משרות לפי תחומים"
 
-#: templates/nlsCategories.php:12 templates/nlsHotJobs.php:4
+#: templates/nlsCategories.php:12 templates/nlsHotJobs.php:17
 msgid "All Jobs"
 msgstr "לכל המשרות"
+
+#: templates/nlsCategories.php:27
+msgid "To all jobs  >>"
+msgstr "לכל המשרות  >>"
+
+#: templates/nlsHotJob.php:10
+msgid "More details"
+msgstr "פרטים נוספים"
 
 #: templates/nlsHotJobs.php:7
 msgid "Jobs we thought would interest you"
@@ -182,7 +190,7 @@ msgstr "משרות שחשבנו שיעניינו אותך"
 
 #: templates/nlsSearch.php:2
 msgid "Search"
-msgstr ""
+msgstr "חיפוש"
 
 #. Plugin Name of the plugin/theme
 msgid "NlsHunterFbf"

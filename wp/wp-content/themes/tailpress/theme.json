@@ -30,6 +30,11 @@
           "name": "MainBg",
           "slug": "mainbg",
           "color": "#f7f7f7"
+        },
+        {
+          "name": "SliderBg",
+          "slug": "sliderbg",
+          "color": "#f1f2f2"
         }
       ]
     },
