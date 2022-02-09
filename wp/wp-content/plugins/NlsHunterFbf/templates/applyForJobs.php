@@ -55,11 +55,6 @@ $jobOptions = $jobs;
                 </div>
             </div>
             <div class="form-footer">
-                <?= render('nlsButton', [
-                    'label' => __('Add another friend', 'NlsHunterFbf'),
-                    'icon' => 'chevron-left',
-                    'class' => 'add-friend bg-primary fg-white'
-                ]) ?>
             </div>
         </div>
     </div>
@@ -93,11 +88,6 @@ $jobOptions = $jobs;
                 </div>
             </div>
             <div class="form-footer">
-                <?= render('nlsButton', [
-                    'label' => __('Submit CV', 'NlsHunterFbf'),
-                    'icon' => 'chevron-left',
-                    'class' => 'apply-cv bg-white fg-primary'
-                ]) ?>
             </div>
             <div class="form-footer">
                 <div class="help-block"></div>

@@ -120,7 +120,8 @@ class NlsHunterFbf_Public
          */
 
         wp_enqueue_script('mobile-check-js', plugin_dir_url(__FILE__) . 'js/mobileCheck.js', array('jquery'), $this->version, false);
-        wp_enqueue_script('hot-jobs-js', plugin_dir_url(__FILE__) . 'js/hotjobs.js', array('jquery'), $this->version, false);
+        wp_enqueue_script('hot-jobs-js', plugin_dir_url(__FILE__) . 'js/hotJobs.js', array('jquery'), $this->version, false);
+        wp_enqueue_script('job-search-js', plugin_dir_url(__FILE__) . 'js/jobSearch.js', array('jquery'), $this->version, false);
         wp_enqueue_script('nls-form-validation', plugin_dir_url(__FILE__) . 'js/NlsHunterForm.js', array('jquery'), $this->version, false);
         wp_enqueue_script('nls-swipe-detect', plugin_dir_url(__FILE__) . 'js/swipeDetect.js', array('jquery'), $this->version, false);
 
@@ -254,8 +255,7 @@ class NlsHunterFbf_Public
 
         do {
             $tempFile = $cv_dirname . 'CV_FILE_' . mt_rand(100, 999) . '.' . $fileExt;
-        } 
-        while (file_exists($tempFile));
+        } while (file_exists($tempFile));
 
         return $tempFile;
     }
@@ -352,7 +352,7 @@ class NlsHunterFbf_Public
         $bcc = get_option(NlsHunterFbf_Admin::BCC_MAIL);
         $headers = ['Content-Type: text/html; charset=UTF-8'];
         if (strlen($bcc) > 0) array_push($headers, 'Bcc: ' . $bcc);
-        
+
         $subject = __('CV Applied from Yashir Jobs Site', 'NlsHunterFbf') . ': ';
         $subject .= $jobcode ? $jobcode : $msg;
 
@@ -381,7 +381,7 @@ class NlsHunterFbf_Public
     {
         return render('mailSuccess', []);
     }
-    
+
     private function sentError($msg = '')
     {
         return render('mailError', ['msg' => $msg]);

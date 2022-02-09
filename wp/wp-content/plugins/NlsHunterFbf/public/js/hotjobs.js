@@ -26,7 +26,8 @@ var Hotjobs =
     }
 
     function sliderWidth() {
-      return document.querySelector(slider).scrollWidth;
+      var sliderEl = document.querySelector(slider);
+      return sliderEl ? sliderEl.scrollWidth : 0;
     }
 
     function scrollSlider(direction, cbAfterAnimation) {

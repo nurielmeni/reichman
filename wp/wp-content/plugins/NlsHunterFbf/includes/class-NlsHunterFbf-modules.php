@@ -25,61 +25,61 @@ class NlsHunterFbf_modules
                 'jobTitle' => 'Super Man',
                 'jobCode' => 'JB-20543',
                 'employer' => 'Special Tooling'
-            ], 
+            ],
             [
                 'date' => '01.02.2022',
                 'jobTitle' => 'Super Man',
                 'jobCode' => 'JB-20543',
                 'employer' => 'Special Tooling'
-            ], 
+            ],
             [
                 'date' => '01.02.2022',
                 'jobTitle' => 'Super Man',
                 'jobCode' => 'JB-20543',
                 'employer' => 'Special Tooling'
-            ], 
+            ],
             [
                 'date' => '01.02.2022',
                 'jobTitle' => 'Super Man',
                 'jobCode' => 'JB-20543',
                 'employer' => 'Special Tooling'
-            ], 
+            ],
             [
                 'date' => '01.02.2022',
                 'jobTitle' => 'Super Man',
                 'jobCode' => 'JB-20543',
                 'employer' => 'Special Tooling'
-            ], 
+            ],
             [
                 'date' => '01.02.2022',
                 'jobTitle' => 'Super Man',
                 'jobCode' => 'JB-20543',
                 'employer' => 'Special Tooling'
-            ], 
+            ],
             [
                 'date' => '01.02.2022',
                 'jobTitle' => 'Super Man',
                 'jobCode' => 'JB-20543',
                 'employer' => 'Special Tooling'
-            ], 
+            ],
             [
                 'date' => '01.02.2022',
                 'jobTitle' => 'Super Man',
                 'jobCode' => 'JB-20543',
                 'employer' => 'Special Tooling'
-            ], 
+            ],
             [
                 'date' => '01.02.2022',
                 'jobTitle' => 'Super Man',
                 'jobCode' => 'JB-20543',
                 'employer' => 'Special Tooling'
-            ], 
+            ],
             [
                 'date' => '01.02.2022',
                 'jobTitle' => 'Super Man',
                 'jobCode' => 'JB-20543',
                 'employer' => 'Special Tooling'
-            ], 
+            ],
             [
                 'date' => '01.02.2022',
                 'jobTitle' => 'Super Man',
@@ -130,7 +130,7 @@ class NlsHunterFbf_modules
     {
         ob_start();
 
-        echo render('nlsSearch', ['params' => 'test']);
+        echo render('nlsJobSearch', ['params' => 'test']);
 
         return ob_get_clean();
     }
