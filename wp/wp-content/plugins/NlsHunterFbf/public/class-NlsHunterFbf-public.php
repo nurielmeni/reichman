@@ -96,8 +96,6 @@ class NlsHunterFbf_Public
 
         wp_enqueue_style($this->NlsHunterFbf, plugin_dir_url(__FILE__) . 'css/NlsHunterFbf-public.css', array(), $this->version, 'all');
         wp_enqueue_style($this->NlsHunterFbf, plugin_dir_url(__FILE__) . 'css/NlsHunterFbf-public-responsive.css', array(), $this->version, 'all');
-        wp_enqueue_style('somo-select-css', plugin_dir_url(__FILE__) . 'css/sumoselect.min.css', array(), $this->version, 'all');
-        wp_enqueue_style('somo-select-css-rtl', plugin_dir_url(__FILE__) . 'css/sumoselect-rtl.css', array(), $this->version, 'all');
         wp_enqueue_style('front-page-loader', plugin_dir_url(__FILE__) . 'css/loader.css', array(), $this->version, 'all');
     }
 
@@ -121,8 +119,10 @@ class NlsHunterFbf_Public
          * class.
          */
 
-        wp_enqueue_script('sumo-select-js', plugin_dir_url(__FILE__) . 'js/jquery.sumoselect.min.js', array('jquery'), $this->version, false);
+        wp_enqueue_script('mobile-check-js', plugin_dir_url(__FILE__) . 'js/mobileCheck.js', array('jquery'), $this->version, false);
+        wp_enqueue_script('hot-jobs-js', plugin_dir_url(__FILE__) . 'js/hotjobs.js', array('jquery'), $this->version, false);
         wp_enqueue_script('nls-form-validation', plugin_dir_url(__FILE__) . 'js/NlsHunterForm.js', array('jquery'), $this->version, false);
+        wp_enqueue_script('nls-swipe-detect', plugin_dir_url(__FILE__) . 'js/swipeDetect.js', array('jquery'), $this->version, false);
 
         // enqueue and localise scripts for handling Ajax Submit CV
         // Don't forget to add the action (apply_cv_function)

@@ -27,6 +27,7 @@ class NlsHunterFbf_Admin
     const TO_MAIL = 'nlsToMail';
     const BCC_MAIL = 'nlsBccMail';
     const NSOFT_SUPPLIER_ID = 'nlsNsoftSupplierId';
+    const NSOFT_HOT_JOBS_SUPPLIER_ID = 'nlsNsoftHotJobsSupplierId';
     const DIRECTORY_WSDL_URL = 'nlsDirectoryWsdlUrl';
     const CARDS_WSDL_URL = 'nlsCardsWsdlUrl';
     const SECURITY_WSDL_URL = 'nlsSecurityWsdlUrl';
@@ -151,6 +152,7 @@ class NlsHunterFbf_Admin
         $nlsToMail = $this->getFieldValue(self::TO_MAIL);
         $nlsBccMail = $this->getFieldValue(self::BCC_MAIL);
         $nlsNsoftSupplierId = $this->getFieldValue(self::NSOFT_SUPPLIER_ID);
+        $nlsNsoftHotJobsSupplierId = $this->getFieldValue(self::NSOFT_HOT_JOBS_SUPPLIER_ID);
         $nlsDirectoryWsdlUrl = $this->getFieldValue(self::DIRECTORY_WSDL_URL);
         $nlsCardsWsdlUrl = $this->getFieldValue(self::CARDS_WSDL_URL);
         $nlsSecurityWsdlUrl = $this->getFieldValue(self::SECURITY_WSDL_URL);

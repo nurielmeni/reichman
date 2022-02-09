@@ -33,6 +33,20 @@
     height: fit-content;
   }
 
+  .inset-center {
+    position: absolute;
+    top: 50%;
+    transform: translate(0.5rem, -50%);
+  }
+  
+  [dir="rtl"]  .inset-center {
+    transform: translate(-0.5rem, -50%);
+  }
+
+  .flex-cols-3 {
+    width: calc((100% - 1rem) / 3);
+  }
+
   .underline-decor {
     border-bottom: 5px solid theme("colors.secondary");
     margin-top: theme("spacing.6");

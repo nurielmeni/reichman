@@ -14,16 +14,16 @@
   </div>
 
 
-  <div class="bg-white my-4 md:my-0 p-4 flex justify-between flex-wrap">
+  <div class="bg-white my-4 md:my-0 p-2 md:p-4 flex gap-2 md:gap-4 justify-between flex-wrap">
     <?php foreach ($categories as $category) : ?>
-      <button type="button" class="category-card flex w-1/31 md:w-fit md:flex-grow justify-center flex-col items-center p-4 my-2" category-id="<?= $category['categoryId'] ?>">
+      <button type="button" class="category-card flex flex-cols-3 md:w-fit md:flex-grow justify-center flex-col items-center p-4" category-id="<?= $category['categoryId'] ?>">
         <div class="mb-4">
           <?= $category['imageTag'] ?>
         </div>
-        <span class="md:text-2xl text-bold"><?= $category['title'] ?></span>
+        <span class="text-sm md:text-2xl text-bold"><?= $category['title'] ?></span>
     </button>
     <?php endforeach; ?>
-    <button type="button" class="md:hidden all-jobs category-card flex flex-grow justify-center flex-col items-center p-4  my-2" category-id="<?= $category['categoryId'] ?>">
+    <button type="button" class="md:hidden all-jobs category-card flex flex-grow  justify-center flex-col items-center p-4" category-id="<?= $category['categoryId'] ?>">
         <span class="md:text-2xl text-bold"><?= __('To all jobs  >>', 'NlsHunterFbf') ?></span>
     </button>
   </div>

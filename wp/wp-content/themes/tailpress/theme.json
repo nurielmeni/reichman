@@ -27,6 +27,11 @@
           "color": "#e4e4e4"
         },
         {
+          "name": "Input",
+          "slug": "input-field",
+          "color": "#ebebeb"
+        },
+        {
           "name": "MainBg",
           "slug": "mainbg",
           "color": "#f7f7f7"

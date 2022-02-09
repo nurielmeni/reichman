@@ -1,4 +1,4 @@
-<div class="hot-job-card flex flex-col justify-between items-center md:p-4">
+<div class="hot-job-card flex flex-col justify-between items-center md:p-4" job-code="<?=$element['jobCode']?>">
   <div class="flex justify-end w-full"><span class="text-sm md:text-lg"><?=$element['date']?></span></div>
   <div class="flex justify-center items-center"><span class="text-center font-bold text-base md:text-3xl"><?=$element['jobTitle']?></span></div>
   <div class="flex flex-col-reverse md:flex-row justify-around w-full items-center">

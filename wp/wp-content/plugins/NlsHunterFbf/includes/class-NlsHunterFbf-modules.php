@@ -130,7 +130,7 @@ class NlsHunterFbf_modules
     {
         ob_start();
 
-        echo render('nlsSearch', []);
+        echo render('nlsSearch', ['params' => 'test']);
 
         return ob_get_clean();
     }

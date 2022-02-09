@@ -64,6 +64,9 @@
             <label for="nlsNsoftSupplierId">Supplier ID</label>
             <input type="text" name="nlsNsoftSupplierId" id="nlsNsoftSupplierId" value="<?= $nlsNsoftSupplierId ?>">
             <br>
+            <label for="nlsNsoftHotJobsSupplierId">Hot Jobs Supplier ID</label>
+            <input type="text" name="nlsNsoftHotJobsSupplierId" id="nlsNsoftHotJobsSupplierId" value="<?= $nlsNsoftHotJobsSupplierId ?>">
+            <br>
         </section>
 
         <section id="login-settings">
