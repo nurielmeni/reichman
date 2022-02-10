@@ -9,12 +9,14 @@ require_once ABSPATH . 'wp-content/plugins/NlsHunterFbf/renderFunction.php';
 
 <div class="hs-wrapper flex justify-center  items-center relative w-full pt-6 pb-8">
   <div class="hidden md:block">
-    <button type="button" class="nav opacity-50 left  absolute top-auto pb-1 text-2xl left-3 w-10 h-10 font-bold bg-sliderbg rounded-full">
-      < </button>
-        <button type="button" class="nav opacity-50 right hidden md:block absolute top-auto pb-1 pl-1 text-2xl right-3 w-10 h-10 font-bold bg-sliderbg rounded-full">>
-        </button>
+    <button type="button" class="nav opacity-50 left  hidden md:block absolute top-auto left-3 w-10 h-10  bg-sliderbg rounded-full">
+      <img src="<?= plugins_url('NlsHunterFbf/public/images/left-chevron.svg') ?>" alt="" class="p-2">
+    </button>
+    <button type="button" class="nav opacity-50 right hidden md:block absolute top-auto right-3 w-10 h-10 bg-sliderbg rounded-full">
+      <img src="<?= plugins_url('NlsHunterFbf/public/images/right-chevron.svg') ?>" alt="" class="p-2">
+    </button>
   </div>
-  <div class="hs-container overflow-hidden flex justify-start items-center w-full">
+  <div class="hs-container overflow-hidden flex justify-start items-center w-full" dir="ltr">
     <?php foreach ($elements as $element) : ?>
       <?= render($elementTemplate, ['element' => $element]) ?>
     <?php endforeach; ?>

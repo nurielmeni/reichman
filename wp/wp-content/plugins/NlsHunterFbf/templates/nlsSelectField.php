@@ -10,9 +10,9 @@
  */
 $required =  isset($validators) && strpos($validators, 'required')  !== false;
 ?>
-<div class="nls-field input <?= isset($wrapperClass) ? $wrapperClass : '' ?>">
+<div class="nls-field select <?= isset($wrapperClass) ? $wrapperClass : '' ?>">
   <?php if (isset($label)) : ?>
-    <label class="w-100 flex justify-between"><?=$label ?><span><? $required ? __('Not required', 'NlsHunterFbf') : '' ?></span></label>
+    <label class="w-100 flex justify-between"><?= $label ?><span><? $required ? __('Not required', 'NlsHunterFbf') : '' ?></span></label>
   <?php endif; ?>
   <div class="relative">
     <?= isset($prepend) ? '<img src="' . $prepend . '" width="24" height="24" class="inset-center" />' : '' ?>

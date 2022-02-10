@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: NlsHunterFbf\n"
-"POT-Creation-Date: 2022-01-31 15:45+0200\n"
-"PO-Revision-Date: 2022-01-31 15:45+0200\n"
+"POT-Creation-Date: 2022-02-10 12:02+0200\n"
+"PO-Revision-Date: 2022-02-10 12:02+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: he_IL\n"
@@ -22,7 +22,7 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 
-#: admin/class-NlsHunterFbf-admin.php:143
+#: admin/class-NlsHunterFbf-admin.php:144
 msgid "You do not have sufficient permissions to access this page."
 msgstr "אין לך הרשאות מספיקות כדי לגשת לעמוד זה."
 
@@ -71,32 +71,32 @@ msgstr "אין אפשרות להתחבר לשירותי האנטר"
 msgid "Authentication Error"
 msgstr "התרחשה שגיאת הזדהות"
 
-#: public/class-NlsHunterFbf-public.php:150
+#: public/class-NlsHunterFbf-public.php:151
 msgid "Supplier Id"
 msgstr "מזהה ספק"
 
-#: public/class-NlsHunterFbf-public.php:152
-#: public/class-NlsHunterFbf-public.php:157 templates/applyForJobs.php:17
+#: public/class-NlsHunterFbf-public.php:153
+#: public/class-NlsHunterFbf-public.php:158 templates/applyForJobs.php:17
 msgid "Full Name"
 msgstr "שם החבר:"
 
-#: public/class-NlsHunterFbf-public.php:153 templates/applyForJobs.php:24
+#: public/class-NlsHunterFbf-public.php:154 templates/applyForJobs.php:24
 msgid "Cell"
 msgstr "טלפון:"
 
-#: public/class-NlsHunterFbf-public.php:154 templates/applyForJobs.php:31
+#: public/class-NlsHunterFbf-public.php:155 templates/applyForJobs.php:31
 msgid "Area"
 msgstr "מתגורר ב…"
 
-#: public/class-NlsHunterFbf-public.php:155
+#: public/class-NlsHunterFbf-public.php:156
 msgid "Job Code"
 msgstr "קוד משרה"
 
-#: public/class-NlsHunterFbf-public.php:158 templates/applyForJobs.php:83
+#: public/class-NlsHunterFbf-public.php:159 templates/applyForJobs.php:78
 msgid "Employee ID"
 msgstr "ת.ז:"
 
-#: public/class-NlsHunterFbf-public.php:159 templates/applyForJobs.php:90
+#: public/class-NlsHunterFbf-public.php:160 templates/applyForJobs.php:85
 msgid "Company email"
 msgstr "אימייל פרטי:"
 
@@ -122,23 +122,15 @@ msgstr "התפקיד שתפור עליו:"
 msgid "Append CV File"
 msgstr "צירוף קורות חיים (רק למשרות מטה)"
 
-#: templates/applyForJobs.php:59
-msgid "Add another friend"
-msgstr "עוד חבר"
-
-#: templates/applyForJobs.php:71
+#: templates/applyForJobs.php:66
 msgid "My details:"
 msgstr "הפרטים שלי:"
 
-#: templates/applyForJobs.php:76
+#: templates/applyForJobs.php:71
 msgid "My Name"
 msgstr "שמי:"
 
 #: templates/applyForJobs.php:97
-msgid "Submit CV"
-msgstr "שלח"
-
-#: templates/applyForJobs.php:107
 msgid "* By the terms"
 msgstr "* כפוף לתקנון"
 
@@ -172,7 +164,7 @@ msgstr "הפרטים נקלטו בהצלחה"
 msgid "Categories"
 msgstr "משרות לפי תחומים"
 
-#: templates/nlsCategories.php:12 templates/nlsHotJobs.php:17
+#: templates/nlsCategories.php:12 templates/nlsHotJobs.php:18
 msgid "All Jobs"
 msgstr "לכל המשרות"
 
@@ -188,9 +180,17 @@ msgstr "פרטים נוספים"
 msgid "Jobs we thought would interest you"
 msgstr "משרות שחשבנו שיעניינו אותך"
 
-#: templates/nlsSearch.php:2
+#: templates/nlsInputField.php:15
+msgid "Not required"
+msgstr ""
+
+#: templates/nlsJobSearch.php:24
 msgid "Search"
 msgstr "חיפוש"
+
+#: templates/nlsJobSearch.php:27
+msgid "You can define each search as an agent in the personal area"
+msgstr "ניתן להגדיר כל חיפוש כסוכן חכם דרך האיזור האישי"
 
 #. Plugin Name of the plugin/theme
 msgid "NlsHunterFbf"
@@ -203,6 +203,12 @@ msgstr ".‫API fot Niloosoft HunterHRMS System"
 #. Author of the plugin/theme
 msgid "Meni Nurie"
 msgstr "מני נוריאל"
+
+#~ msgid "Add another friend"
+#~ msgstr "עוד חבר"
+
+#~ msgid "Submit CV"
+#~ msgstr "שלח"
 
 #~ msgid "Error on uploading the file"
 #~ msgstr "התרחשה שגיאה בהעלאת הקובץ"
