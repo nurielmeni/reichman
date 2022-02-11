@@ -207,9 +207,55 @@ class NlsHunterFbf_model
     /**
      * Return the categories
      */
-    public function getCategories() {
+    public function categories()
+    {
         $this->initDirectoryService();
         $categories = $this->nlsDirectory->getCategories();
         return $categories;
+    }
+
+    public function jobScopes()
+    {
+        $this->initDirectoryService();
+
+        $cacheKey = 'JOB_SCOPES';
+        $jobScopes = wp_cache_get($cacheKey);
+
+        if (false === $jobScopes) {
+            $jobScopes = $this->nlsDirectory->getJobScopes();
+            wp_cache_set($cacheKey, $jobScopes, 'directory', 20 * 60);
+        }
+
+        return $jobScopes;
+    }
+
+    public function jobRanks()
+    {
+        $this->initDirectoryService();
+
+        $cacheKey = 'JOB_RANKS';
+        $jobRanks = wp_cache_get($cacheKey);
+
+        if (false === $jobRanks) {
+            $jobRanks = $this->nlsDirectory->getJobRanks();
+            wp_cache_set($cacheKey, $jobRanks, 'directory', 20 * 60);
+        }
+
+        return $jobRanks;
+    }
+
+    public function employmentType()
+    {
+        $this->initDirectoryService();
+
+        $cacheKey = 'EMPLOYMENT_TYPE';
+        $employmentType = wp_cache_get($cacheKey);
+
+        if (false === $employmentType) {
+            $employmentType = $this->nlsDirectory->getEmploymentType();
+            wp_cache_set($cacheKey, $employmentType, 'directory', 20 * 60);
+        }
+
+        return $employmentType;
     }
 }

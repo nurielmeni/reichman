@@ -3,20 +3,24 @@
 /**
  * @label
  * @name
- * @type
  * @class
- * @validators
- * @prepend
+ * @required
+ * @placeHolder
+ * @multiple
+ * @options
  */
-$required =  isset($validators) && strpos($validators, 'required')  !== false;
+$required =  isset($required) && $required;
 ?>
 <div class="nls-field select <?= isset($wrapperClass) ? $wrapperClass : '' ?>">
   <?php if (isset($label)) : ?>
     <label class="w-100 flex justify-between"><?= $label ?><span><? $required ? __('Not required', 'NlsHunterFbf') : '' ?></span></label>
   <?php endif; ?>
   <div class="relative">
-    <?= isset($prepend) ? '<img src="' . $prepend . '" width="24" height="24" class="inset-center" />' : '' ?>
-    <input type="<?= isset($type) ? $type : 'text' ?>" name="<?= isset($name) ? $name : '' ?>" class="<?= isset($prepend) ? ' pl-11 rtl:pl-0 rtl:pr-11' : '' ?> <?= isset($class) ? $class : '' ?>" validator="<?= isset($validators) ? $validators : '' ?>" aria-invalid="false" aria-required="<?= $required  ? 'true' : 'false' ?>">
+    <select name="<?= isset($name) ? $name : '' ?>" class="sumo <?= isset($class) ? $class : '' ?>" validator="<? isset($required) && $required ? 'required' : '' ?>" aria-invalid="false" aria-required="<?= isset($required) && $required ? 'true' : 'false' ?>" placeholder="<?= isset($placeHolder) ? $placeHolder : '' ?>" <?= isset($multiple) && $multiple ? 'multiple' : '' ?>>
+      <?php foreach ($options as $option) : ?>
+        <option value="<?= $option['id'] ?>"><?= $option['name'] ?></option>
+      <?php endforeach; ?>
+    </select>
   </div>
 
   <div class="help-block"></div>

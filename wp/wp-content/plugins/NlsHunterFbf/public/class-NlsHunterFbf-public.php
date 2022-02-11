@@ -94,9 +94,16 @@ class NlsHunterFbf_Public
          * class.
          */
 
-        wp_enqueue_style($this->NlsHunterFbf, plugin_dir_url(__FILE__) . 'css/NlsHunterFbf-public.css', array(), $this->version, 'all');
-        wp_enqueue_style($this->NlsHunterFbf, plugin_dir_url(__FILE__) . 'css/NlsHunterFbf-public-responsive.css', array(), $this->version, 'all');
+        wp_enqueue_style('NlsHunterFbf', plugin_dir_url(__FILE__) . 'css/NlsHunterFbf-public.css', array(), $this->version, 'all');
+        wp_enqueue_style('NlsHunterFbf-responsive', plugin_dir_url(__FILE__) . 'css/NlsHunterFbf-public-responsive.css', array(), $this->version, 'all');
+        wp_enqueue_style('sumoselect', plugin_dir_url(__FILE__) . 'css/sumoselect.min.css', array(), $this->version, 'all');
         wp_enqueue_style('front-page-loader', plugin_dir_url(__FILE__) . 'css/loader.css', array(), $this->version, 'all');
+
+        if (is_rtl()) {
+            wp_enqueue_style('sumoselect-rtl', plugin_dir_url(__FILE__) . 'css/sumoselect-rtl.css', array(), $this->version, 'all');
+        }
+
+        wp_enqueue_style('jquery-ui-theme-smoothness', sprintf('https://ajax.googleapis.com/ajax/libs/jqueryui/%s/themes/smoothness/jquery-ui.css', wp_scripts()->registered['jquery-ui-core']->ver));
     }
 
     /**
@@ -124,6 +131,9 @@ class NlsHunterFbf_Public
         wp_enqueue_script('job-search-js', plugin_dir_url(__FILE__) . 'js/jobSearch.js', array('jquery'), $this->version, false);
         wp_enqueue_script('nls-form-validation', plugin_dir_url(__FILE__) . 'js/NlsHunterForm.js', array('jquery'), $this->version, false);
         wp_enqueue_script('nls-swipe-detect', plugin_dir_url(__FILE__) . 'js/swipeDetect.js', array('jquery'), $this->version, false);
+        wp_enqueue_script('nls-sumo-select', plugin_dir_url(__FILE__) . 'js/jquery.sumoselect.min.js', array('jquery'), $this->version, false);
+        wp_enqueue_script('jquery-ui-datepicker');
+        //wp_enqueue_script('jquery-datepicker-he', plugin_dir_url(__FILE__) . 'js/datepicker-he.js', array('jquery'), $this->version, false);
 
         // enqueue and localise scripts for handling Ajax Submit CV
         // Don't forget to add the action (apply_cv_function)

@@ -4,6 +4,7 @@ const tailpress = require("@jeffreyvr/tailwindcss-tailpress");
 
 module.exports = {
   mode: "jit",
+  important: true,
   content: [
     "./*/*.php",
     "./**/*.php",
@@ -36,7 +37,7 @@ module.exports = {
     screens: {
       sm: "640px",
       md: "768px",
-      lg: "1024px",
+      lg: "1280px",
       xl: tailpress.theme("settings.layout.wideSize", theme),
     },
   },

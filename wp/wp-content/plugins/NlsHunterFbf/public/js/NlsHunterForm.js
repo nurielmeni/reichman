@@ -125,6 +125,7 @@ var nls =
       var value = type === "radio" ? el : $(el).val();
 
       validators.forEach(function (validator) {
+        if (!validator || validator.length === 0) return;
         // If invalid skip (show only first error)
         if ($(el).hasClass("nls-invalid")) return;
 

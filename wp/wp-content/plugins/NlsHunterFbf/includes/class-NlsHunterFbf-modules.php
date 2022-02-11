@@ -130,7 +130,7 @@ class NlsHunterFbf_modules
     {
         ob_start();
 
-        echo render('nlsJobSearch', ['params' => 'test']);
+        echo render('nlsJobSearch', ['model' => $this->model, 'params' => 'test']);
 
         return ob_get_clean();
     }

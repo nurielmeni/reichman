@@ -87,4 +87,6 @@ var Hotjobs =
     };
   })(jQuery);
 
-Hotjobs.init();
+jQuery(document).ready(function () {
+  Hotjobs.init();
+});

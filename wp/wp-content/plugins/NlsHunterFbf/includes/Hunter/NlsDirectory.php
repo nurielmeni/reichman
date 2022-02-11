@@ -173,7 +173,7 @@ class NlsDirectory extends NlsService
         }
     }
 
-    public function getJobTypes()
+    public function getJobScopes()
     {
         $transactionCode = NlsHelper::newGuid();
         try {
@@ -346,6 +346,29 @@ class NlsDirectory extends NlsService
              * echo "Response " . $this->client->__getLastResponse();
              * die;
              **/
+            throw new Exception('Error: Niloos services are not availiable, try later.');
+        }
+    }
+
+    public function getEmploymentType()
+    {
+        $transactionCode = NlsHelper::newGuid();
+        try {
+
+            $params = array(
+                "transactionCode" => $transactionCode,
+                "languageId" => $this->langCode,
+                "listName" => 'employmentType'
+            );
+
+
+            $res = $this->client->GetListByListName($params)->GetListByListNameResult->HunterListItem;
+            $list = [];
+            foreach ($res as $area) {
+                $list[] = ['id' => $area->Value, 'name' => $area->Text];
+            }
+            return $list;
+        } catch (Exception $ex) {
             throw new Exception('Error: Niloos services are not availiable, try later.');
         }
     }
