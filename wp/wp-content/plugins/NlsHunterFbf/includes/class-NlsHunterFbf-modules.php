@@ -126,12 +126,58 @@ class NlsHunterFbf_modules
         return ob_get_clean();
     }
 
+    private function getSearchResultsPageUrl()
+    {
+        $language = get_bloginfo('language');
+        $searcResultsPageId = $language === 'he-IL' ?
+            get_option(NlsHunterFbf_Admin::NLS_SEARCH_RESULTS_PAGE_HE) :
+            get_option(NlsHunterFbf_Admin::NLS_SEARCH_RESULTS_PAGE_EN);
+        $searcResultsPageUrl = get_page_link($searcResultsPageId);
+        return $searcResultsPageUrl;
+    }
+
     public function nlsHunterSearch_render()
     {
         ob_start();
 
-        echo render('nlsJobSearch', ['model' => $this->model, 'params' => 'test']);
+        echo render('nlsJobSearch', [
+            'model' => $this->model,
+            'searcResultsPageUrl' => $this->getSearchResultsPageUrl()
+        ]);
 
         return ob_get_clean();
+    }
+
+    public function nlsHunterSearchResults_render()
+    {
+        $searchParams = $this->searchParams();
+        $jobs = $this->model->getNlsHunterSearchResults($searchParams);
+
+        ob_start();
+
+        echo render('nlsJobSearch', [
+            'model' => $this->model,
+            'searcResultsPageUrl' => $this->getSearchResultsPageUrl()
+        ]);
+
+        echo render('nlsSearcResults', [
+            'jobs' => $jobs
+        ]);
+
+        return ob_get_clean();
+    }
+
+    private function searchParams()
+    {
+        $params['keywords'] = $this->model->queryParam('keywords');
+        $params['categoryId'] = $this->model->queryParam('job-category', false, []);
+        $params['regionValue'] = $this->model->queryParam('job-region', false, []);
+        $params['employmentType'] = $this->model->queryParam('employments-type', false, []);
+        $params['jobScope'] = $this->model->queryParam('job-scope', false, []);
+        $params['jobLocation'] = $this->model->queryParam('job-location', false, []);
+        $params['employerId'] = $this->model->queryParam('employerId');
+        $params['updateDate'] = $this->model->queryParam('last-update');
+
+        return $params;
     }
 }

@@ -205,7 +205,6 @@ class NlsService
                         $keywords = explode(',', $value);
                         foreach ($keywords as $key => $keyword) {
                             $keywordsFilter[] = $this->jobFilterField("Description", "Like", $keyword);
-                            $keywordsFilter[] = $this->jobFilterField("Description", "Like", $keyword);
                             $keywordsFilter[] = $this->jobFilterField("Requiremets", "Like", $keyword);
                             $keywordsFilter[] = $this->jobFilterField("JobTitle", "Like", $keyword);
                             $keywordsFilter[] = $this->jobFilterField("Skills", "Like", $keyword);

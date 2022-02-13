@@ -47,7 +47,7 @@
 
 <!-- Employment Type -->
 <?= render('nlsSelectField', [
-    'options' => $model->jobScopes(),
+    'options' => $model->professionalFields(),
     'placeHolder' => __('Employment Type', 'NlsHunterFbf'),
     'name' => 'employment-type',
     'class' => 'rounded-xl border-none py-2 text-xl',

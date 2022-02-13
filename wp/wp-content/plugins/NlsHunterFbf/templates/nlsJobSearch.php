@@ -9,7 +9,7 @@
     </button>
   </div>
 
-  <form name="nls-job-search" action="" class="pt-20 md:pt-10 px-6">
+  <form name="nls-job-search" action="<?= $searcResultsPageUrl ?>" class="pt-20 md:pt-10 px-6">
     <div class="search-main flex justify-between md:pr-32 md:rtl:pr-0 md:rtl:pl-32 items-center">
       <?= render('nlsInputField', [
         'label' => null,

@@ -10,6 +10,15 @@
     box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
   }
 
+  .job-card {
+    padding-top: theme("spacing.6");
+    padding-left: theme("spacing.3");
+    padding-right: theme("spacing.3");
+    padding-bottom: theme("spacing.4");
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+    background-color: theme("colors.white");
+  }
+
   .hot-job-card {
     min-width: 174px;
     max-width: 174px;

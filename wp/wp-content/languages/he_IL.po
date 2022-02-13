@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.8.x package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-01-15 15:29:54+0000\n"
+"PO-Revision-Date: 2022-02-05 18:06:00+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1194,6 +1194,21 @@ msgstr "סגול וירוק"
 msgctxt "Duotone name"
 msgid "Blue and orange"
 msgstr "כחול וכתום"
+
+#: wp-includes/blocks/archives/block.json
+msgctxt "block description"
+msgid "Display a monthly archive of your posts."
+msgstr "הצג ארכיון חודשי של הפוסטים."
+
+#: wp-includes/blocks/block/block.json
+msgctxt "block description"
+msgid "Create and save content to reuse across your site. Update the block, and the changes apply everywhere it’s used."
+msgstr "צרו תוכנים ושמרו אותם לשימוש חוזר באתר. כשתעדכנו את הבלוק, הוא יתעדכן בכל מקום בו הוא מופיע."
+
+#: wp-includes/blocks/columns/block.json
+msgctxt "block description"
+msgid "Add a block that displays content in multiple columns, then add whatever content blocks you’d like."
+msgstr "הוספת בלוק המציג תוכן במספר עמודות - ניתן להוסיף בלוקים שונים לכל עמודה."
 
 #: wp-signup.php:210 wp-admin/includes/class-wp-debug-data.php:102
 #: wp-admin/includes/class-wp-debug-data.php:107
@@ -3000,6 +3015,14 @@ msgstr "בחר %s"
 #: wp-login.php:869
 msgid "Enter your new password below or generate one."
 msgstr "יש להזין סיסמה למטה או ליצור סיסמה חדשה."
+
+#: wp-login.php:727
+msgid "<strong>Error</strong>: Your password reset link appears to be invalid. Please request a new link below."
+msgstr "<strong>שגיאה</strong>: קישור שגוי לאיפוס הסיסמה. ניתן לקבל קישור חדש בהמשך."
+
+#: wp-includes/widgets/class-wp-widget-block.php:205
+msgid "Block HTML:"
+msgstr "HTML של הבלוק:"
 
 #. translators: %s: Human-readable time difference.
 #. translators: %s: Duration.
@@ -6776,6 +6799,363 @@ msgstr "מזהה אלפאנומרי עבור הפוסט הייחודי לסוג�
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:1461
 msgid "The date the comment was published, as GMT."
 msgstr "תאריך פרסום התגובה, ב-GMT."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-widgets-controller.php:749
+msgid "The sidebar the widget belongs to."
+msgstr "הסרגל הצדדי שאליו הווידג'ט שייך."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-widgets-controller.php:715
+msgid "The sidebar to return widgets for."
+msgstr "הסרגל הצדדי שעבורו יש להחזיר את הווידג'טים."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-widgets-controller.php:608
+msgid "The requested widget is invalid."
+msgstr "הווידג'ט המבוקש לא חוקי."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-widgets-controller.php:162
+#: wp-includes/rest-api/endpoints/class-wp-rest-widgets-controller.php:262
+#: wp-includes/rest-api/endpoints/class-wp-rest-widgets-controller.php:335
+msgid "No widget was found with that id."
+msgstr "לא נמצאו וידג'טים עם המזהה הזה."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-widgets-controller.php:80
+msgid "Whether to force removal of the widget, or move it to the inactive sidebar."
+msgstr "האם להכריח הסרה של הווידג'ט או להזיז אותו לסרגל צדי לא פעיל."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-widget-types-controller.php:386
+msgid "Class name"
+msgstr "שם Class"
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-widget-types-controller.php:192
+msgid "Invalid widget type."
+msgstr "סוג וידג'ט לא חוקי."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-templates-controller.php:121
+msgid "Sorry, you are not allowed to access the templates on this site."
+msgstr "אין לך הרשאות לראות תבניות באתר זה."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-sidebars-controller.php:426
+msgid "HTML content to append to the sidebar title when displayed. Default is a closing h2 element."
+msgstr "תוכן HTML שיש לצרף אחרי הכותרת של הסרגל הצדי כאשר הוא מוצג. ברירת המחדל היא אלמנט h2 סוגר."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-sidebars-controller.php:419
+msgid "HTML content to prepend to the sidebar title when displayed. Default is an opening h2 element."
+msgstr "תוכן HTML שיש לצרף לפני הכותרת של הסרגל הצדי כאשר הוא מוצג. ברירת המחדל היא אלמנט h2 פותח."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-sidebars-controller.php:412
+msgid "HTML content to append to each widget's HTML output when assigned to this sidebar. Default is a closing list item element."
+msgstr "תוכן HTML שיש לצרף אחרי פלט ה-HTML של הווידג'ט כאשר הוא מוקצה לסרגל הצדי. ברירת המחדל היא אלמנט סוגר של פריט רשימה."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-sidebars-controller.php:405
+msgid "HTML content to prepend to each widget's HTML output when assigned to this sidebar. Default is an opening list item element."
+msgstr "תוכן HTML שיש לצרף לפני פלט ה-HTML של הווידג'ט כאשר הוא מוקצה לסרגל הצדי. ברירת המחדל היא אלמנט פותח של פריט רשימה."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-sidebars-controller.php:399
+msgid "Extra CSS class to assign to the sidebar in the Widgets interface."
+msgstr "סיווג CSS נוסף שיש להקצות לסרגל הצדי בממשק של הווידג'טים."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-sidebars-controller.php:224
+#: wp-includes/rest-api/endpoints/class-wp-rest-widget-types-controller.php:167
+#: wp-includes/rest-api/endpoints/class-wp-rest-widgets-controller.php:432
+msgid "Sorry, you are not allowed to manage widgets on this site."
+msgstr "אין לך הרשאות לנהל וידג'טים באתר זה."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-sidebars-controller.php:145
+msgid "No sidebar exists with that id."
+msgstr "לא קיים סרגל צדדי עם המזהה הזה."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-revisions-controller.php:722
+msgid "An alphanumeric identifier for the revision unique to its type."
+msgstr "מזהה אלפאנומרי עבור הגרסה היחודיית לסוג זה."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-revisions-controller.php:78
+#: wp-includes/rest-api/endpoints/class-wp-rest-revisions-controller.php:98
+#: wp-includes/rest-api/endpoints/class-wp-rest-revisions-controller.php:717
+msgid "The ID for the parent of the revision."
+msgstr "ה-ID להורה של הגרסה."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2483
+msgid "The theme file to use to display the post."
+msgstr "קובץ בתבנית שצריך להשתמש בו כדי להציג את הפוסט."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2476
+msgid "Whether or not the post should be treated as sticky."
+msgstr "האם להתייחס לפוסט כדביק."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2460
+msgid "The format for the post."
+msgstr "הפורמט של הפוסט."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2440
+msgid "Whether or not the post can be pinged."
+msgstr "האם הפוסט פתוח לפינגים."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2434
+msgid "Whether or not comments are open on the post."
+msgstr "האם הפוסט פתוח לתגובות."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2426
+msgid "The ID of the featured media for the post."
+msgstr "ה-ID של התמונה הראשית."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2409
+msgid "HTML excerpt for the post, transformed for display."
+msgstr "תקציר HTML של הפוסט, ששונה לצורך תצוגה."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2395
+msgid "The excerpt for the post."
+msgstr "התקציר של הפוסט."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2364
+msgid "HTML content for the post, transformed for display."
+msgstr "תוכן HTML של הפוסט, ששונה לצורך תצוגה."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2325
+msgid "The title for the post."
+msgstr "כותרת הפוסט."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2232
+msgid "Type of post."
+msgstr "סוג הפוסט."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2194
+msgid "URL to the post."
+msgstr "כתובת הפוסט."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:103
+#: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2188
+msgid "Unique identifier for the post."
+msgstr "מזהה יחודי לפוסט."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-pattern-directory-controller.php:289
+msgid "A description of the pattern."
+msgstr "התיאור של המקבץ."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-pattern-directory-controller.php:74
+msgid "Sorry, you are not allowed to browse the local block pattern directory."
+msgstr "אין לך הרשאות לעיין בתיקיית מקבצי הבלוקים הלוקאלית."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:1614
+msgid "Sort collection by comment attribute."
+msgstr "מיון אוסף לפי תכונות התגובה."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:1494
+msgid "Type of the comment."
+msgstr "הסוג של התגובה."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:1486
+msgid "State of the comment."
+msgstr "המצב של התגובה."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:1467
+msgid "URL to the comment."
+msgstr "כתובת התגובה."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:1447
+msgid "HTML content for the comment, transformed for display."
+msgstr "תוכן HTML של התגובה, ששונה לצורך תצוגה."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:1442
+msgid "Content for the comment, as it exists in the database."
+msgstr "התוכן של התגובה, כפי שהוא מופיע במסד הנתונים."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:1433
+msgid "The content for the comment."
+msgstr "התוכן של התגובה."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:1425
+msgid "User agent for the comment author."
+msgstr "סוכן המשתמש של מחבר התגובה."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:1419
+msgid "URL for the comment author."
+msgstr "כתובת URL של מחבר התגובה."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:1411
+msgid "Display name for the comment author."
+msgstr "שם מחבר התגובה שיוצג בפומבי."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:1405
+msgid "IP address for the comment author."
+msgstr "כתובת IP של מחבר התגובה."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:1395
+msgid "Email address for the comment author."
+msgstr "כתובת אימייל של מחבר התגובה."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:74
+#: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:1384
+msgid "Unique identifier for the comment."
+msgstr "מזהה יחודי לתגובה."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-templates-controller.php:552
+msgid "Source of template"
+msgstr "מקור התבנית"
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-templates-controller.php:79
+msgid "The id of a template"
+msgstr "ה-ID של התבנית"
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-templates-controller.php:533
+msgid "ID of template."
+msgstr "ה-ID של התבנית."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-templates-controller.php:193
+#: wp-includes/rest-api/endpoints/class-wp-rest-templates-controller.php:222
+#: wp-includes/rest-api/endpoints/class-wp-rest-templates-controller.php:277
+#: wp-includes/rest-api/endpoints/class-wp-rest-templates-controller.php:315
+msgid "No templates exist with that id."
+msgstr "לא קיימת תבנית עם ה-ID הזה."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-widgets-controller.php:791
+msgid "URL-encoded form data from the widget admin form. Used to update a widget that does not support instance. Write only."
+msgstr "נתונים של טופס עם URL מקודד מהטופס המנהל של הווידג'ט. לצורך עדכון וידג'ט שלא תומך במופע. כתיבה בלבד."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-widgets-controller.php:784
+msgid "Unencoded instance settings, if supported."
+msgstr "הגדרות מופע לא מקודד, אם נתמך."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-widgets-controller.php:779
+msgid "Cryptographic hash of the instance settings."
+msgstr "פונקציית גיבוב קריפטוגרפית של הגדרות המופע."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-widgets-controller.php:774
+msgid "Base64 encoded representation of the instance settings."
+msgstr "ייצוג מקודד של Base64 של הגדרות המופע."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-widgets-controller.php:768
+msgid "Instance settings of the widget, if supported."
+msgstr "הגדרות המופע של הווידג'ט, אם נתמך."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-widgets-controller.php:744
+msgid "The type of the widget. Corresponds to ID in widget-types endpoint."
+msgstr "סוג הווידג'ט. מתאים למזהה בנקודת הקצה widget-types."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-widgets-controller.php:521
+msgid "The provided instance is invalid. Must contain raw OR encoded and hash."
+msgstr "המופע שסופק לא חוקי. חייב להכיל OR גולמי מקודד וגיבוב."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-widgets-controller.php:503
+msgid "Widget type does not support raw instances."
+msgstr "סוג הווידג'ט לא נתמך במופעים גולמיים."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-widgets-controller.php:494
+msgid "Cannot set instance on a widget that does not extend WP_Widget."
+msgstr "אין אפשרות להגדיר מופע של וידג'ט שאין לו את הסיומת WP_Widget."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-widgets-controller.php:485
+msgid "The provided widget type (id_base) cannot be updated."
+msgstr "לא ניתן לעדכן את סוג הווידג'ט שסופק (id_base)."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-widgets-controller.php:477
+msgid "Widget type (id_base) is required."
+msgstr "נדרש לציין סוג וידג'ט (id_base)."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-widget-types-controller.php:450
+#: wp-includes/rest-api/endpoints/class-wp-rest-widgets-controller.php:513
+msgid "The provided instance is malformed."
+msgstr "המופע שסופק לא תקין."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-widget-types-controller.php:432
+msgid "Cannot preview a widget that does not extend WP_Widget."
+msgstr "אין אפשרות להציג תצוגה מקדימה של וידג'ט שאין לו את הסיומת WP_Widget."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-widget-types-controller.php:380
+msgid "Whether the widget supports multiple instances"
+msgstr "האם הווידג'ט תומך במספר מופעים"
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-widget-types-controller.php:367
+msgid "Human-readable name identifying the widget type."
+msgstr "שם קריא לבני אדם שמזהה את סוג הווידג'ט."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-widget-types-controller.php:361
+msgid "Unique slug identifying the widget type."
+msgstr "מזהה ייחודי לכתובת שמזהה את סוג הווידג'ט."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-widget-types-controller.php:86
+msgid "Serialized widget form data to encode into instance settings."
+msgstr "נתונים סדרתיים של טופס הווידג'ט שיש לקודד בהגדרות המופע."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-widget-types-controller.php:82
+msgid "Current instance settings of the widget."
+msgstr "הגדרות המופע הנוכחי של הווידג'ט."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-widget-types-controller.php:57
+#: wp-includes/rest-api/endpoints/class-wp-rest-widget-types-controller.php:77
+msgid "The widget type id."
+msgstr "המזהה של סוג הווידג'ט."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-templates-controller.php:588
+msgid "Theme file exists."
+msgstr "קובץ התבנית קיים."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-templates-controller.php:576
+msgid "Status of template."
+msgstr "סטטוס התבנית."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-templates-controller.php:570
+msgid "Description of template."
+msgstr "תיאור התבנית."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-templates-controller.php:564
+msgid "Title of template."
+msgstr "כותרת התבנית."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-templates-controller.php:558
+msgid "Content of template."
+msgstr "תוכן התבנית."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-templates-controller.php:547
+msgid "Theme identifier for the template."
+msgstr "המזהה של ערכת העיצוב של התבנית."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-templates-controller.php:539
+msgid "Unique slug identifying the template."
+msgstr "מזהה ייחודי לכתובת שמזהה את התבנית."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-templates-controller.php:509
+msgid "Limit to the specified post id."
+msgstr "להגביל למזהה פוסט מסוים."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-templates-controller.php:343
+msgid "The template has already been deleted."
+msgstr "התבנית כבר נמחקה."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-templates-controller.php:318
+msgid "Templates based on theme files can't be removed."
+msgstr "לא ניתן להסיר תבניות שמבוססות על קבצים של ערכת עיצוב."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-pattern-directory-controller.php:330
+msgid "Limit results to those matching a keyword ID."
+msgstr "הגבלת תוצאות לאלו שמתאימות למזהה של מילת מפתח."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-pattern-directory-controller.php:324
+msgid "Limit results to those matching a category ID."
+msgstr "הגבלת תוצאות לאלו שמתאימות למזהה של קטגוריה."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-pattern-directory-controller.php:296
+msgid "The preferred width of the viewport when previewing a pattern, in pixels."
+msgstr "הרוחב המועדף של האשנב בתצוגה מקדימה של תבנית, בפיקסלים."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-pattern-directory-controller.php:281
+msgid "The pattern's keyword slugs."
+msgstr "מזהים לכתובת של מילת המפתח של התבנית."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-pattern-directory-controller.php:273
+msgid "The pattern's category slugs."
+msgstr "מזהים לכתובת של הקטגוריה של התבנית."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-pattern-directory-controller.php:266
+msgid "The pattern content."
+msgstr "התוכן של התבנית."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-pattern-directory-controller.php:252
+msgid "The pattern ID."
+msgstr "המזהה של התבנית."
+
+#: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:1474
+msgid "The ID for the parent of the comment."
+msgstr "ה-ID של תגובת אב."
 
 #: wp-includes/post.php:1799 wp-includes/js/dist/block-library.js:18413
 msgid "No posts found."
@@ -11959,6 +12339,14 @@ msgstr "בדיקת עוגיות (cookie) נכשלה"
 msgid "Preload"
 msgstr "טעינה מקדימה"
 
+#: wp-includes/post.php:278
+msgid "Reusable block updated."
+msgstr "בלוק לשימוש חוזר עודכן."
+
+#: wp-includes/load.php:1602
+msgid "Scrape key check failed. Please try again."
+msgstr "בדיקת מפתח סקרפינג נכשלה. נא לנסות שנית."
+
 #: wp-activate.php:129
 msgid "Activation Key Required"
 msgstr "נדרש קוד הפעלה"
@@ -17053,3 +17441,16 @@ msgstr "%1$s: %2$s"
 msgctxt "Block pattern category"
 msgid "Query"
 msgstr "שאילתא"
+
+#: wp-includes/block-template-utils.php:27
+msgid "No theme is defined for this template."
+msgstr "לא הוגדרה ערכת עיצוב לתבנית הזאת."
+
+#: wp-includes/block-patterns/social-links-shared-background-color.php:9
+msgctxt "Block pattern title"
+msgid "Social links with a shared background color"
+msgstr "קישורים חברתיים עם צבע רקע משותף"
+
+#: wp-includes/blocks/site-logo.php:42
+msgid "(Home link, opens in a new tab)"
+msgstr "(קישור לעמוד הבית, נפתח בלשונית חדשה)"

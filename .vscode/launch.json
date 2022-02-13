@@ -19,6 +19,10 @@
       "pathMappings": {
         "/var/www/html": "${workspaceRoot}/wp/"
       },
+      "xdebugSettings": {
+        "max_children": 999,
+        "max_depth": 10
+      },
       "stopOnEntry": false
     }
   ],

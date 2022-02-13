@@ -350,7 +350,7 @@ class NlsDirectory extends NlsService
         }
     }
 
-    public function getEmploymentType()
+    public function getProfessionalFields()
     {
         $transactionCode = NlsHelper::newGuid();
         try {
@@ -358,7 +358,7 @@ class NlsDirectory extends NlsService
             $params = array(
                 "transactionCode" => $transactionCode,
                 "languageId" => $this->langCode,
-                "listName" => 'employmentType'
+                "listName" => 'ProfessionalFields'
             );
 
 

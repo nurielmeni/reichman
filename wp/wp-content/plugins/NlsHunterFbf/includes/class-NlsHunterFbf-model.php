@@ -11,12 +11,16 @@ require_once 'Hunter/NlsHelper.php';
  */
 class NlsHunterFbf_model
 {
+    const STATUS_OPEN = 1;
 
 
     private $nlsSecutity;
     private $auth;
     private $nlsCards;
     private $nlsDirectory;
+    private $supplierId;
+
+    private $countPerPage = 10;
 
     private $regions;
 
@@ -32,6 +36,8 @@ class NlsHunterFbf_model
             return null;
         }
         $this->auth = $this->nlsSecutity->isAuth();
+        $this->countPerPage = get_option(NlsHunterFbf_Admin::NLS_JOBS_COUNT, 10);
+        $this->supplierId = $this->queryParam('sid', get_option(NlsHunterFbf_Admin::NSOFT_SUPPLIER_ID));
 
         if (!$this->auth) {
             $username = get_option(NlsHunterFbf_Admin::NLS_SECURITY_USERNAME);
@@ -51,6 +57,18 @@ class NlsHunterFbf_model
         }
     }
 
+    public function queryParam($param, $post = false, $default = '')
+    {
+        if ($post) {
+            return isset($_POST[$param]) ? $_POST[$param] : $default;
+        }
+        return isset($_GET[$param]) ? $_GET[$param] : $default;
+    }
+
+    public function nlsGetSupplierId()
+    {
+        return $this->supplierId;
+    }
 
     public function front_add_message()
     {
@@ -244,18 +262,48 @@ class NlsHunterFbf_model
         return $jobRanks;
     }
 
-    public function employmentType()
+    public function professionalFields()
     {
         $this->initDirectoryService();
 
-        $cacheKey = 'EMPLOYMENT_TYPE';
-        $employmentType = wp_cache_get($cacheKey);
+        $cacheKey = 'PROFESSIONAL_FIELD';
+        $professionalFields = wp_cache_get($cacheKey);
 
-        if (false === $employmentType) {
-            $employmentType = $this->nlsDirectory->getEmploymentType();
-            wp_cache_set($cacheKey, $employmentType, 'directory', 20 * 60);
+        if (false === $professionalFields) {
+            $professionalFields = $this->nlsDirectory->getProfessionalFields();
+            wp_cache_set($cacheKey, $professionalFields, 'directory', 20 * 60);
         }
 
-        return $employmentType;
+        return $professionalFields;
+    }
+
+    private function getPagerOffset()
+    {
+        return get_query_var('last_page', 0);
+    }
+
+    public function getNlsHunterSearchResults($searchParams, $sendToAgent = false)
+    {
+        $this->initCardService();
+
+        if (!is_array($searchParams)) return [];
+
+        $jobs = $this->nlsCards->jobsGetByFilter([
+            'keywords' => key_exists('keywords', $searchParams) ? $searchParams['keywords'] : '',
+            'categoryId' => key_exists('categoryIds', $searchParams) ? $searchParams['categoryIds'] : [],
+            'regionValue' => key_exists('regionValues', $searchParams) ? $searchParams['regionValues'] : [],
+            'employmentType' => key_exists('employmentTypes', $searchParams) ? $searchParams['employmentTypes'] : [],
+            'jobScope' => key_exists('jobScopes', $searchParams) ? $searchParams['jobScopes'] : [],
+            'jobLocation' => key_exists('jobLocations', $searchParams) ? $searchParams['jobLocations'] : [],
+            'employerId' => key_exists('employerId', $searchParams) ? $searchParams['employerId'] : '',
+            'updateDate' => key_exists('updateDate', $searchParams) ? $searchParams['updateDate'] : '',
+            'supplierId' => $this->nlsGetSupplierId(),
+            'lastId' => $this->getPagerOffset(),
+            'countPerPage' => $this->countPerPage,
+            'status' => self::STATUS_OPEN,
+            'sendToAgent' => $sendToAgent
+        ]);
+
+        return $jobs;
     }
 }

@@ -37,6 +37,10 @@ class NlsHunterFbf_Admin
     const NLS_SECURITY_USERNAME = 'nlsSecurityUsername';
     const NLS_SECURITY_PASSWORD = 'nlsSecurityPassword';
     const NLS_JOBS_COUNT = 'nlsJobsCount';
+    const NLS_SEARCH_RESULTS_PAGE_EN = 'nlsSearchResultsPage_en';
+    const NLS_SEARCH_RESULTS_PAGE_HE = 'nlsSearchResultsPage_he';
+    const NLS_JOB_DETAILS_PAGE_EN = 'nlsJobDetailsPage_en';
+    const NLS_JOB_DETAILS_PAGE_HE = 'nlsJobDetailsPage_he';
 
     private $defaultValue;
     /**
@@ -162,7 +166,10 @@ class NlsHunterFbf_Admin
         $nlsSecurityUsername = $this->getFieldValue(self::NLS_SECURITY_USERNAME);
         $nlsSecurityPassword = $this->getFieldValue(self::NLS_SECURITY_PASSWORD);
         $nlsJobsCount = $this->getFieldValue(self::NLS_JOBS_COUNT);
-
+        $nlsSearchResultsPageEn = $this->getFieldValue(self::NLS_SEARCH_RESULTS_PAGE_EN);
+        $nlsSearchResultsPageHe = $this->getFieldValue(self::NLS_SEARCH_RESULTS_PAGE_HE);
+        $nlsJobDetailsPageEn = $this->getFieldValue(self::NLS_JOB_DETAILS_PAGE_EN);
+        $nlsJobDetailsPageHe = $this->getFieldValue(self::NLS_JOB_DETAILS_PAGE_HE);
 
         require_once plugin_dir_path(__FILE__) . 'partials/NlsHunterFbf-admin-display.php';
     }
@@ -175,5 +182,24 @@ class NlsHunterFbf_Admin
         }
         $value = get_option($field, key_exists($field, $this->defaultValue) ? $this->defaultValue[$field] : '');
         return $value;
+    }
+
+    private function adminSelectPage($name, $value, $label)
+    {
+        $selectPage = '<label for="' . $name . '">' . $label . '</label>';
+        $selectPage .= '<select name="' . $name . '">';
+        $selectPage .=    '<option selected="selected" disabled="disabled" value="">';
+        $selectPage .=    esc_attr(__($label)) . '</option>';
+        $pages = get_pages();
+        foreach ($pages as $page) {
+            $option = '<option value="' . $page->ID . '" ';
+            $option .= ($page->ID == $value) ? 'selected="selected"' : '';
+            $option .= '>';
+            $option .= $page->post_title;
+            $option .= '</option>';
+            $selectPage .= $option;
+        }
+        $selectPage .= '</select>';
+        return $selectPage;
     }
 }

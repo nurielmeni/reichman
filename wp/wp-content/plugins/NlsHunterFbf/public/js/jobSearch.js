@@ -44,9 +44,9 @@ var JobSearch =
 
         function search(e) {
             console.log(e);
-            var formData = new FormData($(e.target).parents('form')[0]);
-
-
+            var form = $(e.target).parents('form')[0];
+            var formData = new FormData(form);
+            form.submit();
         }
 
         function registerEventListeners() {

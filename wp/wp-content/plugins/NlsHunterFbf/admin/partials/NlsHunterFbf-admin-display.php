@@ -96,6 +96,25 @@
             <br>
         </section>
         <br>
+        <section id="hunter_page_settings">
+            <h2 class="section-title">Hunter Page Settings</h2>
+            <p>[Shortcodes]</p>
+            <?= $this->adminSelectPage(NlsHunterFbf_Admin::NLS_SEARCH_RESULTS_PAGE_EN, $nlsSearchResultsPageEn, 'Search Results Page EN') ?>
+            <small>* The page must have the slug <i>[nls_hunter_search_results]</i></small>
+            <br>
+            <?= $this->adminSelectPage(NlsHunterFbf_Admin::NLS_SEARCH_RESULTS_PAGE_HE, $nlsSearchResultsPageHe, 'Search Results Page HE') ?>
+            <small>* The page must have the slug <i>[nls_hunter_search_results]</i></small>
+            <br>
+            <hr>
+            <?= $this->adminSelectPage(NlsHunterFbf_Admin::NLS_JOB_DETAILS_PAGE_EN, $nlsJobDetailsPageEn, 'Job Details Page EN') ?>
+            <small>* The page must have the slug <i>[nls_hunter_job_details]</i></small>
+            <br>
+            <?= $this->adminSelectPage(NlsHunterFbf_Admin::NLS_JOB_DETAILS_PAGE_HE, $nlsJobDetailsPageHe, 'Job Details Page HE') ?>
+            <small>* The page must have the slug <i>[nls_hunter_job_details]</i></small>
+            <br>
+            <small>* Hunter hot jobs module <i>[nls_hot_jobs]</i></small>
+            <small>* Hunter categories module <i>[nls_hunter_categories]</i></small>
+        </section>
 
         <section>
             <h2>Help Details</h2>

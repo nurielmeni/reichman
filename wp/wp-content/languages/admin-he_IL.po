@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.8.x - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-01-15 19:47:35+0000\n"
+"PO-Revision-Date: 2022-01-16 07:59:49+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2423,6 +2423,12 @@ msgstr "מחיקת %s"
 #: wp-admin/privacy.php:28
 msgid "We take privacy and transparency very seriously"
 msgstr "אנו מתייחסים ברצינות רבה לפרטיות ושקיפות"
+
+#. translators: %s: Theme name.
+#: wp-admin/themes.php:508 wp-admin/themes.php:867
+msgctxt "theme"
+msgid "View Theme Details for %s"
+msgstr "הצג פרטי תבנית %s"
 
 #: wp-admin/includes/taxonomy.php:136
 msgid "You did not enter a category name."
@@ -6610,6 +6616,11 @@ msgstr "רשימת פריטי תפריט שנבחרו למחיקה:"
 #: wp-admin/nav-menus.php:1036
 msgid "Remove Selected Items"
 msgstr "הסרת פריטים נבחרים"
+
+#: wp-admin/options-permalink.php:374 wp-admin/options-permalink.php:399
+#: wp-admin/options-permalink.php:431
+msgid "Rewrite rules:"
+msgstr "שיכתוב כללים:"
 
 #: wp-admin/includes/media.php:2824 wp-admin/includes/nav-menu.php:462
 #: wp-admin/includes/nav-menu.php:758
@@ -11000,6 +11011,14 @@ msgstr "בריאות האתר נראית טובה, אך ישנו דבר אחד �
 msgid "Your site has a critical issue that should be addressed as soon as possible to improve its performance and security."
 msgstr "לאתר יש בעיה קריטית שיש להתייחס אליה בהקדם האפשרי כדי לשפר את הביצועים והאבטחה שלו."
 
+#: wp-admin/includes/class-wp-debug-data.php:616
+msgid "Unable to determine"
+msgstr "לא ניתן לקבוע"
+
+#: wp-admin/includes/class-wp-privacy-policy-content.php:423
+msgid "Copy suggested policy text to clipboard"
+msgstr "העתקת המדיניות המוצעת ללוח"
+
 #. translators: %d: Comment ID.
 #: wp-admin/includes/ajax-actions.php:959
 msgid "Comment %d does not exist"
@@ -15075,3 +15094,55 @@ msgstr "החלף את הנוכחי בחדש"
 #: wp-admin/credits.php:50
 msgid "WordPress is created by a <a href=\"%1$s\">worldwide team</a> of passionate individuals."
 msgstr "וורדפרס נוצרה על ידי <a href=\"%1$s\">צוות</a> של יחידים בעלי תשוקה מכל רחבי העולם."
+
+#: wp-admin/about.php:237
+msgid "For Developers to Explore"
+msgstr "עבור מפתחים"
+
+#: wp-admin/about.php:223
+msgid "Style and Colorize Images"
+msgstr "עיצוב וצביעת תמונות"
+
+#: wp-admin/about.php:204
+msgid "Suggested Patterns for Blocks"
+msgstr "הצעת מקבצי בלוקים"
+
+#: wp-admin/about.php:133
+msgid "Manage Widgets with Blocks"
+msgstr "ניהול וידג'טים באמצעות בלוקים"
+
+#: wp-admin/about.php:123
+msgid "Three Essential Powerhouses"
+msgstr "שלושה רכיבים חיוניים"
+
+#: wp-admin/about.php:30
+msgid "The next stop on the road to full site editing"
+msgstr "התחנה הבאה בדרך לעריכה מלאה של האתר"
+
+#: wp-admin/about.php:150
+msgid "Display Posts with New Blocks and Patterns"
+msgstr "הצגת פוסטים עם בלוקים ומקבצי בלוקים חדשים"
+
+#: wp-admin/about.php:167
+msgid "Edit the Templates Around Posts"
+msgstr "עריכת התבנית מסביב לפוסטים"
+
+#: wp-admin/about.php:181
+msgid "Three Workflow Helpers"
+msgstr "שלושה עזרי עבודה"
+
+#: wp-admin/about.php:191
+msgid "Overview of the Page Structure"
+msgstr "סקירה כללית של מבנה העמוד"
+
+#: wp-admin/about.php:291
+msgid "Adding Additional Block Supports"
+msgstr "הוספת תמיכה בבלוקים נוספים"
+
+#: wp-admin/credits.php:55 wp-admin/credits.php:63
+msgid "Get involved in WordPress."
+msgstr "השתלב בוורדפרס."
+
+#: wp-admin/credits.php:61
+msgid "Want to see your name in lights on this page?"
+msgstr "רוצים לראות את שמכם בעמוד הזה?"
