@@ -138,10 +138,13 @@ class NlsHunterFbf_modules
 
     public function nlsHunterSearch_render()
     {
+        $searchParams = $this->searchParams();
+
         ob_start();
 
         echo render('nlsJobSearch', [
             'model' => $this->model,
+            'searchParams' => $searchParams,
             'searcResultsPageUrl' => $this->getSearchResultsPageUrl()
         ]);
 
@@ -157,6 +160,7 @@ class NlsHunterFbf_modules
 
         echo render('nlsJobSearch', [
             'model' => $this->model,
+            'searchParams' => $searchParams,
             'searcResultsPageUrl' => $this->getSearchResultsPageUrl()
         ]);
 

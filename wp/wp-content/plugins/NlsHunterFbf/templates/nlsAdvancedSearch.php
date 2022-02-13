@@ -2,6 +2,7 @@
 
 /**
  * @model
+ * @searchParams keywords, categoryId, regionValue, employmentType, jobScope, jobLocation, employerId, updateDate
  */
 
 ?>
@@ -12,6 +13,7 @@
     'placeHolder' => __('Job Area', 'NlsHunterFbf'),
     'name' => 'job-category',
     'class' => 'rounded-xl border-none py-2 text-xl',
+    'value' => key_exists('categoryId', $searchParams) ? $searchParams['categoryId'] : '',
     'multiple' => true
 ]) ?>
 
@@ -21,6 +23,7 @@
     'placeHolder' => __('Job Scope', 'NlsHunterFbf'),
     'name' => 'job-scope',
     'class' => 'rounded-xl border-none py-2 text-xl',
+    'value' => key_exists('jobScope', $searchParams) ? $searchParams['jobScope'] : '',
     'multiple' => true
 ]) ?>
 

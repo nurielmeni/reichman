@@ -1,3 +1,12 @@
+<?php
+
+/**
+ * @model
+ * @searchParams keywords, categoryId, regionValue, employmentType, jobScope, jobLocation, employerId, updateDate
+ * @searcResultsPageUrl
+ */
+?>
+
 <section class="nls-hunter-search-wrapper nls-main-row alignwide bg-primary relative">
   <div class="search-buttons absolute right-4 rtl:right-auto rtl:left-4 top-4">
 
@@ -18,13 +27,17 @@
         'wrapperClass' => 'md:mr-10 rtl:mr-0 md:rtl:ml-10 w-full',
         'class' => 'text-2xl py-3 rounded-xl w-full',
         'validators' => 'required',
+        'value' => key_exists('keywords', $searchParams) ? $searchParams['keywords'] : '',
         'prepend' => plugins_url('NlsHunterFbf/public/images/search.svg'),
       ]) ?>
 
       <button type="button" class="btn search hidden md:block text-2xl py-3 px-8 rounded-xl"><?= __('Search', 'NlshunterFbf') ?></button>
     </div>
     <div class="search-advanced flex flex-wrap justify-start gap-4 w-full mt-5">
-      <?= render('nlsAdvancedSearch', ['model' => $model]) ?>
+      <?= render('nlsAdvancedSearch', [
+        'model' => $model,
+        'searchParams' => $searchParams
+      ]) ?>
     </div>
     <div class="flex justify-center w-full md:hidden mt-6">
       <button type="button" class="btn search text-2xl py-3 w-full rounded-xl"><?= __('Search', 'NlshunterFbf') ?></button>
