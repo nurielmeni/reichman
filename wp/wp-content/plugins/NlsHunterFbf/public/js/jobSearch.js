@@ -23,7 +23,16 @@ var JobSearch =
         }
 
         function toggleAdvanced() {
-            $('.nls-hunter-search-wrapper .search-advanced').toggleClass('hidden');
+            var el = '.nls-hunter-search-wrapper .search-advanced';
+            if ($(el).hasClass('hidden')) {
+                $(el).removeClass('hidden');
+                $(el).slideDown(500);
+            } else {
+                $(el).slideUp(500, function () {
+                    $(this).addClass('hidden');
+                });
+            }
+
         }
 
         function clearFields() {
