@@ -66,10 +66,6 @@
   margin: 2rem !important
 }
 
-.m-3 {
-  margin: 0.75rem !important
-}
-
 .my-4 {
   margin-top: 1rem !important;
   margin-bottom: 1rem !important
@@ -150,6 +146,10 @@
 
 .mb-12 {
   margin-bottom: 3rem !important
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem !important
 }
 
 .inline-block {
@@ -240,10 +240,6 @@
   grid-template-columns: repeat(4, minmax(0, 1fr)) !important
 }
 
-.grid-cols-3 {
-  grid-template-columns: repeat(3, minmax(0, 1fr)) !important
-}
-
 .grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr)) !important
 }
@@ -298,10 +294,6 @@
 
 .gap-4 {
   gap: 1rem !important
-}
-
-.gap-7 {
-  gap: 1.75rem !important
 }
 
 .gap-6 {
@@ -447,11 +439,6 @@
   padding-right: 2rem !important
 }
 
-.py-6 {
-  padding-top: 1.5rem !important;
-  padding-bottom: 1.5rem !important
-}
-
 .px-4 {
   padding-left: 1rem !important;
   padding-right: 1rem !important
@@ -460,46 +447,6 @@
 .px-3 {
   padding-left: 0.75rem !important;
   padding-right: 0.75rem !important
-}
-
-.py-6 {
-  padding-top: 1.5rem !important;
-  padding-bottom: 1.5rem !important
-}
-
-.px-4 {
-  padding-left: 1rem !important;
-  padding-right: 1rem !important
-}
-
-.py-6 {
-  padding-top: 1.5rem !important;
-  padding-bottom: 1.5rem !important
-}
-
-.px-4 {
-  padding-left: 1rem !important;
-  padding-right: 1rem !important
-}
-
-.py-6 {
-  padding-top: 1.5rem !important;
-  padding-bottom: 1.5rem !important
-}
-
-.px-4 {
-  padding-left: 1rem !important;
-  padding-right: 1rem !important
-}
-
-.py-6 {
-  padding-top: 1.5rem !important;
-  padding-bottom: 1.5rem !important
-}
-
-.px-4 {
-  padding-left: 1rem !important;
-  padding-right: 1rem !important
 }
 
 .py-6 {
@@ -622,6 +569,11 @@
 .text-blue-500 {
   --tw-text-opacity: 1 !important;
   color: rgb(59 130 246 / var(--tw-text-opacity)) !important
+}
+
+.text-white {
+  --tw-text-opacity: 1 !important;
+  color: rgb(255 255 255 / var(--tw-text-opacity)) !important
 }
 
 .antialiased {
@@ -762,22 +714,6 @@ body {
 }
 
 @media (min-width: 640px) {
-  .sm\:w-1\/2 {
-    width: 50% !important
-  }
-
-  .sm\:w-1\/2 {
-    width: 50% !important
-  }
-
-  .sm\:w-1\/2 {
-    width: 50% !important
-  }
-
-  .sm\:w-1\/2 {
-    width: 50% !important
-  }
-
   .sm\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important
   }
@@ -827,22 +763,6 @@ body {
 
   .md\:w-1\/2 {
     width: 50% !important
-  }
-
-  .md\:w-1\/3 {
-    width: 33.333333% !important
-  }
-
-  .md\:w-1\/3 {
-    width: 33.333333% !important
-  }
-
-  .md\:w-1\/3 {
-    width: 33.333333% !important
-  }
-
-  .md\:w-1\/3 {
-    width: 33.333333% !important
   }
 
   .md\:flex-grow {

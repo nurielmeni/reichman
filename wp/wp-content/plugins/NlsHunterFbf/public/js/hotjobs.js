@@ -34,29 +34,7 @@ var Hotjobs =
           scrollSlider(direction, null);
         });
       }
-    }
 
-    function sliderWidth() {
-      var sliderEl = document.querySelector(slider);
-      return sliderEl ? sliderEl.scrollWidth : 0;
-    }
-
-    function scrollSlider(direction, cbAfterAnimation) {
-      if (!direction) return;
-      var sliderEl = document.querySelector(slider);
-
-      var width = $(item).outerWidth(true);
-      var sLeft = sliderEl.scrollLeft + direction * width;
-
-      $(slider).animate({ scrollLeft: sLeft }, {
-        duration: 600, complete: cbAfterAnimation
-      });
-
-      return sliderEl.scrollLeft;
-    }
-
-    // Event Listeners
-    $(document).ready(function () {
       // Nav Buttons Clicked
       $(nav).on("click", function (e) {
         var btnEl = this;
@@ -78,9 +56,26 @@ var Hotjobs =
         if (sLeft <= 0) $(nav + '.right').hide()
         else $(nav + '.right').show();
       });
-    });
+    }
 
+    function sliderWidth() {
+      var sliderEl = document.querySelector(slider);
+      return sliderEl ? sliderEl.scrollWidth : 0;
+    }
 
+    function scrollSlider(direction, cbAfterAnimation) {
+      if (!direction) return;
+      var sliderEl = document.querySelector(slider);
+
+      var width = $(item).outerWidth(true);
+      var sLeft = sliderEl.scrollLeft + direction * width;
+
+      $(slider).animate({ scrollLeft: sLeft }, {
+        duration: 600, complete: cbAfterAnimation
+      });
+
+      return sliderEl.scrollLeft;
+    }
 
     return {
       init: init,
