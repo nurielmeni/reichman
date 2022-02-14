@@ -136,6 +136,16 @@ class NlsHunterFbf_modules
         return $searcResultsPageUrl;
     }
 
+    private function getJobDetailsPageUrl()
+    {
+        $language = get_bloginfo('language');
+        $jobDetailsPageId = $language === 'he-IL' ?
+            get_option(NlsHunterFbf_Admin::NLS_JOB_DETAILS_PAGE_HE) :
+            get_option(NlsHunterFbf_Admin::NLS_JOB_DETAILS_PAGE_EN);
+        $jobDetailsPageUrl = get_page_link($jobDetailsPageId);
+        return $jobDetailsPageUrl;
+    }
+
     public function nlsHunterSearch_render()
     {
         $searchParams = $this->searchParams();
@@ -155,6 +165,7 @@ class NlsHunterFbf_modules
     {
         $searchParams = $this->searchParams();
         $jobs = $this->model->getNlsHunterSearchResults($searchParams);
+        $jobDetailsPageUrl = $this->getJobDetailsPageUrl();
 
         ob_start();
 
@@ -165,7 +176,9 @@ class NlsHunterFbf_modules
         ]);
 
         echo render('nlsSearcResults', [
-            'jobs' => $jobs
+            'model' => $this->model,
+            'jobs' => $jobs,
+            'jobDetailsPageUrl' => $jobDetailsPageUrl
         ]);
 
         return ob_get_clean();

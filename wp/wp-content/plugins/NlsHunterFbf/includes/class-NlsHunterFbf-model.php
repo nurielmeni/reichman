@@ -244,7 +244,7 @@ class NlsHunterFbf_model
             wp_cache_set($cacheKey, $jobScopes, 'directory', 20 * 60);
         }
 
-        return $jobScopes;
+        return is_array($jobScopes) ? $jobScopes : [];
     }
 
     public function jobRanks()
@@ -259,7 +259,7 @@ class NlsHunterFbf_model
             wp_cache_set($cacheKey, $jobRanks, 'directory', 20 * 60);
         }
 
-        return $jobRanks;
+        return is_array($jobRanks) ? $jobRanks : [];
     }
 
     public function professionalFields()
@@ -274,7 +274,7 @@ class NlsHunterFbf_model
             wp_cache_set($cacheKey, $professionalFields, 'directory', 20 * 60);
         }
 
-        return $professionalFields;
+        return is_array($professionalFields) ? $professionalFields : [];
     }
 
     private function getPagerOffset()
@@ -305,5 +305,14 @@ class NlsHunterFbf_model
         ]);
 
         return $jobs;
+    }
+
+    public function getValueById($list, $id)
+    {
+        if (!is_array($list) || !$id) return '';
+        foreach ($list as $listItem) {
+            if ($listItem['id'] === $id) return $listItem['name'];
+        }
+        return '';
     }
 }
