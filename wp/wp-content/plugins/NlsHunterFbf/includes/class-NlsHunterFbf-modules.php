@@ -164,7 +164,8 @@ class NlsHunterFbf_modules
     public function nlsHunterSearchResults_render()
     {
         $searchParams = $this->searchParams();
-        $jobs = $this->model->getNlsHunterSearchResults($searchParams);
+        $from =  get_query_var('last_page', 0);
+        $jobs = $this->model->getJobHunterExecuteNewQuery2(null, $from, $searchParams, );
         $jobDetailsPageUrl = $this->getJobDetailsPageUrl();
 
         ob_start();
@@ -187,11 +188,11 @@ class NlsHunterFbf_modules
     private function searchParams()
     {
         $params['keywords'] = $this->model->queryParam('keywords');
-        $params['categoryId'] = $this->model->queryParam('job-category', false, []);
-        $params['regionValue'] = $this->model->queryParam('job-region', false, []);
-        $params['employmentType'] = $this->model->queryParam('employments-type', false, []);
-        $params['jobScope'] = $this->model->queryParam('job-scope', false, []);
-        $params['jobLocation'] = $this->model->queryParam('job-location', false, []);
+        $params['categoryId'] = $this->model->queryParam('job-category', []);
+        $params['regionValue'] = $this->model->queryParam('job-region', []);
+        $params['employmentType'] = $this->model->queryParam('employments-type', []);
+        $params['jobScope'] = $this->model->queryParam('job-scope', []);
+        $params['jobLocation'] = $this->model->queryParam('job-location', []);
         $params['employerId'] = $this->model->queryParam('employerId');
         $params['updateDate'] = $this->model->queryParam('last-update');
 

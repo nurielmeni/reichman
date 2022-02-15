@@ -17,6 +17,7 @@ class NlsHunterFbf_model
     private $nlsSecutity;
     private $auth;
     private $nlsCards;
+    private $nlsSearch;
     private $nlsDirectory;
     private $supplierId;
 
@@ -57,7 +58,7 @@ class NlsHunterFbf_model
         }
     }
 
-    public function queryParam($param, $post = false, $default = '')
+    public function queryParam($param, $default = '', $post = false)
     {
         if ($post) {
             return isset($_POST[$param]) ? $_POST[$param] : $default;
@@ -68,6 +69,11 @@ class NlsHunterFbf_model
     public function nlsGetSupplierId()
     {
         return $this->supplierId;
+    }
+
+    public function nlsGetCountPerPage()
+    {
+        return $this->countPerPage;
     }
 
     public function front_add_message()
@@ -211,7 +217,7 @@ class NlsHunterFbf_model
         $jobs = $this->nlsCards->jobsGetByFilter([
             'supplierId' => $supplierId,
             'lastId' => 0,
-            'countPerPage' => get_option(NlsHunterFbf_Admin::NLS_JOBS_COUNT),
+            'countPerPage' => $this->nlsGetCountPerPage()
         ]);
 
         return $jobs;
@@ -277,12 +283,7 @@ class NlsHunterFbf_model
         return is_array($professionalFields) ? $professionalFields : [];
     }
 
-    private function getPagerOffset()
-    {
-        return get_query_var('last_page', 0);
-    }
-
-    public function getNlsHunterSearchResults($searchParams, $sendToAgent = false)
+    public function getJobsGetByFilter($searchParams, $lastId, $sendToAgent = false)
     {
         $this->initCardService();
 
@@ -298,11 +299,41 @@ class NlsHunterFbf_model
             'employerId' => key_exists('employerId', $searchParams) ? $searchParams['employerId'] : '',
             'updateDate' => key_exists('updateDate', $searchParams) ? $searchParams['updateDate'] : '',
             'supplierId' => $this->nlsGetSupplierId(),
-            'lastId' => $this->getPagerOffset(),
-            'countPerPage' => $this->countPerPage,
+            'lastId' => $lastId,
+            'countPerPage' => $this->nlsGetCountPerPage(),
             'status' => self::STATUS_OPEN,
             'sendToAgent' => $sendToAgent
         ]);
+
+        return $jobs;
+    }
+
+    public function getJobHunterExecuteNewQuery2($hunterId = null, $from = 0, $searchParams)
+    {
+        $this->initSearchService();
+
+        if (!is_array($searchParams)) return [];
+        $filter = $this->nlsSearch->createFilter('Jobs', [
+            'keywords' => key_exists('keywords', $searchParams) ? $searchParams['keywords'] : '',
+            'categoryId' => key_exists('categoryIds', $searchParams) ? $searchParams['categoryIds'] : [],
+            'regionValue' => key_exists('regionValues', $searchParams) ? $searchParams['regionValues'] : [],
+            'employmentType' => key_exists('employmentTypes', $searchParams) ? $searchParams['employmentTypes'] : [],
+            'jobScope' => key_exists('jobScopes', $searchParams) ? $searchParams['jobScopes'] : [],
+            'jobLocation' => key_exists('jobLocations', $searchParams) ? $searchParams['jobLocations'] : [],
+            'employerId' => key_exists('employerId', $searchParams) ? $searchParams['employerId'] : '',
+            'updateDate' => key_exists('updateDate', $searchParams) ? $searchParams['updateDate'] : '',
+            'supplierId' => $this->nlsGetSupplierId(),
+            'status' => self::STATUS_OPEN,
+            //'sendToAgent' => $sendToAgent
+        ]);
+
+
+        $jobs = $this->nlsSearch->JobHunterExecuteNewQuery2(
+            $hunterId,
+            $from,
+            $this->nlsGetCountPerPage(),
+            $filter
+        );
 
         return $jobs;
     }

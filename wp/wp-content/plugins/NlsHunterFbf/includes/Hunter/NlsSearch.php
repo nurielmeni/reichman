@@ -170,8 +170,6 @@ class NlsSearch extends NlsService
 
     public function JobHunterExecuteNewQuery2($hunter_id, $from, $ofset, $filter)
     {
-
-
         $transactionCode = NlsHelper::newGuid();
         try {
             $params = [

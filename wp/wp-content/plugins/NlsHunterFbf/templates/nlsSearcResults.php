@@ -15,7 +15,7 @@
             <?= render('nlsJobCard', [
                 'model' => $model,
                 'job' => $job,
-                'jobDetailsPageUrl' => $jobDetailsPageUrl . '/' . $job['jobCode']
+                'jobDetailsPageUrl' => $jobDetailsPageUrl . $job['jobCode']
             ]) ?>
         <?php endforeach; ?>
     </div>
