@@ -4,6 +4,7 @@ require_once 'Hunter/NlsSecurity.php';
 require_once 'Hunter/NlsDirectory.php';
 require_once 'Hunter/NlsSearch.php';
 require_once 'Hunter/NlsHelper.php';
+require_once 'Hunter/NlsFilter.php';
 /**
  * Description of class-NlsHunterFbf-modules
  *
@@ -313,19 +314,22 @@ class NlsHunterFbf_model
         $this->initSearchService();
 
         if (!is_array($searchParams)) return [];
-        $filter = $this->nlsSearch->createFilter('Jobs', [
-            'keywords' => key_exists('keywords', $searchParams) ? $searchParams['keywords'] : '',
-            'categoryId' => key_exists('categoryIds', $searchParams) ? $searchParams['categoryIds'] : [],
-            'regionValue' => key_exists('regionValues', $searchParams) ? $searchParams['regionValues'] : [],
-            'employmentType' => key_exists('employmentTypes', $searchParams) ? $searchParams['employmentTypes'] : [],
-            'jobScope' => key_exists('jobScopes', $searchParams) ? $searchParams['jobScopes'] : [],
-            'jobLocation' => key_exists('jobLocations', $searchParams) ? $searchParams['jobLocations'] : [],
-            'employerId' => key_exists('employerId', $searchParams) ? $searchParams['employerId'] : '',
-            'updateDate' => key_exists('updateDate', $searchParams) ? $searchParams['updateDate'] : '',
-            'supplierId' => $this->nlsGetSupplierId(),
-            'status' => self::STATUS_OPEN,
-            //'sendToAgent' => $sendToAgent
-        ]);
+        $filter = new NlsFilter();
+        // $filter->addSelectFilterFields([
+        //     "JobId",
+        //     "JobTitle",
+        //     "JobCode",
+        //     "RegionText",
+        //     "UpdateDate",
+        //     "ExpertiseId",
+        //     "EmploymentType",
+        //     "EmployerId",
+        //     "EmployerName",
+        //     "JobScope",
+        //     "Rank",
+        //     "Description"
+        // ]);
+        $filter->addSuplierIdFilter($this->nlsGetSupplierId());
 
 
         $jobs = $this->nlsSearch->JobHunterExecuteNewQuery2(

@@ -119,4 +119,19 @@ class NlsHelper
         $flash .= '</div></div>';
         return $flash;
     }
+
+    public static function proprtyValue($object, $property, $default = '')
+    {
+        return gettype($object) !== 'object' || !property_exists($object, $property)
+            ? $default
+            : $object->$property;
+    }
+
+    public static function dateFormat($str, $default = '')
+    {
+        $time = strtotime($str);
+        if (!$time) $default;
+
+        return date('d/m/Y', $time);
+    }
 }
