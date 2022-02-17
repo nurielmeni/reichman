@@ -37,6 +37,7 @@ class NlsHunterFbf_Admin
     const NLS_SECURITY_USERNAME = 'nlsSecurityUsername';
     const NLS_SECURITY_PASSWORD = 'nlsSecurityPassword';
     const NLS_JOBS_COUNT = 'nlsJobsCount';
+    const NLS_HOT_JOBS_COUNT = 'nlsHotJobsCount';
     const NLS_SEARCH_RESULTS_PAGE_EN = 'nlsSearchResultsPage_en';
     const NLS_SEARCH_RESULTS_PAGE_HE = 'nlsSearchResultsPage_he';
     const NLS_JOB_DETAILS_PAGE_EN = 'nlsJobDetailsPage_en';
@@ -166,6 +167,7 @@ class NlsHunterFbf_Admin
         $nlsSecurityUsername = $this->getFieldValue(self::NLS_SECURITY_USERNAME);
         $nlsSecurityPassword = $this->getFieldValue(self::NLS_SECURITY_PASSWORD);
         $nlsJobsCount = $this->getFieldValue(self::NLS_JOBS_COUNT);
+        $nlsHotJobsCount = $this->getFieldValue(self::NLS_HOT_JOBS_COUNT);
         $nlsSearchResultsPageEn = $this->getFieldValue(self::NLS_SEARCH_RESULTS_PAGE_EN);
         $nlsSearchResultsPageHe = $this->getFieldValue(self::NLS_SEARCH_RESULTS_PAGE_HE);
         $nlsJobDetailsPageEn = $this->getFieldValue(self::NLS_JOB_DETAILS_PAGE_EN);

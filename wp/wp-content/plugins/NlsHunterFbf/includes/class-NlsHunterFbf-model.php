@@ -23,6 +23,7 @@ class NlsHunterFbf_model
     private $supplierId;
 
     private $countPerPage = 10;
+    private $countHotJobs = 6;
 
     private $regions;
 
@@ -39,6 +40,7 @@ class NlsHunterFbf_model
         }
         $this->auth = $this->nlsSecutity->isAuth();
         $this->countPerPage = get_option(NlsHunterFbf_Admin::NLS_JOBS_COUNT, 10);
+        $this->countHotJobs = get_option(NlsHunterFbf_Admin::NLS_HOT_JOBS_COUNT, 6);
         $this->supplierId = $this->queryParam('sid', get_option(NlsHunterFbf_Admin::NSOFT_SUPPLIER_ID));
 
         if (!$this->auth) {
@@ -53,9 +55,8 @@ class NlsHunterFbf_model
             }
         }
 
-        // Load all the select options for the module
+        // Load data on ajax calls
         if (!wp_doing_ajax()) {
-            //$this->loadSelectOptions();
         }
     }
 
@@ -190,40 +191,6 @@ class NlsHunterFbf_model
         }
     }
 
-    /**
-     * Handler for the Search Slug
-     */
-    public function loadSelectOptions()
-    {
-        $this->initDirectoryService();
-
-        // if no directory empty form
-        if ($this->auth !== false &&  $this->nlsDirectory) {
-            $this->regions = $this->nlsDirectory->getListByName('Regions');
-        } else {
-            $this->nlsAdminNotice(
-                __('Could not connect to Hunter Directory Services', 'NlsHunterFbf'),
-                __('Authentication Error', 'NlsHunterFbf')
-            );
-            $this->regions = [];
-        }
-    }
-
-    public function getJobsBySupplierId($supplierId = null)
-    {
-        $this->initCardService();
-
-        $supplierId = $supplierId ? $supplierId : get_option(NlsHunterFbf_Admin::NSOFT_SUPPLIER_ID);
-        // Look to see if the search page was submited and get options
-        $jobs = $this->nlsCards->jobsGetByFilter([
-            'supplierId' => $supplierId,
-            'lastId' => 0,
-            'countPerPage' => $this->nlsGetCountPerPage()
-        ]);
-
-        return $jobs;
-    }
-
     public function searchJobByJobCode($jobCode)
     {
         return $this->nlsCards->searchJobByJobCode($jobCode);
@@ -284,6 +251,10 @@ class NlsHunterFbf_model
         return is_array($professionalFields) ? $professionalFields : [];
     }
 
+    /**
+     * Uses the card service to get jobs (depricted)
+     * The search is noe done by Search service (getJobHunterExecuteNewQuery2)
+     */
     public function getJobsGetByFilter($searchParams, $lastId, $sendToAgent = false)
     {
         $this->initCardService();
@@ -309,45 +280,66 @@ class NlsHunterFbf_model
         return $jobs;
     }
 
-    public function getJobHunterExecuteNewQuery2($hunterId = null, $from = 0, $searchParams)
+    public function getHotJobs($professionalFields)
+    {
+        $searchParams = is_array($professionalFields) ? ['' => $professionalFields] : [];
+        
+        $res =  $this->getJobHunterExecuteNewQuery2($searchParams, null, 0, $this->countHotJobs);
+        return property_exists($res, 'Results') && property_exists($res->Results, 'JobInfo') 
+            ? $res->Results->JobInfo
+            : [];
+    }
+
+    public function getJobHunterExecuteNewQuery2($searchParams, $hunterId = null, $resultRowOffset = 0, $resultRowLimit = null)
     {
         $this->initSearchService();
+        $resultRowLimit = $resultRowLimit ? $resultRowLimit : $this->nlsGetCountPerPage();
 
         if (!is_array($searchParams)) return [];
         $filter = new NlsFilter();
-        // $filter->addSelectFilterFields([
-        //     "JobId",
-        //     "JobTitle",
-        //     "JobCode",
-        //     "RegionText",
-        //     "UpdateDate",
-        //     "ExpertiseId",
-        //     "EmploymentType",
-        //     "EmployerId",
-        //     "EmployerName",
-        //     "JobScope",
-        //     "Rank",
-        //     "Description"
-        // ]);
+        $filter->addSelectFilterFields([
+            "JobId",
+            "JobTitle",
+            "JobCode",
+            "RegionText",
+            "UpdateDate",
+            "ExpertiseId",
+            "EmploymentType",
+            "EmployerId",
+            "EmployerName",
+            "JobScope",
+            "Rank",
+            "Description"
+        ]);
         $filter->addSuplierIdFilter($this->nlsGetSupplierId());
-
 
         $jobs = $this->nlsSearch->JobHunterExecuteNewQuery2(
             $hunterId,
-            $from,
-            $this->nlsGetCountPerPage(),
+            $resultRowOffset,
+            $resultRowLimit,
             $filter
         );
 
         return $jobs;
     }
 
-    public function getValueById($list, $id)
+    public function getCardProfessinalField($cardId)
     {
-        if (!is_array($list) || !$id) return '';
-        foreach ($list as $listItem) {
-            if ($listItem['id'] === $id) return $listItem['name'];
-        }
-        return '';
+        $this->initCardService();
+
+        $professionalFields = $this->nlsCards->cardProfessinalField($cardId);
+
+        return $professionalFields;
+    }
+
+    /**
+     * Get job details by jon id
+     * @jobId - the jon id
+     */
+    public function getJobDetails($jobId)
+    {
+        $this->initCardService();
+
+        return $this->nlsCards->jobGet($jobId);
     }
 }

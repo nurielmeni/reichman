@@ -49,6 +49,28 @@ var JobSearch =
             form.submit();
         }
 
+        function showJobDetails(event) {
+            var el = event.target;
+            var jobCard = $(el).parents('.job-card');
+            var jobCards = '.search-results-wrapper .job-card';
+            var jobApplyForm = '.search-results-wrapper .job-apply-form';
+            var gridWrapper = '.search-results-wrapper > .grid';
+            var detailsClasses = 'details md:col-span-2 lg:col-span-3';
+
+            // Scroll to top of the grid
+            $('.search-results-wrapper').get(0).scrollIntoView({behavior: "smooth", block: "start", inline: "center"});
+
+            // Move the job card to the top of the grid (before the form) and Make the card full width
+            $(jobApplyForm).prependTo($(gridWrapper));
+
+            // Remove other card details
+            $(jobCards).removeClass(detailsClasses);
+
+            // Show the selected card details
+            $(jobCard).insertBefore($(jobApplyForm)).addClass(detailsClasses);
+            $(jobApplyForm).removeClass('hidden');
+        }
+
         function registerEventListeners() {
             // Toggle advanced search options
             $('.nls-hunter-search-wrapper .search-buttons button.advanced').on('click', toggleAdvanced);
@@ -58,6 +80,9 @@ var JobSearch =
 
             // Clear fileds
             $('.nls-hunter-search-wrapper button.search').on('click', search);
+
+            // Show job details and submit form
+            $(document).on('click', '.job-card .additional-details', showJobDetails);
         }
 
         function init() {

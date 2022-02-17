@@ -168,14 +168,14 @@ class NlsSearch extends NlsService
         }
     }
 
-    public function JobHunterExecuteNewQuery2($hunter_id, $from, $ofset, $filter)
+    public function JobHunterExecuteNewQuery2($hunter_id, $resultRowOffset, $resultRowLimit, $filter)
     {
         $transactionCode = NlsHelper::newGuid();
         try {
             $params = [
                 "transactionCode" => $transactionCode,
                 "HunterId" => $hunter_id,
-                "queryConfig" => ["ResultRowLimit" => $ofset, "ResultRowOffset" => $from],
+                "queryConfig" => ["ResultRowLimit" => $resultRowLimit, "ResultRowOffset" => $resultRowOffset],
                 "oQueryInfo" => $filter
             ];
             $res = $this->client->JobHunterExecuteNewQuery2($params)->JobHunterExecuteNewQuery2Result; //->Results;

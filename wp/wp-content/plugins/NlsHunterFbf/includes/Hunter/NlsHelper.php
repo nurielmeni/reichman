@@ -134,4 +134,19 @@ class NlsHelper
 
         return date('d/m/Y', $time);
     }
+
+    
+    /**
+     * Retriev s a list value by the Id
+     * @list - a list from the directory service
+     * @id - the item id
+     */
+    public static function getValueById($list, $id)
+    {
+        if (!is_array($list) || !$id) return '';
+        foreach ($list as $listItem) {
+            if ($listItem['id'] === $id) return $listItem['name'];
+        }
+        return '';
+    }
 }

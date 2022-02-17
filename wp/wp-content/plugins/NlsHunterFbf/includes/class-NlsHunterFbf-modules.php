@@ -10,83 +10,59 @@ require_once ABSPATH . 'wp-content/plugins/NlsHunterFbf/renderFunction.php';
 class NlsHunterFbf_modules
 {
     private $model;
+    private $attributes;
+    private $appUserId;
 
     public function __construct($model)
     {
         $this->model = $model;
+        $this->attributes = [
+            'phone' => ['054-7641456'],
+            'fullName' => ['כלכלה כלכלה'],
+            'applicantID' => ['55555']
+        ];
+        
+        $this->appUserId = '826084ab-89b4-4909-b831-bb790a2ede7b';
     }
 
+    private function getSearchResultsPageUrl()
+    {
+        $language = get_bloginfo('language');
+        $searcResultsPageId = $language === 'he-IL' ?
+            get_option(NlsHunterFbf_Admin::NLS_SEARCH_RESULTS_PAGE_HE) :
+            get_option(NlsHunterFbf_Admin::NLS_SEARCH_RESULTS_PAGE_EN);
+        $searcResultsPageUrl = get_page_link($searcResultsPageId);
+        return $searcResultsPageUrl;
+    }
+
+    private function getJobDetailsPageUrl()
+    {
+        $language = get_bloginfo('language');
+        $jobDetailsPageId = $language === 'he-IL' ?
+            get_option(NlsHunterFbf_Admin::NLS_JOB_DETAILS_PAGE_HE) :
+            get_option(NlsHunterFbf_Admin::NLS_JOB_DETAILS_PAGE_EN);
+        $jobDetailsPageUrl = get_page_link($jobDetailsPageId);
+        return $jobDetailsPageUrl;
+    }
+
+    private function searchParams()
+    {
+        $params['keywords'] = $this->model->queryParam('keywords');
+        $params['categoryId'] = $this->model->queryParam('job-category', []);
+        $params['regionValue'] = $this->model->queryParam('job-region', []);
+        $params['employmentType'] = $this->model->queryParam('employments-type', []);
+        $params['jobScope'] = $this->model->queryParam('job-scope', []);
+        $params['jobLocation'] = $this->model->queryParam('job-location', []);
+        $params['employerId'] = $this->model->queryParam('employerId');
+        $params['updateDate'] = $this->model->queryParam('last-update');
+
+        return $params;
+    }
 
     public function nlsHotJobs_render()
     {
-        $hotJobs =  [
-            [
-                'date' => '01.02.2022',
-                'jobTitle' => 'Super Man',
-                'jobCode' => 'JB-20543',
-                'employer' => 'Special Tooling'
-            ],
-            [
-                'date' => '01.02.2022',
-                'jobTitle' => 'Super Man',
-                'jobCode' => 'JB-20543',
-                'employer' => 'Special Tooling'
-            ],
-            [
-                'date' => '01.02.2022',
-                'jobTitle' => 'Super Man',
-                'jobCode' => 'JB-20543',
-                'employer' => 'Special Tooling'
-            ],
-            [
-                'date' => '01.02.2022',
-                'jobTitle' => 'Super Man',
-                'jobCode' => 'JB-20543',
-                'employer' => 'Special Tooling'
-            ],
-            [
-                'date' => '01.02.2022',
-                'jobTitle' => 'Super Man',
-                'jobCode' => 'JB-20543',
-                'employer' => 'Special Tooling'
-            ],
-            [
-                'date' => '01.02.2022',
-                'jobTitle' => 'Super Man',
-                'jobCode' => 'JB-20543',
-                'employer' => 'Special Tooling'
-            ],
-            [
-                'date' => '01.02.2022',
-                'jobTitle' => 'Super Man',
-                'jobCode' => 'JB-20543',
-                'employer' => 'Special Tooling'
-            ],
-            [
-                'date' => '01.02.2022',
-                'jobTitle' => 'Super Man',
-                'jobCode' => 'JB-20543',
-                'employer' => 'Special Tooling'
-            ],
-            [
-                'date' => '01.02.2022',
-                'jobTitle' => 'Super Man',
-                'jobCode' => 'JB-20543',
-                'employer' => 'Special Tooling'
-            ],
-            [
-                'date' => '01.02.2022',
-                'jobTitle' => 'Super Man',
-                'jobCode' => 'JB-20543',
-                'employer' => 'Special Tooling'
-            ],
-            [
-                'date' => '01.02.2022',
-                'jobTitle' => 'Super Man',
-                'jobCode' => 'JB-20543',
-                'employer' => 'Special Tooling'
-            ]
-        ];
+        $professionalFields = $this->model->getCardProfessinalField($this->appUserId);
+        $hotJobs = $this->model->getHotJobs($professionalFields, 6);
 
         ob_start();
         echo render('nlsHotJobs', [
@@ -126,26 +102,6 @@ class NlsHunterFbf_modules
         return ob_get_clean();
     }
 
-    private function getSearchResultsPageUrl()
-    {
-        $language = get_bloginfo('language');
-        $searcResultsPageId = $language === 'he-IL' ?
-            get_option(NlsHunterFbf_Admin::NLS_SEARCH_RESULTS_PAGE_HE) :
-            get_option(NlsHunterFbf_Admin::NLS_SEARCH_RESULTS_PAGE_EN);
-        $searcResultsPageUrl = get_page_link($searcResultsPageId);
-        return $searcResultsPageUrl;
-    }
-
-    private function getJobDetailsPageUrl()
-    {
-        $language = get_bloginfo('language');
-        $jobDetailsPageId = $language === 'he-IL' ?
-            get_option(NlsHunterFbf_Admin::NLS_JOB_DETAILS_PAGE_HE) :
-            get_option(NlsHunterFbf_Admin::NLS_JOB_DETAILS_PAGE_EN);
-        $jobDetailsPageUrl = get_page_link($jobDetailsPageId);
-        return $jobDetailsPageUrl;
-    }
-
     public function nlsHunterSearch_render()
     {
         $searchParams = $this->searchParams();
@@ -165,7 +121,7 @@ class NlsHunterFbf_modules
     {
         $searchParams = $this->searchParams();
         $from =  get_query_var('last_page', 0);
-        $jobs = $this->model->getJobHunterExecuteNewQuery2(null, $from, $searchParams, );
+        $jobs = $this->model->getJobHunterExecuteNewQuery2($searchParams, null, $from);
         $jobDetailsPageUrl = $this->getJobDetailsPageUrl();
 
         ob_start();
@@ -183,19 +139,5 @@ class NlsHunterFbf_modules
         ]);
 
         return ob_get_clean();
-    }
-
-    private function searchParams()
-    {
-        $params['keywords'] = $this->model->queryParam('keywords');
-        $params['categoryId'] = $this->model->queryParam('job-category', []);
-        $params['regionValue'] = $this->model->queryParam('job-region', []);
-        $params['employmentType'] = $this->model->queryParam('employments-type', []);
-        $params['jobScope'] = $this->model->queryParam('job-scope', []);
-        $params['jobLocation'] = $this->model->queryParam('job-location', []);
-        $params['employerId'] = $this->model->queryParam('employerId');
-        $params['updateDate'] = $this->model->queryParam('last-update');
-
-        return $params;
     }
 }

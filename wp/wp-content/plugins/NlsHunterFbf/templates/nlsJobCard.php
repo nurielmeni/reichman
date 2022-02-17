@@ -15,13 +15,13 @@ include_once ABSPATH . 'wp-content/plugins/NlsHunterFbf/includes/Hunter/NlsHelpe
     <span class="w-full border-x-4 mx-2 px-2 border-primary text-center"><?= NlsHelper::proprtyValue($job, 'EmployerName') ?></span>
     <span class="whitespace-nowrap"><?= NlsHelper::dateFormat(NlsHelper::proprtyValue($job, 'UpdateDate')) ?></span>
   </div>
-  <div class="text-description text-xl">
+  <div class="text-description text-xl overflow-hidden w-full">
     <?= mb_strimwidth(strip_tags(html_entity_decode(NlsHelper::proprtyValue($job, 'Description'))), 0, 130, '...') ?>
   </div>
-  <a href="<?= $jobDetailsPageUrl ?>" class="text-center text-primary text-xl my-3"><?= __('Additional Details', 'NlsHunterFbf') ?></a>
+  <button type="button" class="additional-details text-center text-primary text-xl my-3"><?= __('Additional Details', 'NlsHunterFbf') ?></button>
   <div class="flex justify-start gap-3 w-full mb-4">
-    <?php if (strlen($model->getValueById($model->jobRanks(), NlsHelper::proprtyValue($job, 'Rank'))) > 0) : ?>
-      <span class="bg-chip text-primary px-2 rounded-md"><?= $model->getValueById($model->jobRanks(), NlsHelper::proprtyValue($job, 'Rank')) ?></span>
+    <?php if (strlen(NlsHelper::getValueById($model->jobRanks(), NlsHelper::proprtyValue($job, 'Rank'))) > 0) : ?>
+      <span class="bg-chip text-primary px-2 rounded-md"><?= NlsHelper::getValueById($model->jobRanks(), NlsHelper::proprtyValue($job, 'Rank')) ?></span>
     <?php endif; ?>
     <span class="bg-chip text-primary px-2 rounded-md">מלאה</span>
   </div>

@@ -38,6 +38,25 @@ class NlsCards extends NlsService
         }
     }
 
+    // IList<Niloosoft.CardsServiceReference.CardProfessinalField> CardProfessinalFieldsGet(Guid cardID, Guid transactionCode)
+    public function cardProfessinalField($cardId)
+    {
+        $transactionCode = NlsHelper::newGuid();
+        $params = [
+            'cardID' => $cardId,
+            'transactionCode' => $transactionCode
+        ];
+
+        try {
+            $res = $this->client->CardProfessinalFieldsGet($params)->CardProfessinalFieldsGetResult;
+            $list = json_decode(json_encode($res), TRUE);
+        } catch (Exception $ex) {
+            throw new Exception("Error: CardService: cardProfessinalField: Could not get professional field for card. \n\rTC: $transactionCode \n\rCardId: $cardId");
+        }
+
+        return $list;
+    }
+
     /**
      * Meni: If CV insert CV, if other Insert other files
      * @param $cardId - the user id (Card Id)
