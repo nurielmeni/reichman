@@ -42,6 +42,11 @@
           "color": "#707070"
         },
         {
+          "name": "Dark Gray",
+          "slug": "dark-gray",
+          "color": "#808080"
+        },
+        {
           "name": "SliderBg",
           "slug": "sliderbg",
           "color": "#f1f2f2"

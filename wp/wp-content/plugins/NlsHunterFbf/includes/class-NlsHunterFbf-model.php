@@ -283,9 +283,9 @@ class NlsHunterFbf_model
     public function getHotJobs($professionalFields)
     {
         $searchParams = is_array($professionalFields) ? ['' => $professionalFields] : [];
-        
+
         $res =  $this->getJobHunterExecuteNewQuery2($searchParams, null, 0, $this->countHotJobs);
-        return property_exists($res, 'Results') && property_exists($res->Results, 'JobInfo') 
+        return property_exists($res, 'Results') && property_exists($res->Results, 'JobInfo')
             ? $res->Results->JobInfo
             : [];
     }
@@ -297,20 +297,7 @@ class NlsHunterFbf_model
 
         if (!is_array($searchParams)) return [];
         $filter = new NlsFilter();
-        $filter->addSelectFilterFields([
-            "JobId",
-            "JobTitle",
-            "JobCode",
-            "RegionText",
-            "UpdateDate",
-            "ExpertiseId",
-            "EmploymentType",
-            "EmployerId",
-            "EmployerName",
-            "JobScope",
-            "Rank",
-            "Description"
-        ]);
+
         $filter->addSuplierIdFilter($this->nlsGetSupplierId());
 
         $jobs = $this->nlsSearch->JobHunterExecuteNewQuery2(

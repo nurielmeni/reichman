@@ -5,6 +5,14 @@ var JobSearch =
         var rtl = false;
         var lang = 'en-US';
 
+        var jobCards = '.search-results-wrapper .job-card',
+            jocCardsDetailsBtn = '.job-card button.additional-details',
+            jocCardsCancelBtn = '.job-card button.cancel',
+            jobApplyForm = '.search-results-wrapper .job-apply-form-wrapper',
+            detailsClasses = 'details md:col-span-2 lg:col-span-3 md:p-8 animate-expand',
+            applyBtn = '.job-card button.apply',
+            applyEmployer = '.job-card button.apply-employer';
+
         function initSumoSelect(selectBoxItem) {
             var name = $(selectBoxItem).attr('name') || '';
             var placeholder = $(selectBoxItem).attr('placeholder') || '';
@@ -52,23 +60,37 @@ var JobSearch =
         function showJobDetails(event) {
             var el = event.target;
             var jobCard = $(el).parents('.job-card');
-            var jobCards = '.search-results-wrapper .job-card';
-            var jobApplyForm = '.search-results-wrapper .job-apply-form';
-            var gridWrapper = '.search-results-wrapper > .grid';
-            var detailsClasses = 'details md:col-span-2 lg:col-span-3';
+            if ($(jobCard).hasClass('details')) return jobCard;
 
-            // Scroll to top of the grid
-            $('.search-results-wrapper').get(0).scrollIntoView({behavior: "smooth", block: "start", inline: "center"});
+            $(jobCard).find('.additional').removeClass('hidden');
+            $(jobCard).find('.no-additional').addClass('hidden');
+            $(jobCard).get(0).scrollIntoView({ behavior: "smooth" });
+            $(jobCard).removeClass('animate-expand');
+            $(jobCard).addClass(detailsClasses);
+            return jobCard;
+        }
 
-            // Move the job card to the top of the grid (before the form) and Make the card full width
-            $(jobApplyForm).prependTo($(gridWrapper));
+        function showApplyForm(event) {
+            var jobCard = showJobDetails(event);
+            $(event.target).addClass('hidden');
 
-            // Remove other card details
-            $(jobCards).removeClass(detailsClasses);
-
-            // Show the selected card details
-            $(jobCard).insertBefore($(jobApplyForm)).addClass(detailsClasses);
+            $(jobApplyForm).appendTo($(jobCard));
             $(jobApplyForm).removeClass('hidden');
+            $(jobApplyForm).find('form').addClass('animate-slide');
+        }
+
+        function hideJobDetails(event) {
+            var el = event.target;
+            var jobCard = $(el).parents('.job-card');
+
+            $(jobApplyForm).addClass('hidden');
+            $(jobApplyForm).removeClass('animate-expand');
+            $(jobCard).find('.additional').addClass('hidden');
+            $(jobCard).find('.no-additional').removeClass('hidden');
+            $(jobCard).find('button.apply').removeClass('hidden');
+            $(jobCard).removeClass(detailsClasses);
+            $(jobCard).get(0).scrollIntoView({ behavior: "smooth", block: "center" });
+            $(jobCard).addClass('animate-expand');
         }
 
         function registerEventListeners() {
@@ -82,7 +104,13 @@ var JobSearch =
             $('.nls-hunter-search-wrapper button.search').on('click', search);
 
             // Show job details and submit form
-            $(document).on('click', '.job-card .additional-details', showJobDetails);
+            $(document).on('click', jocCardsDetailsBtn, showJobDetails);
+
+            // Hide job details
+            $(document).on('click', jocCardsCancelBtn, hideJobDetails);
+
+            // Show apply form
+            $(document).on('click', applyBtn, showApplyForm);
         }
 
         function init() {

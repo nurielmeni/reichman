@@ -49,6 +49,16 @@
     transform: translate(0, -50%);
   }
 
+  .apply-rounded-container {
+    border-radius: 50%;
+    width: 20rem;
+    height: 20rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+
   [dir="rtl"] .prepend.inset-center {
     left: auto;
     right: 1rem;

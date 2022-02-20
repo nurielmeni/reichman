@@ -10,6 +10,7 @@ module.exports = {
     "./**/*.php",
     "../../plugins/NlsHunterFbf/*/*.php",
     "../../plugins/NlsHunterFbf/**/*.php",
+    "../../plugins/NlsHunterFbf/public/js/jobSearch.js",
     "./resources/css/*.css",
     "./resources/js/*.js",
     "./safelist.txt",
@@ -31,8 +32,37 @@ module.exports = {
         tailpress.theme("settings.color.palette", theme)
       ),
       width: {
-        "1/31": "31%",
+        '1/31': '31%',
       },
+      rotate: {
+        '270': '270deg',
+      },
+      animation: {
+        expand: 'expand-middle 1s -0.3s ease-out',
+        slide: 'slide-left 1s -0.3s ease-out'
+      },
+      keyframes: {
+        'expand-middle': {
+          from: {
+            transform: 'scale(0)',
+            opacity: '0.3'
+          },
+          to: {
+            transform: 'scale(100%)',
+            opacity: '1'
+          }
+        },
+        'slide-left': {
+          from: {
+            transform: 'scaleX(0)',
+            opacity: '0.3'
+          },
+          to: {
+            transform: 'scaleX(1)',
+            opacity: '1'
+          }
+        }
+      }
     },
     screens: {
       sm: "640px",
