@@ -423,7 +423,7 @@ Ensure the default browser behavior of the `hidden` attribute.
   display: none;
 }
 
-.rotate-270, .transform, .md\:rotate-0 {
+.rotate-270, .transform, .md\:rotate-0, .lg\:rotate-0 {
   --tw-translate-x: 0;
   --tw-translate-y: 0;
   --tw-rotate: 0;
@@ -700,6 +700,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-right: 1rem !important;
 }
 
+.my-10 {
+  margin-top: 2.5rem !important;
+  margin-bottom: 2.5rem !important;
+}
+
+.mx-auto {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
 .-mb-1 {
   margin-bottom: -0.25rem !important;
 }
@@ -788,6 +798,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 1.5rem !important;
 }
 
+.h-1 {
+  height: 0.25rem !important;
+}
+
 .min-h-screen {
   min-height: 100vh !important;
 }
@@ -814,6 +828,14 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .w-6 {
   width: 1.5rem !important;
+}
+
+.w-full {
+  width: 100% !important;
+}
+
+.w-9\/12 {
+  width: 75% !important;
 }
 
 .max-w-sm {
@@ -1092,6 +1114,21 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-color: rgb(243 244 246 / var(--tw-bg-opacity)) !important;
 }
 
+.bg-light {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(228 228 228 / var(--tw-bg-opacity)) !important;
+}
+
+.bg-primary {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(0 41 82 / var(--tw-bg-opacity)) !important;
+}
+
+.bg-dark-gray {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(128 128 128 / var(--tw-bg-opacity)) !important;
+}
+
 .p-2 {
   padding: 0.5rem !important;
 }
@@ -1226,6 +1263,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   line-height: 1.75rem !important;
 }
 
+.text-xl {
+  font-size: 1.25rem !important;
+  line-height: 1.75rem !important;
+}
+
+.text-sm {
+  font-size: 0.875rem !important;
+  line-height: 1.25rem !important;
+}
+
 .font-bold {
   font-weight: 700 !important;
 }
@@ -1275,6 +1322,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-blue-500 {
   --tw-text-opacity: 1 !important;
   color: rgb(59 130 246 / var(--tw-text-opacity)) !important;
+}
+
+.text-white {
+  --tw-text-opacity: 1 !important;
+  color: rgb(255 255 255 / var(--tw-text-opacity)) !important;
 }
 
 .antialiased {
@@ -1627,6 +1679,11 @@ li.transparent-text {
     transform: var(--tw-transform) !important;
   }
 
+  .md\:rotate-0 {
+    --tw-rotate: 0deg !important;
+    transform: var(--tw-transform) !important;
+  }
+
   .md\:grid-cols-4 {
     grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
   }
@@ -1763,8 +1820,17 @@ li.transparent-text {
     width: 10rem !important;
   }
 
+  .lg\:rotate-0 {
+    --tw-rotate: 0deg !important;
+    transform: var(--tw-transform) !important;
+  }
+
   .lg\:grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+
+  .lg\:flex-row {
+    flex-direction: row !important;
   }
 
   .lg\:flex-row {
