@@ -848,4 +848,44 @@ class NlsCards extends NlsService
             throw new Exception('Error: Niloos services are not availiable, try later.');
         }
     }
+
+
+    public function getCVList($userID)
+    {
+        $transactionCode = NlsHelper::newGuid();
+        try {
+            $params = array(
+                "applicantId" => $userID,
+                "transactionCode" => $transactionCode,
+            );
+            $res = $this->client->CvInfoGetCvVersions($params);
+
+            if (property_exists($res->CvInfoGetCvVersionsResult, "CvVersionInfo")) {
+                $cvs = $res->CvInfoGetCvVersionsResult->CvVersionInfo;
+                return is_array($cvs) ? $cvs : [$cvs];
+            } else {
+                return [];
+            }
+        } catch (Exception $ex) {
+            throw new Exception('Error: getCVList: Niloos services are not availiable, try later.');
+        }
+    }
+
+    public function getFileInfo($fileId, $cardId, $showContent = false)
+    {
+        $transactionCode = NlsHelper::newGuid();
+        $params = array(
+            "transactionCode" => $transactionCode,
+            "fileId" => $fileId,
+            "cardId" => $cardId,
+            "IncludeFileContent" => $showContent
+        );
+
+        try {
+            $res = $this->client->FileGetByFileId($params);
+            return $res;
+        } catch (Exception $ex) {
+            throw new Exception('Error: getFileInfo: Niloos services are not availiable, try later.' . $ex->getMessage());
+        }
+    }
 }

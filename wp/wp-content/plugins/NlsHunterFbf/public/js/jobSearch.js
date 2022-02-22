@@ -62,10 +62,10 @@ var JobSearch =
             var jobCard = $(el).parents('.job-card');
             if ($(jobCard).hasClass('details')) return jobCard;
 
+            $(jobCard).removeClass('animate-expand');
             $(jobCard).find('.additional').removeClass('hidden');
             $(jobCard).find('.no-additional').addClass('hidden');
             $(jobCard).get(0).scrollIntoView({ behavior: "smooth" });
-            $(jobCard).removeClass('animate-expand');
             $(jobCard).addClass(detailsClasses);
             return jobCard;
         }
@@ -76,7 +76,7 @@ var JobSearch =
 
             $(jobApplyForm).appendTo($(jobCard));
             $(jobApplyForm).removeClass('hidden');
-            $(jobApplyForm).find('form').addClass('animate-slide');
+            $(jobApplyForm).addClass('animate-slide-down');
         }
 
         function hideJobDetails(event) {
@@ -84,7 +84,6 @@ var JobSearch =
             var jobCard = $(el).parents('.job-card');
 
             $(jobApplyForm).addClass('hidden');
-            $(jobApplyForm).removeClass('animate-expand');
             $(jobCard).find('.additional').addClass('hidden');
             $(jobCard).find('.no-additional').removeClass('hidden');
             $(jobCard).find('button.apply').removeClass('hidden');

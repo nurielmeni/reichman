@@ -29,7 +29,6 @@ class NlsDirectory extends NlsService
         parent::init();
     }
 
-
     public function getListByName($listname = null)
     {
         $transactionCode = NlsHelper::newGuid();
@@ -268,7 +267,6 @@ class NlsDirectory extends NlsService
         }
     }
 
-
     public function getjoblocations()
     {
         $list = array(
@@ -413,13 +411,7 @@ class NlsDirectory extends NlsService
 
             return $res->UserGetByIdResult;
         } catch (Exception $ex) {
-            /**
-             * var_dump($ex);
-             * echo "Request " . $this->client->__getLastRequest();
-             * echo "Response " . $this->client->__getLastResponse();
-             * die;
-             **/
-            throw new Exception('Error: Niloos services are not availiable, try later.');
+            throw new Exception('Error: userGetById: Niloos services are not availiable, try later.');
         }
     }
 }

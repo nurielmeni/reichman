@@ -38,8 +38,9 @@ module.exports = {
         '270': '270deg',
       },
       animation: {
-        expand: 'expand-middle 1s -0.3s ease-out',
-        slide: 'slide-left 1s -0.3s ease-out'
+        expand: 'expand-middle 0.6s -0.3s ease-out',
+        slide: 'slide-left 1s -0.3s ease-out',
+        'slide-down': 'slide-down 0.6s -0.3s ease-out'
       },
       keyframes: {
         'expand-middle': {
@@ -59,6 +60,16 @@ module.exports = {
           },
           to: {
             transform: 'scaleX(1)',
+            opacity: '1'
+          }
+        },
+        'slide-down': {
+          from: {
+            transform: 'scaleY(0)',
+            opacity: '0.3'
+          },
+          to: {
+            transform: 'scaleY(1)',
             opacity: '1'
           }
         }

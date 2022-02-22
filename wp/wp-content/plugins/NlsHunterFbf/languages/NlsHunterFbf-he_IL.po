@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: NlsHunterFbf\n"
-"POT-Creation-Date: 2022-02-19 23:28+0200\n"
-"PO-Revision-Date: 2022-02-19 23:30+0200\n"
+"POT-Creation-Date: 2022-02-20 15:10+0200\n"
+"PO-Revision-Date: 2022-02-20 15:10+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: he_IL\n"
@@ -35,7 +35,6 @@ msgid "Could not create Model."
 msgstr "אין אפשרות ליצור מודל."
 
 #: includes/class-NlsHunterFbf-model.php:37
-#, fuzzy
 msgid "Error: NlsHunterFbf_model: "
 msgstr "שגיאה: NlsHunterFbf_model: "
 
@@ -63,44 +62,42 @@ msgstr "אין אפשרות להתחבר לשירותי Search"
 msgid "Error: Search Services: "
 msgstr "שגיאה: שירותי חיפוש"
 
-#: public/class-NlsHunterFbf-public.php:161
+#: public/class-NlsHunterFbf-public.php:162
 msgid "Supplier Id"
 msgstr "מזהה ספק"
 
-#: public/class-NlsHunterFbf-public.php:163
-#: public/class-NlsHunterFbf-public.php:168 templates/applyForJobs.php:17
+#: public/class-NlsHunterFbf-public.php:164
+#: public/class-NlsHunterFbf-public.php:169 templates/applyForJobs.php:17
 msgid "Full Name"
 msgstr "שם החבר:"
 
-#: public/class-NlsHunterFbf-public.php:164 templates/applyForJobs.php:24
+#: public/class-NlsHunterFbf-public.php:165 templates/applyForJobs.php:24
 msgid "Cell"
 msgstr "טלפון:"
 
-#: public/class-NlsHunterFbf-public.php:165 templates/applyForJobs.php:31
+#: public/class-NlsHunterFbf-public.php:166 templates/applyForJobs.php:31
 msgid "Area"
 msgstr "מתגורר ב…"
 
-#: public/class-NlsHunterFbf-public.php:166
+#: public/class-NlsHunterFbf-public.php:167
 msgid "Job Code"
 msgstr "קוד משרה"
 
-#: public/class-NlsHunterFbf-public.php:169 templates/applyForJobs.php:78
+#: public/class-NlsHunterFbf-public.php:170 templates/applyForJobs.php:78
 msgid "Employee ID"
 msgstr "מזהה מעסיק"
 
-#: public/class-NlsHunterFbf-public.php:170 templates/applyForJobs.php:85
+#: public/class-NlsHunterFbf-public.php:171 templates/applyForJobs.php:85
 msgid "Company email"
 msgstr "אימייל פרטי:"
 
-#: public/class-NlsHunterFbf-public.php:334
+#: public/class-NlsHunterFbf-public.php:335
 msgid "Applicant form data: "
 msgstr "פרטי החבר/ה שלי:"
 
-#: public/class-NlsHunterFbf-public.php:366
-#, fuzzy
-#| msgid "CV Applied from Alut Jobs Site"
-msgid "CV Applied from Yashir Jobs Site"
-msgstr "קורות חיים נשלחו מאתר משרות"
+#: public/class-NlsHunterFbf-public.php:367
+msgid "CV Applied from Reichman Jobs Site"
+msgstr "קורות חיים נשלחו מאתר משרות רייכמן"
 
 #: templates/applyForJobs.php:10
 msgid "My friend details:"
@@ -127,8 +124,6 @@ msgid "* By the terms"
 msgstr "* כפוף לתקנון"
 
 #: templates/mailApply.php:82
-#, fuzzy
-#| msgid "CV Applied from Alut Jobs Site"
 msgid "Applied CV from Jobs Site"
 msgstr "קורות חיים נשלחו מאתר משרות"
 
@@ -200,17 +195,29 @@ msgstr "משרות שחשבנו שיעניינו אותך"
 msgid "Not required"
 msgstr "לא חובה"
 
-#: templates/nlsJobApplyForm.php:7
+#: templates/nlsJobApplyForm.php:9
 msgid "Select CV file"
 msgstr "בחירת קובץ קו״ח"
 
-#: templates/nlsJobApplyForm.php:11
+#: templates/nlsJobApplyForm.php:15 templates/nlsJobApplyForm.php:29
+msgid "Or"
+msgstr "או"
+
+#: templates/nlsJobApplyForm.php:16 templates/nlsJobApplyForm.php:30
+msgid "Add New"
+msgstr "העלה קובץ חדש"
+
+#: templates/nlsJobApplyForm.php:22
 msgid "Select other files"
 msgstr "בחירת קבצים אחרים"
 
-#: templates/nlsJobApplyForm.php:12
+#: templates/nlsJobApplyForm.php:23
 msgid "(Not Required)"
 msgstr "(לא חובה)"
+
+#: templates/nlsJobApplyForm.php:36
+msgid "Apply CV"
+msgstr "הגש קורות חיים"
 
 #: templates/nlsJobCard.php:27
 msgid "Additional Details"

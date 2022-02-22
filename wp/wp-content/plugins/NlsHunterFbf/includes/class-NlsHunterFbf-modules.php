@@ -11,7 +11,7 @@ class NlsHunterFbf_modules
 {
     private $model;
     private $attributes;
-    private $appUserId;
+    private $applicantId;
 
     public function __construct($model)
     {
@@ -22,7 +22,7 @@ class NlsHunterFbf_modules
             'applicantID' => ['55555']
         ];
         
-        $this->appUserId = '826084ab-89b4-4909-b831-bb790a2ede7b';
+        $this->applicantId = '826084ab-89b4-4909-b831-bb790a2ede7b';
     }
 
     private function getSearchResultsPageUrl()
@@ -61,7 +61,7 @@ class NlsHunterFbf_modules
 
     public function nlsHotJobs_render()
     {
-        $professionalFields = $this->model->getCardProfessinalField($this->appUserId);
+        $professionalFields = $this->model->getCardProfessinalField($this->applicantId);
         $hotJobs = $this->model->getHotJobs($professionalFields, 6);
 
         ob_start();
@@ -123,6 +123,7 @@ class NlsHunterFbf_modules
         $from =  get_query_var('last_page', 0);
         $jobs = $this->model->getJobHunterExecuteNewQuery2($searchParams, null, $from);
         $jobDetailsPageUrl = $this->getJobDetailsPageUrl();
+        $applicantCVs = $this->model->getApplicantCVList($this->applicantId);
 
         ob_start();
 

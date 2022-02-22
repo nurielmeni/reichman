@@ -13,11 +13,27 @@
   width: 198px;
 }
 
-.nls-hunter-search-wrapper .SumoSelect li {
+.job-apply-form-wrapper .SumoSelect {
+  width: 11rem;
+}
+
+.SumoSelect.open>.CaptionCont, 
+.SumoSelect:focus>.CaptionCont, 
+.SumoSelect:focus-visible>.CaptionCont, 
+.SumoSelect:hover>.CaptionCont {
+  box-shadow: none !important;
+    border-color: -webkit-focus-ring-color !important;
+    outline: -webkit-focus-ring-color auto 1px;
+    outline-color: -webkit-focus-ring-color;
+    outline-style: auto;
+    outline-width: 1px;
+}
+
+.SumoSelect li {
   list-style: none !important;
 }
 
-.nls-hunter-search-wrapper .SumoSelect p {
+.SumoSelect p {
   margin: 0 !important;
 }
 
@@ -27,10 +43,13 @@
 }
 
 .nls-hunter-search-wrapper .SumoSelect.open > .optWrapper {
-  top: 42px !important;
+  top: 46px !important;
+}
+.job-apply-form-wrapper  .SumoSelect.open > .optWrapper {
+  top: 41px !important;
 }
 
-.nls-hunter-search-wrapper .SumoSelect > .CaptionCont > span.placeholder {
+.SumoSelect > .CaptionCont > span.placeholder {
   color: var(--nls-placeholder) !important;
 }
 
@@ -41,19 +60,19 @@
 }
 
 @media (max-width: 767.9px) {
-  .nls-hunter-search-wrapper .nls-field.select {
+ .nls-field.select {
     width: calc(50% - 0.5rem);
   }
-  .nls-hunter-search-wrapper .SumoSelect {
+  .SumoSelect {
     width: 100%;
   }
 }
 
 @media (max-width: 540px) {
-  .nls-hunter-search-wrapper .nls-field.select {
+  .nls-field.select {
     width: 100%;
   }
-  .nls-hunter-search-wrapper .SumoSelect {
+  .SumoSelect {
     width: 100%;
   }
 }

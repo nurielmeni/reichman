@@ -129,6 +129,7 @@ class NlsHunterFbf_Public
         wp_enqueue_script('mobile-check-js', plugin_dir_url(__FILE__) . 'js/mobileCheck.js', array('jquery'), $this->version, false);
         wp_enqueue_script('hot-jobs-js', plugin_dir_url(__FILE__) . 'js/hotJobs.js', array('jquery'), $this->version, false);
         wp_enqueue_script('job-search-js', plugin_dir_url(__FILE__) . 'js/jobSearch.js', array('jquery'), $this->version, false);
+        wp_enqueue_script('job-apply-js', plugin_dir_url(__FILE__) . 'js/jobApply.js', array('jquery'), $this->version, false);
         wp_enqueue_script('nls-form-validation', plugin_dir_url(__FILE__) . 'js/NlsHunterForm.js', array('jquery'), $this->version, false);
         wp_enqueue_script('nls-swipe-detect', plugin_dir_url(__FILE__) . 'js/swipeDetect.js', array('jquery'), $this->version, false);
         wp_enqueue_script('nls-sumo-select', plugin_dir_url(__FILE__) . 'js/jquery.sumoselect.min.js', array('jquery'), $this->version, false);
@@ -363,7 +364,7 @@ class NlsHunterFbf_Public
         $headers = ['Content-Type: text/html; charset=UTF-8'];
         if (strlen($bcc) > 0) array_push($headers, 'Bcc: ' . $bcc);
 
-        $subject = __('CV Applied from Yashir Jobs Site', 'NlsHunterFbf') . ': ';
+        $subject = __('CV Applied from Reichman Jobs Site', 'NlsHunterFbf') . ': ';
         $subject .= $jobcode ? $jobcode : $msg;
 
         $attachments = $files ?: [];

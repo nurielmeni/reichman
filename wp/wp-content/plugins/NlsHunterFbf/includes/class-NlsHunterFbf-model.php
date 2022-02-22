@@ -329,4 +329,23 @@ class NlsHunterFbf_model
 
         return $this->nlsCards->jobGet($jobId);
     }
+
+    public function getApplicantCVList($applicantId)
+    {
+        $cacheKey = 'APPLICANT_CV_' . $applicantId;
+        $applicantCvList = wp_cache_get($cacheKey);
+
+        if (false === $applicantCvList) {
+            $applicantCvList = [];
+            $this->initCardService();
+            $cvList = $this->nlsCards->getCVList($applicantId);
+
+            foreach ($cvList as $cv) {
+                $fileInfo = $this->nlsCards->getFileInfo($cv->FileId, $applicantId);
+                $applicantCvList[] = $fileInfo->FileGetByFileIdResult;
+            }
+
+        }
+        return $applicantCvList;
+    }
 }
