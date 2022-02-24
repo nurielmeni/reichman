@@ -4,7 +4,7 @@ const tailpress = require("@jeffreyvr/tailwindcss-tailpress");
 
 module.exports = {
   mode: "jit",
-  important: true,
+  important: false,
   content: [
     "./*/*.php",
     "./**/*.php",
@@ -38,11 +38,20 @@ module.exports = {
         '270': '270deg',
       },
       animation: {
+        spin: 'spin 1s linear infinite',
         expand: 'expand-middle 0.6s -0.3s ease-out',
         slide: 'slide-left 1s -0.3s ease-out',
         'slide-down': 'slide-down 0.6s -0.3s ease-out'
       },
       keyframes: {
+        'spin': {
+          from: {
+            transform: 'rotate(0deg)'
+          },
+          to: {
+            transform: 'rotate(360deg)'
+          }
+        },
         'expand-middle': {
           from: {
             transform: 'scale(0)',

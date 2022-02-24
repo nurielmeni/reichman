@@ -5,6 +5,10 @@
 @import "custom.css";
 
 @layer components {
+  .mis-4 {
+    margin-inline-start: 1rem;
+  }
+
   .category-card {
     background-color: theme("colors.white");
     box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);

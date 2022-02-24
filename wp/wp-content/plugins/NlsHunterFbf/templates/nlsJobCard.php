@@ -13,7 +13,7 @@ include_once ABSPATH . 'wp-content/plugins/NlsHunterFbf/includes/Hunter/NlsHelpe
     </h2>
     <button type="button" class="hidden additional cancel"><img src="<?= plugins_url('NlsHunterFbf/public/images/cancel.svg') ?>" width="30" alt=""></button>
   </div>
-  <div class="flex justify-center text-xl my-3">
+  <div class="flex justify-center text-xl my-3 w-full">
     <span class="whitespace-nowrap"><?= NlsHelper::proprtyValue($job, 'JobCode') ?></span>
     <span class="w-full border-x-4 mx-2 px-2 border-primary text-center"><?= NlsHelper::proprtyValue($job, 'EmployerName') ?></span>
     <span class="whitespace-nowrap"><?= NlsHelper::dateFormat(NlsHelper::proprtyValue($job, 'UpdateDate')) ?></span>

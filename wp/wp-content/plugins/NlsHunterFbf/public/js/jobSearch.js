@@ -11,6 +11,7 @@ var JobSearch =
             jobApplyForm = '.search-results-wrapper .job-apply-form-wrapper',
             detailsClasses = 'details md:col-span-2 lg:col-span-3 md:p-8 animate-expand',
             applyBtn = '.job-card button.apply',
+            moreResultsBtn = '.search-results-wrapper .footer button.more-results',
             applyEmployer = '.job-card button.apply-employer';
 
         function initSumoSelect(selectBoxItem) {
@@ -92,6 +93,28 @@ var JobSearch =
             $(jobCard).addClass('animate-expand');
         }
 
+        function moreResults(event) {
+            var button = event.target;
+            var currentPage = $(button).data('page') || 0;
+
+            $(button).find('svg').removeClass('hidden');
+
+            $.ajax({
+                url: frontend_ajax.url,
+                data: { page: currentPage },
+                success: renderMoreResults,
+                dataType: 'html'
+            });
+
+            // Call this function so the wp will inform the change to the post
+            $(document.body).trigger("post-load");
+
+        }
+
+        function renderMoreResults(htmMoreResults) {
+            console.log('more', htmMoreResults);
+        }
+
         function registerEventListeners() {
             // Toggle advanced search options
             $('.nls-hunter-search-wrapper .search-buttons button.advanced').on('click', toggleAdvanced);
@@ -109,7 +132,10 @@ var JobSearch =
             $(document).on('click', jocCardsCancelBtn, hideJobDetails);
 
             // Show apply form
-            $(document).on('click', applyBtn, showApplyForm);
+            $(document).on('click', moreResultsBtn, moreResults);
+
+            // Load more serach results
+            $(document).on('click',)
         }
 
         function init() {
