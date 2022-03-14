@@ -41,7 +41,7 @@
 
 .two-chars {
   text-overflow: clip;
-  width: 2ch;
+  width: calc(2ch - 3px);
   overflow: hidden;
   white-space: nowrap;
   display: flex;
@@ -120,18 +120,17 @@ li.transparent-text {
   .wp-block-media-text.is-stacked-on-mobile .wp-block-media-text__content {
     grid-row: 1;
   }
-.mb-home-fix-image {
-  margin-bottom: -77px !important;
-}
+  .mb-home-fix-image {
+    margin-bottom: -77px !important;
+  }
 }
 
 @media (min-width: 600.9px) {
-    .mb-home-fix-image {
-      margin-bottom: -63px !important;
-    }
+  .mb-home-fix-image {
+    margin-bottom: -63px !important;
+  }
 }
 @media (min-width: 768px) {
-
 }
 @media (min-width: 1024px) {
   .mb-home-fix-image {
