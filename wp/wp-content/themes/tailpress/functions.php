@@ -1,5 +1,6 @@
 <?php
-include_once 'includes/customizerAdjustments.php';
+//include_once 'includes/customizerAdjustments.php';
+include_once 'includes/headerLogo.php';
 
 const NLS_FLOW_ELEMENTS = 3;
 
@@ -46,12 +47,12 @@ function reichman_setup()
 }
 
 add_action('after_setup_theme', 'reichman_setup');
- 
+
 /**
  * Load translations for wpdocs_theme
  */
-function wpdocs_theme_setup(){
-   
+function wpdocs_theme_setup()
+{
 }
 /**
  * Enqueue theme assets.
@@ -131,13 +132,13 @@ function reichman_nav_menu_add_submenu_class($classes, $args, $depth)
 add_filter('nav_menu_submenu_css_class', 'reichman_nav_menu_add_submenu_class', 10, 3);
 
 
-add_action( 'template_redirect', 'wp_deny_direct_post' );
+add_action('template_redirect', 'wp_deny_direct_post');
 
 function wp_deny_direct_post()
 {
-    if ( ! is_singular( 'press' ) )
-        return;
+	if (!is_singular('press'))
+		return;
 
-    wp_redirect( get_post_type_archive_link( 'press' ), 301 );
-    exit;
+	wp_redirect(get_post_type_archive_link('press'), 301);
+	exit;
 }
