@@ -8,7 +8,7 @@
 ?>
 
 <!-- Professional Fields -->
-<?= render('nlsSelectField', [
+<?= render('form/nlsSelectField', [
     'options' => $model->categories(),
     'placeHolder' => __('Job Area', 'NlsHunter'),
     'name' => 'job-category',
@@ -18,7 +18,7 @@
 ]) ?>
 
 <!-- Job Scope -->
-<?= render('nlsSelectField', [
+<?= render('form/nlsSelectField', [
     'options' => $model->jobScopes(),
     'placeHolder' => __('Job Scope', 'NlsHunter'),
     'name' => 'job-scope',
@@ -28,7 +28,7 @@
 ]) ?>
 
 <!-- Audiance -->
-<?= render('nlsSelectField', [
+<?= render('form/nlsSelectField', [
     'options' => $model->jobRanks(),
     'placeHolder' => __('Job Rank', 'NlsHunter'),
     'name' => 'job-rank',
@@ -37,7 +37,7 @@
 ]) ?>
 
 <!-- Last Update -->
-<?= render('nlsInputField', [
+<?= render('form/nlsInputField', [
     'label' => null,
     'placeHolder' => __('Last Date', 'NlsHunter'),
     'name' => 'last-update',
@@ -49,7 +49,7 @@
 ]) ?>
 
 <!-- Employment Type -->
-<?= render('nlsSelectField', [
+<?= render('form/nlsSelectField', [
     'options' => $model->professionalFields(),
     'placeHolder' => __('Employment Type', 'NlsHunter'),
     'name' => 'employment-type',
@@ -58,7 +58,7 @@
 ]) ?>
 
 <!-- Employer Type -->
-<?= render('nlsSelectField', [
+<?= render('form/nlsSelectField', [
     'options' => $model->jobScopes(),
     'placeHolder' => __('Employer Type', 'NlsHunter'),
     'name' => 'employer-type',

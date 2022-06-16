@@ -16,9 +16,9 @@
 
   <div class="flex flex-col-reverse md:flex-col justify-between items-center flex-wrap w-full bg-sliderbg py-3">
     <div class="flex justify-center md:justify-end md:px-8 w-full"><button class="btn mb-3 px-20 md:px-2"><?= __('All Jobs', 'NlsHunter') ?></button></div>
-    <?= render('horizontalSlider', [
+    <?= render('hotJobs/horizontalSlider', [
       'elements' => $hotJobs,
-      'elementTemplate' => 'nlsHotJob'
+      'elementTemplate' => 'hotJobs/nlsHotJob'
     ]) ?>
   </div>
 </section>

@@ -131,12 +131,13 @@ class NlsHunter_Public
          */
 
         wp_enqueue_script('mobile-check-js', plugin_dir_url(__FILE__) . 'js/mobileCheck.js', array('jquery'), $this->version, false);
-        wp_enqueue_script('hot-jobs-js', plugin_dir_url(__FILE__) . 'js/hotJobs.js', array('jquery'), $this->version, false);
+        wp_enqueue_script('slick-js', plugin_dir_url(__FILE__) . 'js/slick.min.js', array('jquery'), $this->version, false);
         wp_enqueue_script('job-search-js', plugin_dir_url(__FILE__) . 'js/jobSearch.js', array('jquery'), $this->version, false);
         wp_enqueue_script('job-apply-js', plugin_dir_url(__FILE__) . 'js/jobApply.js', array('jquery'), $this->version, false);
         wp_enqueue_script('nls-form-validation', plugin_dir_url(__FILE__) . 'js/NlsHunterForm.js', array('jquery'), $this->version, false);
         wp_enqueue_script('nls-swipe-detect', plugin_dir_url(__FILE__) . 'js/swipeDetect.js', array('jquery'), $this->version, false);
         wp_enqueue_script('nls-sumo-select', plugin_dir_url(__FILE__) . 'js/jquery.sumoselect.min.js', array('jquery'), $this->version, false);
+        wp_enqueue_script('nls-app', plugin_dir_url(__FILE__) . 'js/app.js', array('jquery'), $this->version, false);
         wp_enqueue_script('jquery-ui-datepicker');
         //wp_enqueue_script('jquery-datepicker-he', plugin_dir_url(__FILE__) . 'js/datepicker-he.js', array('jquery'), $this->version, false);
 
@@ -373,7 +374,7 @@ class NlsHunter_Public
 
         $attachments = $files ?: [];
 
-        $body = render('mailApply', [
+        $body = render('mail/mailApply', [
             'fields' => $fields,
             'i' => $i
         ]);
@@ -394,11 +395,11 @@ class NlsHunter_Public
 
     private function sentSuccess($sent)
     {
-        return render('mailSuccess', []);
+        return render('mail/mailSuccess', []);
     }
 
     private function sentError($msg = '')
     {
-        return render('mailError', ['msg' => $msg]);
+        return render('mail/mailError', ['msg' => $msg]);
     }
 }

@@ -13,7 +13,7 @@ include_once ABSPATH . 'wp-content/plugins/NlsHunter/includes/Hunter/NlsHelper.p
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <?= render('nlsJobApplyForm', ['nlsJobApplyUrl' => '#']) ?>
         <?php foreach (NlsHelper::proprtyValue(NlsHelper::proprtyValue($jobs, 'Results'), 'JobInfo', []) as $job) : ?>
-            <?= render('nlsJobCard', [
+            <?= render('job/nlsJobCard', [
                 'model' => $model,
                 'job' => $job,
                 'jobDetailsPageUrl' => $jobDetailsPageUrl . '?jobcode=' .  NlsHelper::proprtyValue($job, 'JobCode')

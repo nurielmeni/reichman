@@ -65,8 +65,9 @@ class NlsHunter_modules
         $hotJobs = $this->model->getHotJobs($professionalFields, 6);
 
         ob_start();
-        echo render('nlsHotJobs', [
-            'hotJobs' => $hotJobs,
+        echo render('slider/horizontalSlider', [
+            'elementTemplate' => 'slider/nlsHotJob',
+            'elements' => $hotJobs,
         ]);
         return ob_get_clean();
     }
@@ -108,7 +109,7 @@ class NlsHunter_modules
 
         ob_start();
 
-        echo render('nlsJobSearch', [
+        echo render('search/nlsJobSearch', [
             'model' => $this->model,
             'searchParams' => $searchParams,
             'searcResultsPageUrl' => $this->getSearchResultsPageUrl()
@@ -127,13 +128,13 @@ class NlsHunter_modules
 
         ob_start();
 
-        echo render('nlsJobSearch', [
+        echo render('search/nlsJobSearch', [
             'model' => $this->model,
             'searchParams' => $searchParams,
             'searcResultsPageUrl' => $this->getSearchResultsPageUrl()
         ]);
 
-        echo render('nlsSearcResults', [
+        echo render('job/nlsSearcResults', [
             'model' => $this->model,
             'jobs' => $jobs,
             'jobDetailsPageUrl' => $jobDetailsPageUrl

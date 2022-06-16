@@ -113,7 +113,7 @@
       searchBy(searchByValue);
     }
 
-    $('button.prevent').on('click', function(e) {
+    $('button.prevent').on('click', function (e) {
       e.preventDefault();
     });
 
@@ -306,5 +306,7 @@
 
       event.preventDefault();
     });
+
+
   });
 })(jQuery);

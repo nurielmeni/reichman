@@ -7,7 +7,7 @@
     <form class="flex flex-col flex-wrap justify-center items-center lg:flex-row">
         <div class="apply-rounded-container bg-primary">
             <span class="text-xl text-white mb-12"><?= __('Select CV file', 'NlsHunter') ?></span>
-            <?= render('nlsSelectField', [
+            <?= render('form/nlsSelectField', [
                 'options' => [['id' => 1, 'name' => 'Meni']],
                 'name' => 'cv-file',
                 'class' => 'text-lg rounded-md',
@@ -21,7 +21,7 @@
         <div class="apply-rounded-container bg-dark-gray">
             <span class="text-xl text-white text-center"><?= __('Select other files', 'NlsHunter') ?></span>
             <p class="text-sm text-white text-center mb-7"><?= __('(Not Required)', 'NlsHunter') ?></p>
-            <?= render('nlsSelectField', [
+            <?= render('form/nlsSelectField', [
                 'options' => [['id' => 1, 'name' => 'Meni']],
                 'name' => 'cv-file',
                 'class' => 'text-lg rounded-md',
