@@ -8,7 +8,7 @@
 ?>
 
 <!-- Professional Fields -->
-<?= render('nlsSelectField', [
+<?= render('form/nlsSelectField', [
     'options' => $model->categories(),
     'placeHolder' => __('Job Area', 'NlsHunterFbf'),
     'name' => 'job-category',
@@ -18,7 +18,7 @@
 ]) ?>
 
 <!-- Job Scope -->
-<?= render('nlsSelectField', [
+<?= render('form/nlsSelectField', [
     'options' => $model->jobScopes(),
     'placeHolder' => __('Job Scope', 'NlsHunterFbf'),
     'name' => 'job-scope',
@@ -28,7 +28,7 @@
 ]) ?>
 
 <!-- Audiance -->
-<?= render('nlsSelectField', [
+<?= render('form/nlsSelectField', [
     'options' => $model->jobRanks(),
     'placeHolder' => __('Job Rank', 'NlsHunterFbf'),
     'name' => 'job-rank',
@@ -37,19 +37,19 @@
 ]) ?>
 
 <!-- Last Update -->
-<?= render('nlsInputField', [
+<?= render('form/nlsInputField', [
     'label' => null,
     'placeHolder' => __('Last Date', 'NlsHunterFbf'),
     'name' => 'last-update',
     'type' => 'text',
-    'wrapperClass' => '',
+    'wrapperClass' => 'date',
     'class' => 'text-xl py-2 rounded-xl px-2 w-auto lg:w-40',
     'append' => plugins_url('NlsHunterFbf/public/images/crate-down.svg'),
     'iconSize' => 11
 ]) ?>
 
 <!-- Employment Type -->
-<?= render('nlsSelectField', [
+<?= render('form/nlsSelectField', [
     'options' => $model->professionalFields(),
     'placeHolder' => __('Employment Type', 'NlsHunterFbf'),
     'name' => 'employment-type',
@@ -58,7 +58,7 @@
 ]) ?>
 
 <!-- Employer Type -->
-<?= render('nlsSelectField', [
+<?= render('form/nlsSelectField', [
     'options' => $model->jobScopes(),
     'placeHolder' => __('Employer Type', 'NlsHunterFbf'),
     'name' => 'employer-type',

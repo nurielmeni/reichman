@@ -48,7 +48,7 @@ function activate_NlsHunterFbf()
 /**
  *  NLS Plugin path constant
  */
-define('NLS_FBF_PLUGIN_PATH', plugin_dir_path(__FILE__));
+define('NLS__PLUGIN_PATH', plugin_dir_path(__FILE__));
 
 /**
  * The code that runs during plugin deactivation.

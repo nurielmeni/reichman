@@ -1,6 +1,6 @@
 <?php
 require_once 'Hunter/NlsHelper.php';
-require_once ABSPATH . 'wp-content/plugins/NlsHunterFbf/renderFunction.php';
+require_once NLS__PLUGIN_PATH . '/renderFunction.php';
 
 /**
  * Description of class-NlsHunterFbf-modules
@@ -21,7 +21,7 @@ class NlsHunterFbf_modules
             'fullName' => ['כלכלה כלכלה'],
             'applicantID' => ['55555']
         ];
-        
+
         $this->applicantId = '826084ab-89b4-4909-b831-bb790a2ede7b';
     }
 
@@ -41,6 +41,16 @@ class NlsHunterFbf_modules
         $jobDetailsPageId = $language === 'he-IL' ?
             get_option(NlsHunterFbf_Admin::NLS_JOB_DETAILS_PAGE_HE) :
             get_option(NlsHunterFbf_Admin::NLS_JOB_DETAILS_PAGE_EN);
+        $jobDetailsPageUrl = get_page_link($jobDetailsPageId);
+        return $jobDetailsPageUrl;
+    }
+
+    private function getPersonalPageUrl()
+    {
+        $language = get_bloginfo('language');
+        $jobDetailsPageId = $language === 'he-IL' ?
+            get_option(NlsHunterFbf_Admin::NLS_PERSONAL_PAGE_HE) :
+            get_option(NlsHunterFbf_Admin::NLS_PERSONAL_PAGE_EN);
         $jobDetailsPageUrl = get_page_link($jobDetailsPageId);
         return $jobDetailsPageUrl;
     }
@@ -65,8 +75,9 @@ class NlsHunterFbf_modules
         $hotJobs = $this->model->getHotJobs($professionalFields, 6);
 
         ob_start();
-        echo render('nlsHotJobs', [
-            'hotJobs' => $hotJobs,
+        echo render('slider/horizontalSlider', [
+            'elements' => $hotJobs,
+            'elementTemplate' => 'slider/nlsHotJob'
         ]);
         return ob_get_clean();
     }
@@ -108,10 +119,29 @@ class NlsHunterFbf_modules
 
         ob_start();
 
-        echo render('nlsJobSearch', [
+        echo render('search/nlsJobSearch', [
             'model' => $this->model,
             'searchParams' => $searchParams,
             'searcResultsPageUrl' => $this->getSearchResultsPageUrl()
+        ]);
+
+        return ob_get_clean();
+    }
+
+    public function nlsHunterPersonalDashboard_render()
+    {
+        $data = [
+            'cv' => 2,
+            'hunted-jobs' => 30,
+            'applied-jobs' => 12
+        ];
+
+        ob_start();
+
+        echo render('personal/dashboard', [
+            'model' => $this->model,
+            'data' => $data,
+            'personalPageUrl' => $this->getPersonalPageUrl()
         ]);
 
         return ob_get_clean();
@@ -127,13 +157,13 @@ class NlsHunterFbf_modules
 
         ob_start();
 
-        echo render('nlsJobSearch', [
+        echo render('search/nlsJobSearch', [
             'model' => $this->model,
             'searchParams' => $searchParams,
             'searcResultsPageUrl' => $this->getSearchResultsPageUrl()
         ]);
 
-        echo render('nlsSearcResults', [
+        echo render('search/nlsSearcResults', [
             'model' => $this->model,
             'jobs' => $jobs,
             'jobDetailsPageUrl' => $jobDetailsPageUrl

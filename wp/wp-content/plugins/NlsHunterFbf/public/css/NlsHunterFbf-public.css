@@ -17,16 +17,20 @@
   width: 11rem;
 }
 
-.SumoSelect.open>.CaptionCont, 
-.SumoSelect:focus>.CaptionCont, 
-.SumoSelect:focus-visible>.CaptionCont, 
+.SumoSelect>.CaptionCont.rounded-xl {
+  border-radius: 0.75rem;
+}
+
+.SumoSelect.open>.CaptionCont,
+.SumoSelect:focus>.CaptionCont,
+.SumoSelect:focus-visible>.CaptionCont,
 .SumoSelect:hover>.CaptionCont {
   box-shadow: none !important;
-    border-color: -webkit-focus-ring-color !important;
-    outline: -webkit-focus-ring-color auto 1px;
-    outline-color: -webkit-focus-ring-color;
-    outline-style: auto;
-    outline-width: 1px;
+  border-color: -webkit-focus-ring-color !important;
+  outline: -webkit-focus-ring-color auto 1px;
+  outline-color: -webkit-focus-ring-color;
+  outline-style: auto;
+  outline-width: 1px;
 }
 
 .SumoSelect li {
@@ -35,6 +39,7 @@
 
 .SumoSelect p {
   margin: 0 !important;
+  border: none !important;
 }
 
 .nls-hunter-search-wrapper .SumoSelect.open .search-txt {
@@ -42,14 +47,15 @@
   padding: 8px !important;
 }
 
-.nls-hunter-search-wrapper .SumoSelect.open > .optWrapper {
+.nls-hunter-search-wrapper .SumoSelect.open>.optWrapper {
   top: 46px !important;
 }
-.job-apply-form-wrapper  .SumoSelect.open > .optWrapper {
+
+.job-apply-form-wrapper .SumoSelect.open>.optWrapper {
   top: 41px !important;
 }
 
-.SumoSelect > .CaptionCont > span.placeholder {
+.SumoSelect>.CaptionCont>span.placeholder {
   color: var(--nls-placeholder) !important;
 }
 
@@ -60,19 +66,27 @@
 }
 
 @media (max-width: 767.9px) {
- .nls-field.select {
+
+  .nls-field.select,
+  .nls-field.input.date {
     width: calc(50% - 0.5rem);
   }
-  .SumoSelect {
+
+  .nls-hunter-search-wrapper .SumoSelect,
+  .nls-hunter-search-wrapper .nls-field input {
     width: 100%;
   }
 }
 
 @media (max-width: 540px) {
-  .nls-field.select {
+
+  .nls-field.select,
+  .nls-field.input.date {
     width: 100%;
   }
-  .SumoSelect {
+
+  .nls-hunter-search-wrapper .SumoSelect,
+  .nls-hunter-search-wrapper .nls-field input {
     width: 100%;
   }
 }

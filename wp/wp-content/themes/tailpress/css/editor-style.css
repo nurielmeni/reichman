@@ -54,6 +54,14 @@
   top: 1rem
 }
 
+.top-1\/2 {
+  top: 50%
+}
+
+.z-20 {
+  z-index: 20
+}
+
 .col-span-2 {
   grid-column: span 2 / span 2
 }
@@ -101,6 +109,11 @@
   margin-right: 1rem
 }
 
+.mx-8 {
+  margin-left: 2rem;
+  margin-right: 2rem
+}
+
 .-mb-1 {
   margin-bottom: -0.25rem
 }
@@ -137,10 +150,6 @@
   margin-top: 1.5rem
 }
 
-.-ml-1 {
-  margin-left: -0.25rem
-}
-
 .mr-3 {
   margin-right: 0.75rem
 }
@@ -163,6 +172,10 @@
 
 .mb-1 {
   margin-bottom: 0.25rem
+}
+
+.mb-0 {
+  margin-bottom: 0px
 }
 
 .block {
@@ -213,6 +226,14 @@
   min-height: 100vh
 }
 
+.min-h-\[5em\] {
+  min-height: 5em
+}
+
+.min-h-\[4em\] {
+  min-height: 4em
+}
+
 .w-full {
   width: 100%
 }
@@ -255,6 +276,11 @@
 
 .origin-top {
   transform-origin: top
+}
+
+.-translate-y-1\/2 {
+  --tw-translate-y: -50%;
+  transform: var(--tw-transform)
 }
 
 .transform {
@@ -473,6 +499,11 @@
   border-right-width: 4px
 }
 
+.border-x-2 {
+  border-left-width: 2px;
+  border-right-width: 2px
+}
+
 .border-t {
   border-top-width: 1px
 }
@@ -493,6 +524,16 @@
 .border-primary {
   --tw-border-opacity: 1;
   border-color: rgb(0 41 82 / var(--tw-border-opacity))
+}
+
+.border-secondary {
+  --tw-border-opacity: 1;
+  border-color: rgb(102 187 106 / var(--tw-border-opacity))
+}
+
+.border-light {
+  --tw-border-opacity: 1;
+  border-color: rgb(228 228 228 / var(--tw-border-opacity))
 }
 
 .bg-primary {
@@ -613,6 +654,11 @@
   padding-right: 0.75rem
 }
 
+.px-12 {
+  padding-left: 3rem;
+  padding-right: 3rem
+}
+
 .pb-8 {
   padding-bottom: 2rem
 }
@@ -676,6 +722,11 @@
 
 .text-5xl {
   font-size: 3rem;
+  line-height: 1
+}
+
+.text-6xl {
+  font-size: 3.75rem;
   line-height: 1
 }
 
@@ -753,6 +804,10 @@
 
 .opacity-75 {
   opacity: 0.75
+}
+
+.opacity-80 {
+  opacity: 0.8
 }
 
 .outline {
@@ -1002,6 +1057,11 @@ body {
     padding-right: 0.5rem
   }
 
+  .md\:px-12 {
+    padding-left: 3rem;
+    padding-right: 3rem
+  }
+
   .md\:pb-2 {
     padding-bottom: 0.5rem
   }
@@ -1037,6 +1097,15 @@ body {
   .md\:text-xl {
     font-size: 1.25rem;
     line-height: 1.75rem
+  }
+
+  .md\:text-6xl {
+    font-size: 3.75rem;
+    line-height: 1
+  }
+
+  .md\:font-bold {
+    font-weight: 700
   }
 
   [dir="rtl"] .md\:rtl\:ml-10 {

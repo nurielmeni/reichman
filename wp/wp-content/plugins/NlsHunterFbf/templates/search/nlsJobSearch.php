@@ -20,7 +20,7 @@
 
   <form name="nls-job-search" action="<?= $searcResultsPageUrl ?>" class="pt-20 md:pt-10 px-6">
     <div class="search-main flex justify-between md:pr-32 md:rtl:pr-0 md:rtl:pl-32 items-center">
-      <?= render('nlsInputField', [
+      <?= render('form/nlsInputField', [
         'label' => null,
         'name' => 'keywords',
         'type' => 'text',
@@ -34,7 +34,7 @@
       <button type="button" class="btn search hidden md:block text-2xl py-3 px-8 rounded-xl"><?= __('Search', 'NlshunterFbf') ?></button>
     </div>
     <div class="search-advanced flex flex-wrap justify-start gap-4 w-full mt-5">
-      <?= render('nlsAdvancedSearch', [
+      <?= render('search/nlsAdvancedSearch', [
         'model' => $model,
         'searchParams' => $searchParams
       ]) ?>

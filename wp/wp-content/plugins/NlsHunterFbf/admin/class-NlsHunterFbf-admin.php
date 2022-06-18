@@ -42,6 +42,8 @@ class NlsHunterFbf_Admin
     const NLS_SEARCH_RESULTS_PAGE_HE = 'nlsSearchResultsPage_he';
     const NLS_JOB_DETAILS_PAGE_EN = 'nlsJobDetailsPage_en';
     const NLS_JOB_DETAILS_PAGE_HE = 'nlsJobDetailsPage_he';
+    const NLS_PERSONAL_PAGE_EN = 'nlsPersonalPage_en';
+    const NLS_PERSONAL_PAGE_HE = 'nlsPersonalPage_he';
 
     private $defaultValue;
     /**
@@ -172,6 +174,8 @@ class NlsHunterFbf_Admin
         $nlsSearchResultsPageHe = $this->getFieldValue(self::NLS_SEARCH_RESULTS_PAGE_HE);
         $nlsJobDetailsPageEn = $this->getFieldValue(self::NLS_JOB_DETAILS_PAGE_EN);
         $nlsJobDetailsPageHe = $this->getFieldValue(self::NLS_JOB_DETAILS_PAGE_HE);
+        $nlsPersonalPageEn = $this->getFieldValue(self::NLS_PERSONAL_PAGE_EN);
+        $nlsPersonalPageHe = $this->getFieldValue(self::NLS_PERSONAL_PAGE_HE);
 
         require_once plugin_dir_path(__FILE__) . 'partials/NlsHunterFbf-admin-display.php';
     }
