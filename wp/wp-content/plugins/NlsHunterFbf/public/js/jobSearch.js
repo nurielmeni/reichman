@@ -41,7 +41,6 @@ var JobSearch =
                     $(this).addClass('hidden');
                 });
             }
-
         }
 
         function clearFields() {
@@ -101,7 +100,10 @@ var JobSearch =
 
             $.ajax({
                 url: frontend_ajax.url,
-                data: { page: currentPage },
+                data: {
+                    action: 'results_page',
+                    page: currentPage,
+                },
                 success: renderMoreResults,
                 dataType: 'html'
             });

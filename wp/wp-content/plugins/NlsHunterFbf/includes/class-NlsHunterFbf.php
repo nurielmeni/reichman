@@ -255,8 +255,12 @@ class NlsHunterFbf
 		//$this->loader->add_action('wp_body_open', $plugin_public, 'add_code_on_body_open');
 
 		// THE AJAX APPLY CV ADD ACTIONS
-		$this->loader->add_action('wp_ajax_apply_cv_function', $plugin_public, 'apply_cv_function');
-		$this->loader->add_action('wp_ajax_nopriv_apply_cv_function', $plugin_public, 'apply_cv_function'); // need this to serve non logged in users
+		$this->loader->add_action('wp_ajax_apply_cv', $plugin_public, 'apply_cv_function');
+		$this->loader->add_action('wp_ajax_nopriv_apply_cv', $plugin_public, 'apply_cv_function'); // need this to serve non logged in users
+
+		// THE AJAX RESULTS PAGE
+		$this->loader->add_action('wp_ajax_results_page', $plugin_public, 'results_page_function');
+		$this->loader->add_action('wp_ajax_nopriv_results_page', $plugin_public, 'results_page_function'); // need this to serve non logged in users
 	}
 
 	/**

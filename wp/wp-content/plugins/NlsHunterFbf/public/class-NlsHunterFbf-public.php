@@ -399,4 +399,9 @@ class NlsHunterFbf_Public
     {
         return render('mail/mailError', ['msg' => $msg]);
     }
+
+    public function results_page_function()
+    {
+        return "MORE RESULTS";
+    }
 }
