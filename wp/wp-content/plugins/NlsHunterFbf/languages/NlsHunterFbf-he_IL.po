@@ -1,18 +1,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: NlsHunterFbf\n"
-"POT-Creation-Date: 2022-02-20 15:10+0200\n"
-"PO-Revision-Date: 2022-02-20 15:10+0200\n"
+"POT-Creation-Date: 2022-06-19 12:38+0300\n"
+"PO-Revision-Date: 2022-06-19 12:38+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: he_IL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.3\n"
-"X-Poedit-Basepath: ..\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n==2 ? 1 : n>10 && n%10==0 ? "
 "2 : 3);\n"
+"X-Generator: Poedit 3.1\n"
+"X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: NlsHunterFbf.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -22,7 +22,7 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 
-#: admin/class-NlsHunterFbf-admin.php:149
+#: admin/class-NlsHunterFbf-admin.php:151
 msgid "You do not have sufficient permissions to access this page."
 msgstr "אין לך הרשאות מספיקות כדי לגשת לעמוד זה."
 
@@ -62,40 +62,40 @@ msgstr "אין אפשרות להתחבר לשירותי Search"
 msgid "Error: Search Services: "
 msgstr "שגיאה: שירותי חיפוש"
 
-#: public/class-NlsHunterFbf-public.php:162
+#: public/class-NlsHunterFbf-public.php:164
 msgid "Supplier Id"
 msgstr "מזהה ספק"
 
-#: public/class-NlsHunterFbf-public.php:164
-#: public/class-NlsHunterFbf-public.php:169 templates/applyForJobs.php:17
+#: public/class-NlsHunterFbf-public.php:166
+#: public/class-NlsHunterFbf-public.php:171 templates/applyForJobs.php:17
 msgid "Full Name"
 msgstr "שם החבר:"
 
-#: public/class-NlsHunterFbf-public.php:165 templates/applyForJobs.php:24
+#: public/class-NlsHunterFbf-public.php:167 templates/applyForJobs.php:24
 msgid "Cell"
 msgstr "טלפון:"
 
-#: public/class-NlsHunterFbf-public.php:166 templates/applyForJobs.php:31
+#: public/class-NlsHunterFbf-public.php:168 templates/applyForJobs.php:31
 msgid "Area"
 msgstr "מתגורר ב…"
 
-#: public/class-NlsHunterFbf-public.php:167
+#: public/class-NlsHunterFbf-public.php:169
 msgid "Job Code"
 msgstr "קוד משרה"
 
-#: public/class-NlsHunterFbf-public.php:170 templates/applyForJobs.php:78
+#: public/class-NlsHunterFbf-public.php:172 templates/applyForJobs.php:78
 msgid "Employee ID"
 msgstr "מזהה מעסיק"
 
-#: public/class-NlsHunterFbf-public.php:171 templates/applyForJobs.php:85
+#: public/class-NlsHunterFbf-public.php:173 templates/applyForJobs.php:85
 msgid "Company email"
 msgstr "אימייל פרטי:"
 
-#: public/class-NlsHunterFbf-public.php:335
+#: public/class-NlsHunterFbf-public.php:337
 msgid "Applicant form data: "
 msgstr "פרטי החבר/ה שלי:"
 
-#: public/class-NlsHunterFbf-public.php:367
+#: public/class-NlsHunterFbf-public.php:369
 msgid "CV Applied from Reichman Jobs Site"
 msgstr "קורות חיים נשלחו מאתר משרות רייכמן"
 
@@ -123,59 +123,75 @@ msgstr "שמי:"
 msgid "* By the terms"
 msgstr "* כפוף לתקנון"
 
-#: templates/mailApply.php:82
+#: templates/form/nlsInputField.php:19 templates/form/nlsSelectField.php:18
+msgid "Not required"
+msgstr "לא חובה"
+
+#: templates/job/nlsJobApplyForm.php:9
+msgid "Select CV file"
+msgstr "בחירת קובץ קו״ח"
+
+#: templates/job/nlsJobApplyForm.php:15 templates/job/nlsJobApplyForm.php:29
+msgid "Or"
+msgstr "או"
+
+#: templates/job/nlsJobApplyForm.php:16 templates/job/nlsJobApplyForm.php:30
+msgid "Add New"
+msgstr "העלה קובץ חדש"
+
+#: templates/job/nlsJobApplyForm.php:22
+msgid "Select other files"
+msgstr "בחירת קבצים אחרים"
+
+#: templates/job/nlsJobApplyForm.php:23
+msgid "(Not Required)"
+msgstr "(לא חובה)"
+
+#: templates/job/nlsJobApplyForm.php:36
+msgid "Apply CV"
+msgstr "הגש קורות חיים"
+
+#: templates/job/nlsJobCard.php:27
+msgid "Additional Details"
+msgstr "לפרטים נוספים"
+
+#: templates/job/nlsJobCard.php:37
+msgid "Submit in employer site"
+msgstr "הגש קו״ח באתר המעסיק"
+
+#: templates/job/nlsJobCard.php:41
+msgid "Upload CV and submit"
+msgstr "העלה קו”ח ושלח מועמדות"
+
+#: templates/mail/mailApply.php:82
 msgid "Applied CV from Jobs Site"
 msgstr "קורות חיים נשלחו מאתר משרות"
 
-#: templates/mailError.php:4
+#: templates/mail/mailError.php:4
 msgid "Some error occured"
 msgstr "התרחשה שגיאה"
 
-#: templates/mailError.php:5
+#: templates/mail/mailError.php:5
 msgid "No CV was not submited"
 msgstr "לא נשלחו קורות חיים"
 
-#: templates/mailError.php:7 templates/mailSuccess.php:7
+#: templates/mail/mailError.php:7 templates/mail/mailSuccess.php:7
 msgid "Back"
 msgstr "חזור"
 
-#: templates/mailSuccess.php:4
+#: templates/mail/mailSuccess.php:4
 msgid "Thenk you!"
 msgstr "תודה!"
 
-#: templates/mailSuccess.php:5
+#: templates/mail/mailSuccess.php:5
 msgid "The details recieved successfully"
 msgstr "הפרטים נקלטו בהצלחה"
-
-#: templates/nlsAdvancedSearch.php:13
-msgid "Job Area"
-msgstr "תחום לימוד"
-
-#: templates/nlsAdvancedSearch.php:23
-msgid "Job Scope"
-msgstr "היקף משרה"
-
-#: templates/nlsAdvancedSearch.php:33
-msgid "Job Rank"
-msgstr "קהל יעד"
-
-#: templates/nlsAdvancedSearch.php:42
-msgid "Last Date"
-msgstr "עדכון אחרון"
-
-#: templates/nlsAdvancedSearch.php:54
-msgid "Employment Type"
-msgstr "אופן העסקה"
-
-#: templates/nlsAdvancedSearch.php:63
-msgid "Employer Type"
-msgstr "סוג מעסיק"
 
 #: templates/nlsCategories.php:8
 msgid "Categories"
 msgstr "משרות לפי תחומים"
 
-#: templates/nlsCategories.php:12 templates/nlsHotJobs.php:18
+#: templates/nlsCategories.php:12 templates/slider/horizontalSlider.php:20
 msgid "All Jobs"
 msgstr "לכל המשרות"
 
@@ -183,65 +199,69 @@ msgstr "לכל המשרות"
 msgid "To all jobs  >>"
 msgstr "לכל המשרות  >>"
 
-#: templates/nlsHotJob.php:14
-msgid "More details"
-msgstr "פרטים נוספים"
+#: templates/personal/dashboard.php:6
+msgid "My CV Files"
+msgstr "קבצי קורות החיים שלי"
 
-#: templates/nlsHotJobs.php:7
-msgid "Jobs we thought would interest you"
-msgstr "משרות שחשבנו שיעניינו אותך"
+#: templates/personal/dashboard.php:10
+msgid "Jobs for me"
+msgstr "משרות אליהן פניתי"
 
-#: templates/nlsInputField.php:19 templates/nlsSelectField.php:18
-msgid "Not required"
-msgstr "לא חובה"
+#: templates/personal/dashboard.php:14
+msgid "Applied jobs"
+msgstr "משרות אליהן פניתי"
 
-#: templates/nlsJobApplyForm.php:9
-msgid "Select CV file"
-msgstr "בחירת קובץ קו״ח"
+#: templates/personal/dashboard.php:19
+msgid "To personal erae"
+msgstr "לאיזור האישי שלי"
 
-#: templates/nlsJobApplyForm.php:15 templates/nlsJobApplyForm.php:29
-msgid "Or"
-msgstr "או"
+#: templates/search/nlsAdvancedSearch.php:13
+msgid "Job Area"
+msgstr "תחום לימוד"
 
-#: templates/nlsJobApplyForm.php:16 templates/nlsJobApplyForm.php:30
-msgid "Add New"
-msgstr "העלה קובץ חדש"
+#: templates/search/nlsAdvancedSearch.php:23
+msgid "Job Scope"
+msgstr "היקף משרה"
 
-#: templates/nlsJobApplyForm.php:22
-msgid "Select other files"
-msgstr "בחירת קבצים אחרים"
+#: templates/search/nlsAdvancedSearch.php:33
+msgid "Job Rank"
+msgstr "קהל יעד"
 
-#: templates/nlsJobApplyForm.php:23
-msgid "(Not Required)"
-msgstr "(לא חובה)"
+#: templates/search/nlsAdvancedSearch.php:42
+msgid "Last Date"
+msgstr "עדכון אחרון"
 
-#: templates/nlsJobApplyForm.php:36
-msgid "Apply CV"
-msgstr "הגש קורות חיים"
+#: templates/search/nlsAdvancedSearch.php:54
+msgid "Employment Type"
+msgstr "אופן העסקה"
 
-#: templates/nlsJobCard.php:27
-msgid "Additional Details"
-msgstr "לפרטים נוספים"
+#: templates/search/nlsAdvancedSearch.php:63
+msgid "Employer Type"
+msgstr "סוג מעסיק"
 
-#: templates/nlsJobCard.php:37
-msgid "Submit in employer site"
-msgstr "הגש קו״ח באתר המעסיק"
-
-#: templates/nlsJobCard.php:41
-msgid "Upload CV and submit"
-msgstr "העלה קו”ח ושלח מועמדות"
-
-#: templates/nlsJobSearch.php:34 templates/nlsJobSearch.php:43
+#: templates/search/nlsJobSearch.php:34 templates/search/nlsJobSearch.php:43
 msgid "Search"
 msgstr "חיפוש"
 
-#: templates/nlsJobSearch.php:45
+#: templates/search/nlsJobSearch.php:45
 msgid "You can define each search as an agent in the personal area"
 msgstr "ניתן להגדיר כל חיפוש כסוכן חכם דרך האיזור האישי"
 
-#: templates/nlsSearcResults.php:11
+#: templates/search/nlsSearcResults.php:11
 msgid "Jobs"
 msgstr "משרות"
+
+#: templates/search/nlsSearcResults.php:24
+msgid "More Results"
+msgstr "תוצאות נוספות"
+
+#: templates/slider/horizontalSlider.php:16
+msgid "Jobs we thought will intrest you"
+msgstr "משרות שחשבנו שיעניינו אותך"
+
+#: templates/slider/nlsHotJob.php:14
+msgid "More details"
+msgstr "פרטים נוספים"
 
 #. Plugin Name of the plugin/theme
 msgid "NlsHunterFbf"

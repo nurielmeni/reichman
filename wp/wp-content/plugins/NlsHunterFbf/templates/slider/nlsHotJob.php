@@ -2,7 +2,7 @@
 include_once NLS__PLUGIN_PATH . '/includes/Hunter/NlsHelper.php';
 ?>
 
-<div class="hot-job-card flex flex-col justify-between items-center md:p-4" job-code="<?= NlsHelper::proprtyValue($element, 'JobCode') ?>">
+<div class="hot-job-card flex flex-col justify-between items-center my-3 md:p-4" job-code="<?= NlsHelper::proprtyValue($element, 'JobCode') ?>">
   <div class="flex justify-end w-full"><span class="text-sm md:text-lg"><?= NlsHelper::dateFormat(NlsHelper::proprtyValue($element, 'UpdateDate')) ?></span></div>
   <div class="title text-center min-h-[5em]"><span class="text-center font-bold text-base md:text-3xl"><?= NlsHelper::proprtyValue($element, 'JobTitle') ?></span></div>
   <div class="details flex flex-col-reverse md:flex-row justify-around w-full items-top min-h-[4em]">
