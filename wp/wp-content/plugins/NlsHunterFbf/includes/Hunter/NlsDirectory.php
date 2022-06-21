@@ -29,6 +29,47 @@ class NlsDirectory extends NlsService
         parent::init();
     }
 
+    public function getLists()
+    {
+        $transactionCode = NlsHelper::newGuid();
+        try {
+
+            // print_r($this->client->__getTypes());
+            $params = array(
+                "transactionCode" => $transactionCode,
+                "languageId" => $this->langCode
+            );
+
+            $result = $this->client->GetLists($params);
+            $res = $result->GetListsResult; //->ListItemInfo;
+            $list = [];
+
+            if (property_exists($res, "ListItemInfo"))
+                $res = $res->ListItemInfo;
+            else
+                return $list;
+
+
+            foreach ($res as $cat) {
+                $list[] = [
+                    "id" => $cat->ListItemId,
+                    "name" => $cat->ValueTranslated
+                ];
+            }
+
+
+            return $list;
+        } catch (Exception $ex) {
+            /**
+             * var_dump($ex);
+             * echo "Request " . $this->client->__getLastRequest();
+             * echo "Response " . $this->client->__getLastResponse();
+             * die;
+             **/
+            throw new Exception('Error: Niloos services are not availiable, try later.');
+        }
+    }
+
     public function getListByName($listname = null)
     {
         $transactionCode = NlsHelper::newGuid();
@@ -267,6 +308,38 @@ class NlsDirectory extends NlsService
         }
     }
 
+    public function getEmploymentForm()
+    {
+        $transactionCode = NlsHelper::newGuid();
+        try {
+            $params = array(
+                "languageId" => $this->langCode,
+                "listName" => 'EmploymentForm',
+                "transactionCode" => $transactionCode,
+            );
+            $res = $this->client->GetListByListName($params);
+            $result = property_exists($res, 'GetListByListNameResult') && property_exists($res->GetListByListNameResult, 'HunterListItem') ? $res->GetListByListNameResult->HunterListItem : false;
+            if (!$result) return [];
+
+            if (!is_array($result)) $result[] = $result;
+
+            $list = [];
+            foreach ($result as $employmentForm) {
+                $list[] = ["id" => $employmentForm->Value, "name" => $employmentForm->Text];
+            }
+
+            return $list;
+        } catch (Exception $ex) {
+            /**
+             * var_dump($ex);
+             * echo "Request " . $this->client->__getLastRequest();
+             * echo "Response " . $this->client->__getLastResponse();
+             * die;
+             **/
+            throw new Exception('Error: Niloos services are not availiable, try later.');
+        }
+    }
+
     public function getjoblocations()
     {
         $list = array(
@@ -364,6 +437,29 @@ class NlsDirectory extends NlsService
             $list = [];
             foreach ($res as $area) {
                 $list[] = ['id' => $area->Value, 'name' => $area->Text];
+            }
+            return $list;
+        } catch (Exception $ex) {
+            throw new Exception('Error: Niloos services are not availiable, try later.');
+        }
+    }
+
+    public function getRegions()
+    {
+        $transactionCode = NlsHelper::newGuid();
+        try {
+
+            $params = array(
+                "transactionCode" => $transactionCode,
+                "languageId" => $this->langCode,
+                "listName" => 'Regions'
+            );
+
+
+            $res = $this->client->GetListByListName($params)->GetListByListNameResult->HunterListItem;
+            $list = [];
+            foreach ($res as $region) {
+                $list[] = ['id' => $region->Value, 'name' => $region->Text];
             }
             return $list;
         } catch (Exception $ex) {

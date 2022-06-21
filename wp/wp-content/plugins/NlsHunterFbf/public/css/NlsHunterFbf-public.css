@@ -60,8 +60,14 @@
 }
 
 @media (max-width: 1279.9px) {
-  .nls-hunter-search-wrapper .SumoSelect {
+
+  .nls-hunter-search-wrapper .SumoSelect,
+  .nls-field.input.date {
     width: 229px;
+  }
+
+  .nls-field.input.date input {
+    width: 100%;
   }
 }
 

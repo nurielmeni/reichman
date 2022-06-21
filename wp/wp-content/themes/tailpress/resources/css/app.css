@@ -81,7 +81,8 @@
     width: 11rem;
   }
 
-  ::placeholder {
+  ::placeholder,
+  .placeholder {
     /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: theme("colors.placeholder") !important;
     font-style: italic;

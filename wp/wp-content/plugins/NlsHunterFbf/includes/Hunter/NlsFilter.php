@@ -1,15 +1,17 @@
 <?php
 require_once 'NlsHelper.php';
 
-abstract class Condition
+abstract class WhereCondition
 {
-  const OR = 'OR';
-  const AND = 'AND';
+  const C_OR = 'OR';
+  const C_AND = 'AND';
 }
-
 abstract class SearchPhrase
 {
   const ALL = 'All';
+  const EXACT = 'Exact';
+  const ONE_OR_MORE = 'OneOrMore';
+  const BETWEEN_DATES = 'BetweenDates';
 }
 
 class FilterField
@@ -26,7 +28,7 @@ class FilterField
     $this->SearchPhrase = $searchPhrase;
     $this->IncludeEmptyValues = false;
     $this->FieldFilterType = $fieldType;
-    $this->Value = $value;
+    $this->Value = is_array($value) ? implode(',', $value) : $value;
     $this->Field = $field;
   }
 
@@ -51,7 +53,7 @@ class WhereFilter
 
   public function __construct($filters, $condition)
   {
-    $this->Filters[] = $filters;
+    $this->Filters = is_array($filters) ? $filters : [$filters];
     $this->Condition = $condition;
   }
 }
@@ -91,7 +93,7 @@ class NlsFilter
     $sidNestedFilterField = new FilterField('PublishedJobSupplier_SupplierId', SearchPhrase::ALL, $supplierId, self::TERMS_NON_ANALAYZED);
     $sidParentFilterField->setNested($sidNestedFilterField);
 
-    $this->addWhereFilter($sidParentFilterField, Condition::AND);
+    $this->addWhereFilter($sidParentFilterField, WhereCondition::C_AND);
   }
 
   /**
@@ -112,9 +114,5 @@ class NlsFilter
   {
     $whereFilter = new WhereFilter($filters, $condition);
     $this->WhereFilters[] = $whereFilter;
-  }
-
-  private function filterWhere()
-  {
   }
 }

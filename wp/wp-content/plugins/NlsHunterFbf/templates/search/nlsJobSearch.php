@@ -7,7 +7,7 @@
  */
 ?>
 
-<section class="nls-hunter-search-wrapper nls-main-row alignwide bg-primary relative">
+<section class="nls-hunter-search-wrapper nls-main-row bg-primary relative my-10">
   <div class="search-buttons absolute right-4 rtl:right-auto rtl:left-4 top-4">
 
     <button type="button" class="mx-2 eraser">

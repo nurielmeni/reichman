@@ -53,8 +53,20 @@ var JobSearch =
         function search(e) {
             console.log(e);
             var form = $(e.target).parents('form')[0];
-            var formData = new FormData(form);
+
+            // To keep the format
+            var textVal = $('.nls-hunter-search-wrapper input[name="last-update"]').val();
+            var dateVal = $('.nls-hunter-search-wrapper input[name="last-update"]').datepicker('getDate');
+            if (dateVal) {
+                $('.nls-hunter-search-wrapper input[name="last-update"]').css('color', 'transparent').val(dateVal.toISOString());
+            }
+
             form.submit();
+
+            // To keep the format
+            if (dateVal) {
+                $('.nls-hunter-search-wrapper input[name="last-update"]').css('color', 'inherit').val(textVal);
+            }
         }
 
         function showJobDetails(event) {
@@ -117,6 +129,25 @@ var JobSearch =
             console.log('more', htmMoreResults);
         }
 
+        function datePickersInit() {
+            $('.nls-hunter-search-wrapper input[name="last-update"]').datepicker({
+                dateFormat: 'd/m/yy',
+                regional: 'he'
+            });
+
+            // if (lang === 'he-IL') {
+            //     $('.nls-hunter-search-wrapper input[name="last-update"]').datepicker(
+            //         $.datepicker.regional["he"]
+            //     );
+            // }
+
+            var d = new Date($('.nls-hunter-search-wrapper input[name="last-update"]').val());
+            if (!isNaN(d.valueOf())) {
+                $('.nls-hunter-search-wrapper input[name="last-update"]').datepicker('setDate', d)
+            }
+
+        }
+
         function registerEventListeners() {
             // Toggle advanced search options
             $('.nls-hunter-search-wrapper .search-buttons button.advanced').on('click', toggleAdvanced);
@@ -133,11 +164,14 @@ var JobSearch =
             // Hide job details
             $(document).on('click', jocCardsCancelBtn, hideJobDetails);
 
-            // Show apply form
+            // Load more serach results
             $(document).on('click', moreResultsBtn, moreResults);
 
             // Load more serach results
-            $(document).on('click',)
+            //$(document).on('click')
+
+            // Date picker colors
+            //$('.nls-hunter-search-wrapper input[name="last-update"]').on('change', datePickersColor);
         }
 
         function init() {
@@ -148,15 +182,7 @@ var JobSearch =
 
             $('.nls-hunter-search-wrapper select.sumo').each(function () { initSumoSelect(this); });
 
-            $('.nls-hunter-search-wrapper input[name="last-update"]').datepicker({
-                dateFormat: 'M d, yy'
-            });
-            // if (lang === 'he-IL') {
-            //     $('.nls-hunter-search-wrapper input[name="last-update"]').datepicker(
-            //         $.datepicker.regional["he"]
-            //     );
-            // } else {
-            // }
+            datePickersInit();
 
             registerEventListeners()
         }

@@ -12,6 +12,7 @@ module.exports = {
     "../../plugins/NlsHunterFbf/**/*.php",
     "../../plugins/NlsHunterFbf/public/js/jobSearch.js",
     "./resources/css/*.css",
+    "./resources/css/*.html",
     "./resources/js/*.js",
     "./safelist.txt",
   ],

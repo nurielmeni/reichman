@@ -57,14 +57,13 @@ class NlsHunterFbf_modules
 
     private function searchParams()
     {
-        $params['keywords'] = $this->model->queryParam('keywords');
-        $params['categoryId'] = $this->model->queryParam('job-category', []);
-        $params['regionValue'] = $this->model->queryParam('job-region', []);
+        $params['keyword'] = $this->model->queryParam('keywords');
+        $params['category'] = $this->model->queryParam('job-category', []);
+        $params['scope'] = $this->model->queryParam('job-scope', []);
+        $params['rank'] = $this->model->queryParam('job-rank', []);
+        $params['lastUpdate'] = $this->model->queryParam('last-update');
         $params['employmentType'] = $this->model->queryParam('employments-type', []);
-        $params['jobScope'] = $this->model->queryParam('job-scope', []);
-        $params['jobLocation'] = $this->model->queryParam('job-location', []);
-        $params['employerId'] = $this->model->queryParam('employerId');
-        $params['updateDate'] = $this->model->queryParam('last-update');
+        $params['location'] = $this->model->queryParam('job-location', []);
 
         return $params;
     }
@@ -152,6 +151,9 @@ class NlsHunterFbf_modules
         $searchParams = $this->searchParams();
         $from =  get_query_var('last_page', 0);
         $jobs = $this->model->getJobHunterExecuteNewQuery2($searchParams, null, $from);
+
+
+
         $jobDetailsPageUrl = $this->getJobDetailsPageUrl();
         $applicantCVs = $this->model->getApplicantCVList($this->applicantId);
 
@@ -162,6 +164,11 @@ class NlsHunterFbf_modules
             'searchParams' => $searchParams,
             'searcResultsPageUrl' => $this->getSearchResultsPageUrl()
         ]);
+
+        if (!$jobs) {
+            echo "An error occured on the search attempt";
+            return ob_get_clean();
+        }
 
         echo render('search/nlsSearcResults', [
             'model' => $this->model,
