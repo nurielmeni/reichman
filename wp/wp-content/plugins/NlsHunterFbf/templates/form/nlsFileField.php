@@ -30,5 +30,5 @@ $required =  isset($validators) && is_array($validators) && in_array('required',
     <?php endif; ?>
   </div>
 
-  <div class="help-block text-small text-red-400 min-h-[21px]"></div>
+  <div class="help-block text-small text-red-400"></div>
 </div>

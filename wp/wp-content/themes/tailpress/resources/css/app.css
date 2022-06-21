@@ -42,13 +42,12 @@
   }
 
   .apply-rounded-container {
-    padding-top: 3.5rem;
     border-radius: 50%;
     width: 20rem;
     height: 20rem;
     display: flex;
     flex-direction: column;
-    justify-content: start;
+    justify-content: center;
     align-items: center;
   }
 

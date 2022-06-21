@@ -6,17 +6,17 @@ include_once ABSPATH . 'wp-content/plugins/NlsHunterFbf/includes/Hunter/NlsHelpe
  * 
  */
 ?>
-<div class="job-card flex flex-col justify-between items-center w-full">
+<div class="job-card flex flex-col justify-between items-center w-full" data-job-code="<?= NlsHelper::proprtyValue($job, 'JobCode') ?>">
   <div class="flex space-between items-center w-full">
-    <h2 class="job-title text-2xl text-primary font-bold truncate w-full" title="<?= NlsHelper::proprtyValue($job, 'JobTitle') ?>">
+    <h2 class="job-title text-primary font-bold truncate w-full" title="<?= NlsHelper::proprtyValue($job, 'JobTitle') ?>">
       <?= NlsHelper::proprtyValue($job, 'JobTitle') ?>
     </h2>
     <button type="button" class="hidden additional cancel"><img src="<?= plugins_url('NlsHunterFbf/public/images/cancel.svg') ?>" width="30" alt=""></button>
   </div>
-  <div class="flex justify-center text-xl my-3 w-full">
-    <span class="whitespace-nowrap"><?= NlsHelper::proprtyValue($job, 'JobCode') ?></span>
-    <span class="w-full border-x-4 mx-2 px-2 border-primary text-center"><?= NlsHelper::proprtyValue($job, 'EmployerName') ?></span>
-    <span class="whitespace-nowrap"><?= NlsHelper::dateFormat(NlsHelper::proprtyValue($job, 'UpdateDate')) ?></span>
+  <div class="flex justify-center items-center text-xl my-3 w-full">
+    <span class="w-1/3 text-center whitespace-nowrap"><?= NlsHelper::proprtyValue($job, 'JobCode') ?></span>
+    <span class="w-1/3 border-x-2 mx-2 px-2 border-primary text-center"><?= NlsHelper::proprtyValue($job, 'EmployerName') ?></span>
+    <span class="w-1/3 text-center whitespace-nowrap"><?= NlsHelper::dateFormat(NlsHelper::proprtyValue($job, 'UpdateDate')) ?></span>
   </div>
   <div class="text-description text-xl overflow-hidden no-additional w-full">
     <?= mb_strimwidth(strip_tags(html_entity_decode(NlsHelper::proprtyValue($job, 'Description'))), 0, 130, '...') ?>
@@ -29,7 +29,7 @@ include_once ABSPATH . 'wp-content/plugins/NlsHunterFbf/includes/Hunter/NlsHelpe
     <?php if (strlen(NlsHelper::getValueById($model->jobRanks(), NlsHelper::proprtyValue($job, 'Rank'))) > 0) : ?>
       <span class="bg-chip text-primary px-2 rounded-md"><?= NlsHelper::getValueById($model->jobRanks(), NlsHelper::proprtyValue($job, 'Rank')) ?></span>
     <?php endif; ?>
-    <span class="bg-chip text-primary px-2 rounded-md">מלאה</span>
+    <span class="bg-chip text-primary px-2 my-2 rounded-md">מלאה</span>
   </div>
 
   <?php if (false) : ?>

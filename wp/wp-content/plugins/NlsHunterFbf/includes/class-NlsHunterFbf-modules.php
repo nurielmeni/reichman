@@ -176,6 +176,10 @@ class NlsHunterFbf_modules
             'jobDetailsPageUrl' => $jobDetailsPageUrl
         ]);
 
+        echo render('job/applyForJobs', [
+            'supplierId' => $this->model->nlsGetSupplierId(),
+        ]);
+
         return ob_get_clean();
     }
 }

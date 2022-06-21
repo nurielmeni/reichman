@@ -8,7 +8,7 @@ var JobSearch =
         var jobCards = '.search-results-wrapper .job-card',
             jocCardsDetailsBtn = '.job-card button.additional-details',
             jocCardsCancelBtn = '.job-card button.cancel',
-            jobApplyForm = '.search-results-wrapper .job-apply-form-wrapper',
+            //jobApplyForm = '.search-results-wrapper .job-apply-form-wrapper',
             detailsClasses = 'details md:col-span-2 lg:col-span-3 md:p-8 animate-expand',
             applyBtn = '.job-card button.apply',
             moreResultsBtn = '.search-results-wrapper .footer button.more-results',
@@ -74,7 +74,8 @@ var JobSearch =
             var jobCard = $(el).parents('.job-card');
             if ($(jobCard).hasClass('details')) return jobCard;
 
-            $(jobCard).removeClass('animate-expand');
+            $(jobCard).removeClass('animate-expand w-full');
+            $(jobCard).find('span').removeClass('w-1/3');
             $(jobCard).find('.additional').removeClass('hidden');
             $(jobCard).find('.no-additional').addClass('hidden');
             $(jobCard).get(0).scrollIntoView({ behavior: "smooth" });
@@ -83,25 +84,26 @@ var JobSearch =
         }
 
         function showApplyForm(event) {
+            if (!JobApply) return;
+
             var jobCard = showJobDetails(event);
             $(event.target).addClass('hidden');
 
-            $(jobApplyForm).appendTo($(jobCard));
-            $(jobApplyForm).removeClass('hidden');
-            $(jobApplyForm).addClass('animate-slide-down');
+            JobApply.showApplyFormOnCard(jobCard);
         }
 
         function hideJobDetails(event) {
             var el = event.target;
             var jobCard = $(el).parents('.job-card');
 
-            $(jobApplyForm).addClass('hidden');
+            JobApply && JobApply.hideEl();
             $(jobCard).find('.additional').addClass('hidden');
             $(jobCard).find('.no-additional').removeClass('hidden');
             $(jobCard).find('button.apply').removeClass('hidden');
             $(jobCard).removeClass(detailsClasses);
             $(jobCard).get(0).scrollIntoView({ behavior: "smooth", block: "center" });
-            $(jobCard).addClass('animate-expand');
+            $(jobCard).find('span').addClass('w-1/3');
+            $(jobCard).addClass('animate-expand w-full');
         }
 
         function moreResults(event) {
@@ -167,6 +169,8 @@ var JobSearch =
             // Load more serach results
             $(document).on('click', moreResultsBtn, moreResults);
 
+            $(document).on('click', applyBtn, showApplyForm);
+
             // Load more serach results
             //$(document).on('click')
 
@@ -192,6 +196,6 @@ var JobSearch =
         }
     })(jQuery);
 
-jQuery(document).ready(function () {
+jQuery(function () {
     JobSearch.init();
 });

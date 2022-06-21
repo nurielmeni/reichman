@@ -28,15 +28,8 @@ class NlsHunterFbf_Public
      */
     const SID = 'sid';
 
-    const FRIEND_NAME = 'friend-name';
-    const FRIEND_CELL = 'friend-cell';
-    const FRIEND_AREA = 'friend-area';
-    const FRIEND_JOB_CODE = 'friend-job-code';
-    const FRIEND_CV = 'friend-cv';
-
-    const EMPLOYEE_NAME = 'employee-name';
-    const EMPLOYEE_ID = 'employee-id';
-    const EMPLOYEE_EMAIL = 'employee-email';
+    const STATUS_SUCCESS = 'success';
+    const STATUS_ERROR = 'error';
 
     /**
      * The ID of this plugin.
@@ -157,205 +150,13 @@ class NlsHunterFbf_Public
         file_put_contents($logFile, $data, FILE_APPEND);
     }
 
-    private function getFields()
-    {
-        $fields = [];
-
-        $fields[self::SID] = ['label' => __('Supplier Id', 'NlsHunterFbf'), 'value' => isset($_POST[self::SID]) ? $_POST[self::SID] : ""];
-
-        $fields[self::FRIEND_NAME] = ['label' => __('Full Name', 'NlsHunterFbf'), 'value' => isset($_POST[self::FRIEND_NAME]) ? $_POST[self::FRIEND_NAME] : []];
-        $fields[self::FRIEND_CELL] = ['label' => __('Cell', 'NlsHunterFbf'), 'value' => isset($_POST[self::FRIEND_CELL]) ? $_POST[self::FRIEND_CELL] : []];
-        $fields[self::FRIEND_AREA] = ['label' => __('Area', 'NlsHunterFbf'), 'value' => isset($_POST[self::FRIEND_AREA]) ? $_POST[self::FRIEND_AREA] : []];
-        $fields[self::FRIEND_JOB_CODE] = ['label' => __('Job Code', 'NlsHunterFbf'), 'value' => isset($_POST[self::FRIEND_JOB_CODE]) ? $_POST[self::FRIEND_JOB_CODE] : []];
-
-        $fields[self::EMPLOYEE_NAME] = ['label' => __('Full Name', 'NlsHunterFbf'), 'value' => isset($_POST[self::EMPLOYEE_NAME]) ? $_POST[self::EMPLOYEE_NAME] : ""];
-        $fields[self::EMPLOYEE_ID] = ['label' => __('Employee ID', 'NlsHunterFbf'), 'value' => isset($_POST[self::EMPLOYEE_ID]) ? $_POST[self::EMPLOYEE_ID] : ""];
-        $fields[self::EMPLOYEE_EMAIL] = ['label' => __('Company email', 'NlsHunterFbf'), 'value' => isset($_POST[self::EMPLOYEE_EMAIL]) ? $_POST[self::EMPLOYEE_EMAIL] : ""];
-
-        return $fields;
-    }
-
-    /**
-     * Get the CV file for the applicable friend
-     * the CV file uploads temporarily and assigned a name
-     */
-    private function getCvFile($i)
-    {
-        if (
-            isset($_FILES[self::FRIEND_CV]) &&
-            isset($_FILES[self::FRIEND_CV]['name']) &&
-            count($_FILES[self::FRIEND_CV]['name']) > 0 &&
-            strlen($_FILES[self::FRIEND_CV]['name'][$i]) > 0 &&
-            strlen($_FILES[self::FRIEND_CV]['tmp_name'][$i]) > 0 &&
-            !$_FILES[self::FRIEND_CV]['error'][$i] &&
-            $_FILES[self::FRIEND_CV]['size'][$i] > 0
-        ) {
-            $fileExt = pathinfo($_FILES[self::FRIEND_CV]['name'][$i])['extension'];
-            $tmpCvFile = $this->getTempFile($fileExt);
-            move_uploaded_file($_FILES[self::FRIEND_CV]['tmp_name'][$i], $tmpCvFile);
-            return $tmpCvFile;
-        }
-        return '';
-    }
-
-    /*
-     * Apply the friend request
-     */
-    private function apply_friend($fields, $friendsNum)
-    {
-        $count = 0;
-
-        for ($i = 0; $i < $friendsNum; $i++) {
-            $files = [];
-
-            // 1. Create NCAI
-            $ncaiFile = $this->createNCAI($fields, $i);
-            if (!empty($ncaiFile)) array_push($files, $ncaiFile);
-
-            // 2. Get CV File
-            $tmpCvFile = $this->getCvFile($i);
-            if (empty($tmpCvFile)) {
-                $tmpCvFile = $this->genarateCvFile($fields, $i);
-            }
-
-            if (!empty($tmpCvFile)) array_push($files, $tmpCvFile);
-
-            // 3. Sent email with file attachments
-            $jobCode = $fields[self::FRIEND_JOB_CODE]['value'][$i];
-            $count += $this->sendHtmlMail($jobCode, $files, $fields, $i) ? 1 : 0;
-
-            // 4. Remove temp files
-
-            // Remove the temp CV file and NCAI file from the Upload directory
-            foreach ($files as $file) unlink($file);
-        }
-
-        return $count;
-    }
-
     /*
      * Return the pager data to the search result module
      */
-    public function apply_cv_function()
+    public function apply_for_job_function()
     {
-        $fields = $this->getFields();
-        $friendsNum = count($fields[self::FRIEND_NAME]['value']);
-
-        $applyCount = $this->apply_friend($fields, $friendsNum);
-
-        $response = ['sent' => $applyCount, 'html' => ($applyCount > 0 ? $this->sentSuccess($applyCount) : $this->sentError())];
+        $response = ['status' => self::STATUS_SUCCESS, 'html' => $this->sentSuccess()];
         wp_send_json($response);
-    }
-
-    /**
-     * Return a temp file path
-     * @param $fileExt the file extention (ncai or other)
-     */
-    private function getTempFile($fileExt)
-    {
-        $tmpFolder = 'cvTempFiles';
-        $upload_dir   = wp_upload_dir();
-
-        if (!empty($upload_dir['basedir'])) {
-            $cv_dirname = $upload_dir['basedir'] . '/' . $tmpFolder;
-            if (!file_exists($cv_dirname)) {
-                wp_mkdir_p($cv_dirname);
-            }
-        }
-        if ($fileExt === 'ncai') {
-            return $cv_dirname . DIRECTORY_SEPARATOR . 'NlsCvAnalysisInfo.' . $fileExt;
-        }
-
-        do {
-            $tempFile = $cv_dirname . 'CV_FILE_' . mt_rand(100, 999) . '.' . $fileExt;
-        } while (file_exists($tempFile));
-
-        return $tempFile;
-    }
-
-    /**
-     * Genarate cv file
-     */
-    private function genarateCvFile($fields, $i = 0)
-    {
-        $cvFile = $this->getTempFile('txt');
-
-        // Open the file for writing.
-        if (!$handle = fopen($cvFile, 'w')) {
-            return '';
-        }
-
-        // Write the data
-        foreach ($fields as $key => $field) {
-            if (!is_array($field['value']) && empty($field['value'])) continue;
-            if (strpos($key, 'friend') === false) continue;
-
-            $dataLine = $field['label'] . ': ' . (is_array($field['value']) ? $field['value'][$i] : $field['value']) . "\r\n";
-
-            if (fwrite($handle, $dataLine) === FALSE) break;
-        }
-
-        $dataLine = 'ניסיון: ליד' . "\n\r";
-        $dataLine = 'השכלה: ליד' . "\n\r";
-        fwrite($handle, $dataLine);
-
-        // Close the file
-        fclose($handle);
-        return $cvFile;
-    }
-
-    private function getPhoneData($phone)
-    {
-        $phoneNumber = preg_replace('/[^0-9]/', '', $phone);
-        return [
-            'CountryCode' => '972',
-            'AreaCode' => substr($phoneNumber, 0, 3),
-            'PhoneNumber' => substr($phoneNumber, 3, 7),
-            'PhoneType' => 'Mobile'
-        ];
-    }
-
-    private function createNCAI($fields, $i = 0)
-    {
-        //create xml file
-        $xml_obj = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8" standalone="yes"?><NiloosoftCvAnalysisInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"></NiloosoftCvAnalysisInfo>');
-
-        // Applying Person
-        $applyingPerson = $xml_obj->addChild('ApplyingPerson');
-        $applyingPerson->addChild('EntityLocalName', $fields[self::FRIEND_NAME]['value'][$i]);
-
-        $phoneData = $this->getPhoneData($fields[self::FRIEND_CELL]['value'][$i]);
-        $phoneInfo = $applyingPerson->addChild('Phones')->addChild('PhoneInfo');
-        $phoneInfo->addChild('CountryCode', $phoneData['CountryCode']);
-        $phoneInfo->addChild('AreaCode', $phoneData['AreaCode']);
-        $phoneInfo->addChild('PhoneNumber', $phoneData['PhoneNumber']);
-        $phoneInfo->addChild('PhoneType', $phoneData['PhoneType']);
-
-        $applyingPerson->addChild('SupplierId', $fields[self::SID]['value']);
-
-        // Notes
-        $applicant_notes = __('Applicant form data: ', 'NlsHunterFbf') . "\r\n";
-        // Change the $fields value for strongSide to include the name and not the id
-        foreach ($fields as $key => $field) {
-            if (!is_array($field['value']) && empty($field['value'])) continue;
-            $applicant_notes .= $field['label'] . ': ' . (is_array($field['value']) ? $field['value'][$i] : $field['value']) . "\r\n";
-        }
-        $xml_obj->addChild('Notes', $applicant_notes);
-
-        // Supplier ID
-        $xml_obj->SupplierId = $fields[self::SID]['value'];
-
-        // Recomending Person
-        $recomendingPerson = $xml_obj->addChild('RecommendingPerson');
-        $recomendingPerson->addChild('Email', $fields[self::EMPLOYEE_EMAIL]['value']);
-        $recomendingPerson->addChild('EntityLocalName', $fields[self::EMPLOYEE_NAME]['value']);
-        //$recomendingPerson->addChild('ForeignEntityCode', $fields[self::EMPLOYEE_ID]['value']);
-        //$recomendingPerson->addChild('PersonalId', $fields[self::EMPLOYEE_ID]['value']);
-        $recomendingPerson->addChild('SupplierId', $fields[self::SID]['value']);
-
-        $ncaiFile = $this->getTempFile('ncai');
-        $xml_obj->asXML($ncaiFile);
-        return $ncaiFile;
     }
 
     public function sendHtmlMail($jobcode, $files, $fields, $i, $msg = '')
@@ -390,9 +191,9 @@ class NlsHunterFbf_Public
         return $result;
     }
 
-    private function sentSuccess($sent)
+    private function sentSuccess($msg = '')
     {
-        return render('mail/mailSuccess', []);
+        return render('mail/mailSuccess', ['msg' => $msg]);
     }
 
     private function sentError($msg = '')

@@ -35,5 +35,5 @@ $value = isset($value) && is_array($value) ? $value : [];
     <?php endif; ?>
   </div>
 
-  <div class="help-block text-small text-red-400 min-h-[21px]"></div>
+  <div class="help-block text-small text-red-400"></div>
 </div>

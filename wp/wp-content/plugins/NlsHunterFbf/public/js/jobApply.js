@@ -1,9 +1,11 @@
 var JobApply =
-JobApply ||
+    JobApply ||
     (function ($) {
         "use strict";
         var rtl = false;
         var lang = 'en-US';
+        var jobApplyForm = '.search-results-wrapper .job-apply-form-wrapper';
+        var jobApplyButton = '.job-apply-form-wrapper button.job-apply-btn';
 
         function initSumoSelect(selectBoxItem) {
             var name = $(selectBoxItem).attr('name') || '';
@@ -22,12 +24,62 @@ JobApply ||
             });
         }
 
-        function registerEventListeners() {
+        function showApplyFormOnCard(jobCard) {
+            $(jobApplyForm).appendTo($(jobCard));
+            showEl();
+        }
+
+        function beforeApply() {
 
         }
 
+        function applyForJob(event) {
+            var jobCard = $(event.target).parents('.job-card');
+            var jobCode = $(jobCard).data('job-code');
+
+            var formData = new FormData();
+            formData.append('jobCode', jobCode);
+            formData.append('action', 'apply_for_job');
+
+            $.ajax({
+                url: frontend_ajax.url,
+                data: formData,
+                beforeSend: beforeApply,
+                contentType: false,
+                cache: false,
+                processData: false,
+                method: "POST",
+                dataType: "json",
+            })
+                .done(function (data) {
+                    alert("second success", data);
+                })
+                .fail(function () {
+                    alert("error");
+                })
+                .always(function () {
+                    alert("finished");
+                });
+        }
+
+        function getEl() {
+            return jobApplyForm;
+        }
+
+        function hideEl() {
+            $(jobApplyForm).addClass('hidden');
+        }
+
+        function showEl() {
+            $(jobApplyForm).removeClass('hidden').addClass('animate-slide-down');
+        }
+
+        function registerEventListeners() {
+            $(document).on('click', jobApplyButton, applyForJob.bind(this));
+        }
+
         function init() {
-            console.log('Job search Init');
+            console.log('Apply Job Init');
 
             rtl = $('html').attr('dir') === 'rtl';
             lang = $('html').attr('lang');
@@ -38,10 +90,13 @@ JobApply ||
         }
 
         return {
-            init: init
+            init: init,
+            getEl: getEl,
+            showApplyFormOnCard: showApplyFormOnCard,
+            hideEl: hideEl
         }
     })(jQuery);
 
-jQuery(document).ready(function () {
-  JobApply.init();
+jQuery(function () {
+    JobApply.init();
 });

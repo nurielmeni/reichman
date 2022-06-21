@@ -28,5 +28,5 @@ $required =  isset($validators) && is_array($validators) && in_array('required',
     <?= isset($append) ? '<img src="' . $append . '" width="' . (isset($iconSize) ? $iconSize : 24) . '" height="' . (isset($iconSize) ? $iconSize : 24) . '" class="append inset-center" aria-hidden="true" focusable="false" />' : '' ?>
   </div>
 
-  <div class="help-block text-small text-red-400 min-h-[21px]"></div>
+  <div class="help-block text-small text-red-400"></div>
 </div>

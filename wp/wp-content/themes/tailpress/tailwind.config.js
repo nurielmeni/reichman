@@ -17,6 +17,9 @@ module.exports = {
     "./safelist.txt",
   ],
   theme: {
+    fontFamily: {
+      'sans': ['Arial', 'Helvetica', 'ui-sans-serif', 'system-ui']
+    },
     container: {
       padding: {
         //DEFAULT: '1rem',

@@ -21,6 +21,10 @@
   border-radius: 0.75rem;
 }
 
+.SumoSelect>.CaptionCont.rounded-md {
+  border-radius: 0.5rem;
+}
+
 .SumoSelect.open>.CaptionCont,
 .SumoSelect:focus>.CaptionCont,
 .SumoSelect:focus-visible>.CaptionCont,
@@ -53,6 +57,10 @@
 
 .job-apply-form-wrapper .SumoSelect.open>.optWrapper {
   top: 41px !important;
+}
+
+.nls-hunter-search-wrapper .nls-field .help-block {
+  min-height: 21px;
 }
 
 .SumoSelect>.CaptionCont>span.placeholder {

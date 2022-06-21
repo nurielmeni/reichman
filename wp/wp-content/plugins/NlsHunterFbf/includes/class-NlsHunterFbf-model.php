@@ -277,6 +277,49 @@ class NlsHunterFbf_model
         return is_array($employmentForm) ? $employmentForm : [];
     }
 
+    public function getEmployers($page = null, $searchPhrase = '')
+    {
+        $searchPhrase = trim($searchPhrase);
+        $cache_key = 'nls_hunter_employers_' . get_bloginfo('language');
+        if ($this->nlsFlashCache) wp_cache_delete($cache_key);
+
+        $employers = wp_cache_get($cache_key);
+        if (false === $employers) {
+            $employers = [];
+            $jobs = $this->getJobHunterExecuteNewQuery2([], null, 0, 10000);
+            if (!$jobs || !is_array($jobs) || !key_exists('list', $jobs)) return [];
+            foreach ($jobs['list'] as $job) {
+                if (property_exists($job, 'EmployerId') && $job->EmployerId !== null) {
+                    //$data['EmployerEntityTypeCode'] = $job->EmployerEntityTypeCode;
+                    $data['EmployerName'] = $job->EmployerName;
+                    //$data['EmployerPartyUtilizerId'] = $job->EmployerPartyUtilizerId;
+                    $data['LogoPath'] = $job->LogoPath;
+
+                    $employers[$job->EmployerId] = (object) $data;
+                }
+            }
+
+            wp_cache_set($cache_key, $employers, '', $this->nlsCacheTime);
+        }
+        if ($page !== null && is_int($page)) {
+            $window = intval(get_option(NlsHunterFbf_Admin::NLS_EMPLOYERS_COUNT, 1000));
+            if (strlen($searchPhrase) > 0) {
+                $employers = array_filter($employers, function ($employer) use ($searchPhrase) {
+                    return stripos($employer->EmployerName, $searchPhrase) !== false;
+                });
+            }
+            return array_slice($employers, $page * $window, $window);
+        }
+        return $employers;
+    }
+
+    public function getEmployerData($employerId)
+    {
+        $employers = $this->getEmployers();
+        if (!is_array($employers)) return null;
+        return key_exists($employerId, $employers) ? $employers[$employerId] : null;
+    }
+
     /**
      * Uses the card service to get jobs (depricted)
      * The search is noe done by Search service (getJobHunterExecuteNewQuery2)
@@ -365,9 +408,6 @@ class NlsHunterFbf_model
 
 
         if (false === $jobs) {
-            $this->initDirectoryService();
-            $lists = $this->nlsDirectory->getLists();
-
             if (!$this->initSearchService()) return ['totalHits' => 0, 'list' => []];
 
             if (!is_array($searchParams)) $jobs = [];

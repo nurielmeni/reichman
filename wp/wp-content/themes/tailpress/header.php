@@ -10,7 +10,7 @@
 	<?php wp_head(); ?>
 </head>
 
-<body <?php body_class('bg-mainbg text-gray-900 antialiased'); ?>>
+<body <?php body_class('bg-mainbg text-gray-900 antialiased font-sans'); ?>>
 
 	<?php do_action('reichman_site_before'); ?>
 
