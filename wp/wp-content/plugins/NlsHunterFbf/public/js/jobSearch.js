@@ -96,7 +96,7 @@ var JobSearch =
             var el = event.target;
             var jobCard = $(el).parents('.job-card');
 
-            JobApply && JobApply.hideEl();
+            JobApply && JobApply.hideApply();
             $(jobCard).find('.additional').addClass('hidden');
             $(jobCard).find('.no-additional').removeClass('hidden');
             $(jobCard).find('button.apply').removeClass('hidden');

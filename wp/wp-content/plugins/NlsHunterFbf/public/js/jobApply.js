@@ -26,11 +26,19 @@ var JobApply =
 
         function showApplyFormOnCard(jobCard) {
             $(jobApplyForm).appendTo($(jobCard));
-            showEl();
+            showApply();
         }
 
         function beforeApply() {
+            // 1. Hide the apply form
+            hideApply();
 
+            // 2. Show loading indication
+            $(jobApplyForm).nlsLoader();
+        }
+
+        function afterApply() {
+            $.nlsRemoveLoader();
         }
 
         function applyForJob(event) {
@@ -57,20 +65,18 @@ var JobApply =
                 .fail(function () {
                     alert("error");
                 })
-                .always(function () {
-                    alert("finished");
-                });
+                .always(afterApply);
         }
 
-        function getEl() {
+        function getApply() {
             return jobApplyForm;
         }
 
-        function hideEl() {
+        function hideApply() {
             $(jobApplyForm).addClass('hidden');
         }
 
-        function showEl() {
+        function showApply() {
             $(jobApplyForm).removeClass('hidden').addClass('animate-slide-down');
         }
 
@@ -91,9 +97,9 @@ var JobApply =
 
         return {
             init: init,
-            getEl: getEl,
+            getApply: getApply,
             showApplyFormOnCard: showApplyFormOnCard,
-            hideEl: hideEl
+            hideApply: hideApply
         }
     })(jQuery);
 

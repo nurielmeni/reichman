@@ -120,6 +120,7 @@ class NlsHunterFbf_Public
          * class.
          */
 
+        wp_enqueue_script('nls-jquery-js', plugin_dir_url(__FILE__) . 'js/nlsJquery.js', array('jquery'), $this->version, false);
         wp_enqueue_script('mobile-check-js', plugin_dir_url(__FILE__) . 'js/mobileCheck.js', array('jquery'), $this->version, false);
         wp_enqueue_script('slick-js', plugin_dir_url(__FILE__) . 'js/slick.min.js', array('jquery'), $this->version, false);
         wp_enqueue_script('job-search-js', plugin_dir_url(__FILE__) . 'js/jobSearch.js', array('jquery'), $this->version, false);
