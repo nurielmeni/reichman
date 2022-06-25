@@ -1,9 +1,7 @@
-var nls =
-  nls ||
+var FormValidator =
+  FormValidator ||
   (function ($) {
     "use strict";
-
-    var emptyFriendDetails = '';
 
     var Validators = {
       ISRID: {
@@ -76,7 +74,7 @@ var nls =
           if (typeof name === "undefined") return valid;
 
           $(el)
-            .parents(".nls-apply-field")
+            .parents(".nls-field")
             .find('input[name="' + name + '"]')
             .each(function (i, option) {
               if ($(option).prop("checked")) valid = true;
@@ -87,14 +85,15 @@ var nls =
       },
     };
 
-    var validateSubmit = function (form, formData) {
+    var validateForm = function (form) {
       clearValidation(form);
       var valid = true;
 
       $(form)
         .find("input")
         .each(function (i, el) {
-          if ($(el).parents(".nls-apply-field").css("display") === "none")
+          // If hidden
+          if ($(el).parents().css("display") === "none")
             return;
           if (typeof $(el).attr("validator") === "undefined") return;
           if (!fieldValidate(el)) valid = false;
@@ -104,15 +103,15 @@ var nls =
       return valid;
     };
 
-    var validForm = function () {
-      var invalidFields = $("form.nls-apply-for-jobs .nls-invalid");
+    var validForm = function (form) {
+      var invalidFields = $(form).find(".nls-invalid");
       if (invalidFields.length > 0) {
-        $(".nls-apply-for-jobs .form-footer .help-block")
+        $(form).find(".form-footer .help-block")
           .text("אחד או יותר משדות הטופס לא תקין")
           .show();
       } else {
-        $(".nls-apply-for-jobs .form-footer .help-block").hide();
-        $(".nls-apply-for-jobs .help-block").text("");
+        $(form).find(".form-footer .help-block").hide();
+        $(form).find(".help-block").text("");
       }
     };
 
@@ -136,7 +135,7 @@ var nls =
 
           $(invalidElement).addClass("nls-invalid");
           $(el)
-            .parents(".nls-apply-field")
+            .parents(".nls-field")
             .find(".help-block")
             .text(Validators[validator].msg);
         }
@@ -145,22 +144,25 @@ var nls =
     };
 
     var clearFields = function (form) {
-      form.find('input:not([type="radio"],[type="hidden"])').val("");
+      $(form).find('input:not([type="radio"],[type="hidden"])').val("");
+      $(form).find('select.sumo').each(function () {
+        $(this)[0].sumo.unSelectAll();
+      });
       clearValidation(form);
     };
 
     var clearValidation = function (form) {
       form.find(".nls-invalid").removeClass("nls-invalid");
-      form.find(".nls-apply-field .help-block").text("");
+      form.find(".nls-field .help-block").text("");
       validForm();
     };
 
     var clearFieldValidation = function (el) {
       $(el)
-        .parents(".nls-apply-field")
+        .parents(".nls-field")
         .find(".nls-invalid")
         .removeClass("nls-invalid");
-      $(el).parents(".nls-apply-field").find(".help-block").text("");
+      $(el).parents(".nls-field").find(".help-block").text("");
     };
 
     var getParam = function (param) {
@@ -169,120 +171,12 @@ var nls =
       return urlParams.get(param);
     };
 
-    var hideBeforeApply = function () {
-      $(".nls-apply-for-jobs").hide();
-      $("section.nls-fbf-flow-wrapper").hide();
-    };
-
-    var showHomePage = function () {
-      $("#apply-response").remove();
-      $(".nls-reply-message").remove();
-      $(".hide-response-success").show();
-      $(".hide-response-error").show();
-      $(".nls-apply-for-jobs").show();
-      $("section.nls-fbf-flow-wrapper").show();
-    };
-
     $(document).ready(function () {
-      // Set the sid if exist
-      getParam("sid") && $('input[name="sid"').val(getParam("sid"));
-
       // Add event listeners
-      console.log("Ready Function");
-
-      // Apply selected jobs
-      $(document).on(
-        "click",
-        ".nls-apply-for-jobs .nls-button .apply-cv",
-        function (event) {
-          var applyCvButton = this;
-          var form = $(this).parents("form.nls-apply-for-jobs");
-          var formData = new FormData(form[0]);
-
-          if (!validateSubmit(form, formData)) {
-            event.preventDefault();
-            return;
-          }
-
-          formData.append("action", "apply_cv_function");
-
-          $.ajax({
-            url: frontend_ajax.url,
-            data: formData,
-            contentType: false,
-            cache: false,
-            processData: false,
-            dataType: "json",
-            beforeSend: function () {
-              hideBeforeApply();
-              $(".nls-apply-for-jobs").after(
-                '<div id="apply-response" class="nls-rounded-10 nls-box-shadow"><div id="nls-loader" class="loader">אנא המתן...</div></div>'
-              );
-              var offset = $("#apply-response").offset();
-              $("html, body").animate({
-                scrollTop: offset.top - 100,
-              });
-            },
-            success: function (response) {
-              $("#nls-loader").remove();
-              console.log("Status: ", response.sent);
-
-              if (response.sent > 0) {
-                $(".hide-response-success").hide();
-                $("#apply-response").remove();
-                $('.nls-apply-for-jobs').after(response.html);
-              } else {
-                $('.hide-response-error').hide();
-                $("#apply-response").remove();
-                $('.nls-apply-for-jobs').after(response.html);
-              }
-
-              // Call this function so the wp will inform the change to the post
-              $(document.body).trigger("post-load");
-            },
-            complete: function () {
-              window.history.pushState({}, '/');
-            },
-            type: "POST",
-          });
-
-          event.preventDefault();
-        }
-      );
-
-      // State handler
-      window.addEventListener("popstate", function (event) {
-        if (event.state === null) {
-          showHomePage();
-        }
-      });
-
-      // Apply friend button handler
-      $(".apply-friend a").on("click", function () {
-        $(".friends-container")[0].scrollIntoView();
-        $("#friend-name--0")[0].focus();
-      });
-
-      // Create an empty element
-      emptyFriendDetails = $('.nls-apply-for-jobs .friends-details .friends-container').html();
-
-      // Add new friend hendler
-      $('.nls-apply-for-jobs .friends-details .form-footer .nls-button .add-friend').on('click', function () {
-        var count = $('.nls-apply-for-jobs .friends-details .friends-container .form-body').length;
-        var needle = /--0/g;
-        var re = '--' + count;
-
-        $(emptyFriendDetails.replace(needle, re)).hide().appendTo('.nls-apply-for-jobs .friends-details .friends-container').show('slow');
-      });
-
-      // Remove friend
-      $(document).on('click', '.nls-apply-for-jobs .friends-details .friends-container .form-body span.remove', function () {
-        var target = $(this).parent();
-        $(target).hide('slow', function () { $(target).remove(); });
-      });
+      console.log("Validator Init");
 
       // Add file indication when selected
-      $(document).on("change", '.nls-apply-for-jobs input[type="file"]', function (e) {
+      $(document).on("change", '.nls-form input[type="file"]', function (e) {
         if ($(this).val().length > 0) {
           $(this).parent().find('label').addClass('file-selected');
         } else {
@@ -291,12 +185,12 @@ var nls =
       });
 
       // Clear validation errors on focus
-      $(document).on("focus", "input", function () {
+      $(document).on("focus", ".nls-form input", function () {
         clearFieldValidation(this);
       });
 
       // Validate on blur and change
-      $(document).on('blur change', 'input:not([type="radio"])', function () {
+      $(document).on('blur change', '.nls-form input:not([type="radio"])', function () {
         if (typeof $(this).attr("validator") === "undefined") return;
         clearFieldValidation(this);
         fieldValidate(this);
@@ -304,23 +198,20 @@ var nls =
       });
 
       // Toggle visibility of radio
-      $(document).on("change", 'input[type="radio"]', function () {
-        var showClass = ".nls-apply-field." + $(this).attr("name") + "-show";
+      $(document).on("change", '.nls-form input[type="radio"]', function () {
+        var showClass = ".nls-field." + $(this).attr("name") + "-show";
         $('input[name="' + $(this).attr("name") + '"]').prop("checked")
           ? $(showClass).show()
           : $(showClass).hide();
       });
 
-      $(document).on('click', 'button.nls-btn.back', function () {
-        $(this).parents('section.nls-hunter-fbf-wrapper').find('form.nls-apply-for-jobs').slideDown();
-        $(this).parents('.submit-response').remove();
-      });
-
       // Make sure to initilize the radio display options
-      $('input[type="radio"]').trigger("change");
+      $('.nls-form input[type="radio"]').trigger("change");
     });
 
     return {
       clearFields: clearFields,
+      clearValidation: clearValidation,
+      validateForm: validateForm
     };
   })(jQuery);

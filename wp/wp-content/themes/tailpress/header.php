@@ -10,7 +10,7 @@
 	<?php wp_head(); ?>
 </head>
 
-<body <?php body_class('bg-mainbg text-gray-900 antialiased font-sans'); ?>>
+<body <?php body_class('nls-hunter bg-mainbg text-gray-900 antialiased font-sans'); ?>>
 
 	<?php do_action('reichman_site_before'); ?>
 
@@ -21,7 +21,7 @@
 		<header>
 			<div class="header-wrapper flex justify-center items-center bg-primary">
 				<div class="mx-full container">
-					<div class="lg:flex lg:justify-between lg:items-center py-6">
+					<div class="lg:flex lg:justify-between lg:items-center py-6 px-2">
 						<div class="flex justify-between items-center text-white">
 
 							<div>

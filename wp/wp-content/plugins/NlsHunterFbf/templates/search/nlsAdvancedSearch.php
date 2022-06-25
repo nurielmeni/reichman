@@ -42,11 +42,11 @@
     'label' => null,
     'placeHolder' => __('Last Date', 'NlsHunterFbf'),
     'name' => 'last-update',
-    'type' => 'text',
+    'type' => wp_is_mobile() ? 'date' : 'text',
     'wrapperClass' => 'date relative',
-    'class' => 'py-2 rounded-xl px-2 w-auto lg:w-40',
+    'class' => 'date-picker py-2 rounded-xl px-2 w-40',
     'value' => key_exists('lastUpdate', $searchParams) ? $searchParams['lastUpdate'] : '',
-    'append' => plugins_url('NlsHunterFbf/public/images/crate-down.svg'),
+    'append' => wp_is_mobile() ? false : plugins_url('NlsHunterFbf/public/images/crate-down.svg'),
     'iconSize' => 11
 ]) ?>
 

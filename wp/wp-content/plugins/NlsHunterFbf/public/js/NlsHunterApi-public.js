@@ -113,7 +113,7 @@
       searchBy(searchByValue);
     }
 
-    $('button.prevent').on('click', function(e) {
+    $('button.prevent').on('click', function (e) {
       e.preventDefault();
     });
 
@@ -163,7 +163,7 @@
     });
 
     var sumoSelect = $(
-      ".nls-search-module form.nls-search .nls-field select, .nls-apply-for-jobs .nls-apply-field select"
+      ".nls-field select, .nls-apply-for-jobs .nls-apply-field select"
     ).SumoSelect({
       csvDispCount: 2,
       captionFormat: "{0} נבחרו",

@@ -120,22 +120,26 @@ class NlsHunterFbf_Public
          * class.
          */
 
-        wp_enqueue_script('nls-jquery-js', plugin_dir_url(__FILE__) . 'js/nlsJquery.js', array('jquery'), $this->version, false);
-        wp_enqueue_script('mobile-check-js', plugin_dir_url(__FILE__) . 'js/mobileCheck.js', array('jquery'), $this->version, false);
-        wp_enqueue_script('slick-js', plugin_dir_url(__FILE__) . 'js/slick.min.js', array('jquery'), $this->version, false);
-        wp_enqueue_script('job-search-js', plugin_dir_url(__FILE__) . 'js/jobSearch.js', array('jquery'), $this->version, false);
-        wp_enqueue_script('job-apply-js', plugin_dir_url(__FILE__) . 'js/jobApply.js', array('jquery'), $this->version, false);
-        wp_enqueue_script('nls-form-validation', plugin_dir_url(__FILE__) . 'js/NlsHunterForm.js', array('jquery'), $this->version, false);
-        wp_enqueue_script('nls-swipe-detect', plugin_dir_url(__FILE__) . 'js/swipeDetect.js', array('jquery'), $this->version, false);
+
         wp_enqueue_script('nls-sumo-select', plugin_dir_url(__FILE__) . 'js/jquery.sumoselect.min.js', array('jquery'), $this->version, false);
-        wp_enqueue_script('nls-app', plugin_dir_url(__FILE__) . 'js/app.js', array('jquery'), $this->version, false);
+        wp_enqueue_script('mobile-check-js', plugin_dir_url(__FILE__) . 'js/mobileCheck.js', array('jquery'), $this->version, false);
+        wp_enqueue_script('nls-swipe-detect', plugin_dir_url(__FILE__) . 'js/swipeDetect.js', array('jquery'), $this->version, false);
         wp_enqueue_script('jquery-ui-datepicker');
-        //wp_enqueue_script('jquery-datepicker-he', plugin_dir_url(__FILE__) . 'js/datepicker-he.js', array('jquery'), $this->version, false);
+        wp_enqueue_script('slick-js', plugin_dir_url(__FILE__) . 'js/slick.min.js', array('jquery'), $this->version, false);
+        wp_enqueue_script('nls-jquery-js', plugin_dir_url(__FILE__) . 'js/nlsJquery.js', array('jquery'), $this->version, false);
 
         // enqueue and localise scripts for handling Ajax Submit CV
         // Don't forget to add the action (apply_cv_function)
         // defined in the  class-NlsHunterFbf-public.php (define_public_hooks)
-        wp_localize_script('nls-form-validation', 'frontend_ajax', ['url' => admin_url('admin-ajax.php')]);
+        wp_localize_script('nls-jquery-js', 'frontend_ajax', ['url' => admin_url('admin-ajax.php')]);
+
+        wp_enqueue_script('nls-form-validation', plugin_dir_url(__FILE__) . 'js/NlsHunterFormValidation.js', array('jquery'), $this->version, false);
+        wp_enqueue_script('job-search-js', plugin_dir_url(__FILE__) . 'js/jobSearch.js', array('jquery'), $this->version, false);
+        wp_enqueue_script('job-apply-js', plugin_dir_url(__FILE__) . 'js/jobApply.js', array('jquery'), $this->version, false);
+        wp_enqueue_script('agent-js', plugin_dir_url(__FILE__) . 'js/agent.js', array('jquery'), $this->version, false);
+        wp_enqueue_script('nls-app', plugin_dir_url(__FILE__) . 'js/app.js', array('jquery'), $this->version, false);
+        //wp_enqueue_script('jquery-datepicker-he', plugin_dir_url(__FILE__) . 'js/datepicker-he.js', array('jquery'), $this->version, false);
+
     }
 
     /**

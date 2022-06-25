@@ -27,6 +27,11 @@
           "color": "#e4e4e4"
         },
         {
+          "name": "Bg Light",
+          "slug": "bg-light",
+          "color": "#ededed"
+        },
+        {
           "name": "Input",
           "slug": "input-field",
           "color": "#ebebeb"
@@ -60,8 +65,12 @@
           "name": "Chip",
           "slug": "chip",
           "color": "#eae8e8"
-        }
-      ]
+        },
+        {
+          "name": "Border",
+          "slug": "border",
+          "color": "#d5d5d5"
+        }      ]
     },
     "typography": {
       "fontSizes": [
@@ -94,7 +103,7 @@
           "slug": "xxxl",
           "name": "3XL",
           "size": "1.875rem"
-        }
+        }  
       ]
     }
   }

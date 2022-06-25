@@ -43,6 +43,14 @@
   }
 }
 
+.p-in-e-11 {
+  padding-inline-end: 2.75rem;
+}
+
+.p-bl-e-11 {
+  padding-inline-end: 2.75rem;
+}
+
 .two-chars {
   text-overflow: clip;
   width: calc(2ch - 3px);

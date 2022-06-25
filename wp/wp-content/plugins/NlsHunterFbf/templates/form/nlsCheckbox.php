@@ -6,6 +6,7 @@
  * @name
  * @class
  * @validators
+ * @value
  * @autofocus
  */
 $id = isset($name) ? str_replace('[]', '', $name) . '--0' : false;
@@ -15,7 +16,9 @@ $label = isset($label) ? $label : '';
 ?>
 
 <div class="nls-field input <?= isset($wrapperClass) ? $wrapperClass : '' ?>">
-  <input <?= $id ? 'id="' . $id . '"' : '' ?> type="checkbox" name="<?= isset($name) ? $name : '' ?>" <?= isset($value) && $value ? 'checked' : '' ?> class="<?= isset($class) ? $class : '' ?>" aria-invalid="false" <?= isset($autofocus) &&  $autofocus ? 'autofocus' : '' ?> validator="<?= isset($validators) && is_array($validators) ? implode(' ', $validators) : '' ?>">
+  <input <?= $id ? 'id="' . $id . '"' : '' ?> type="checkbox" name="<?= isset($name) ? $name : '' ?>" <?= isset($value) && $value ? 'checked' : '' ?> class="<?= isset($class) ? $class : '' ?>" aria-invalid="false" <?= isset($autofocus) &&  $autofocus ? 'autofocus' : '' ?> validator="<?= isset($validators) && is_array($validators) ? implode(' ', $validators) : '' ?>">&nbsp;
   <label <?= $id ? 'for="' . $id . '"' : '' ?> class="<?= isset($labelClass) ? $labelClass : '' ?>"><?= $label ?></label>
-  <div class="help-block text-small text-red-400"></div>
+  <?php if (!isset($hideHelp) || !$hideHelp) : ?>
+    <div class="help-block text-small text-red-400"></div>
+  <?php endif; ?>
 </div>

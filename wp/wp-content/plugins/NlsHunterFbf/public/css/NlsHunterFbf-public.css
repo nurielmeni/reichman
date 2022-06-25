@@ -9,7 +9,7 @@
 }
 
 /** Sumo Select */
-.nls-hunter-search-wrapper .SumoSelect {
+.nls-hunter .SumoSelect {
   width: 198px;
 }
 
@@ -37,8 +37,16 @@
   outline-width: 1px;
 }
 
+.SumoSelect.open input.search-txt {
+  background-color: transparent;
+}
+
 .SumoSelect li {
   list-style: none !important;
+}
+
+.nls-hunter .SumoSelect {
+  padding-top: 1px;
 }
 
 .SumoSelect p {
@@ -46,12 +54,12 @@
   border: none !important;
 }
 
-.nls-hunter-search-wrapper .SumoSelect.open .search-txt {
+.nls-hunter .SumoSelect.open .search-txt {
   border-radius: inherit !important;
   padding: 8px !important;
 }
 
-.nls-hunter-search-wrapper .SumoSelect.open>.optWrapper {
+.nls-hunter .SumoSelect.open>.optWrapper {
   top: 46px !important;
 }
 
@@ -59,7 +67,7 @@
   top: 41px !important;
 }
 
-.nls-hunter-search-wrapper .nls-field .help-block {
+.nls-hunter .nls-field .help-block {
   min-height: 21px;
 }
 
@@ -67,9 +75,32 @@
   color: var(--nls-placeholder) !important;
 }
 
+.nls-hunter .nls-field {
+  min-width: 9rem;
+}
+
+.hot-job-card {
+  min-width: calc(86vw - 4rem);
+  max-width: calc(86vw - 4rem);
+  padding: theme("spacing.3");
+  background-color: theme("colors.white");
+}
+
+.smart-agent-card {
+  min-width: 84vw;
+  max-width: 84vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hot-job-card,
+.smart-agent-card {
+  box-shadow: 0 3px 6px 0 #002952;
+}
+
 @media (max-width: 1279.9px) {
 
-  .nls-hunter-search-wrapper .SumoSelect,
+  .nls-hunter .SumoSelect,
   .nls-field.input.date {
     width: 229px;
   }
@@ -86,8 +117,8 @@
     width: calc(50% - 0.5rem);
   }
 
-  .nls-hunter-search-wrapper .SumoSelect,
-  .nls-hunter-search-wrapper .nls-field input {
+  .nls-hunter .SumoSelect,
+  .nls-hunter .nls-field input {
     width: 100%;
   }
 }
@@ -99,8 +130,58 @@
     width: 100%;
   }
 
-  .nls-hunter-search-wrapper .SumoSelect,
-  .nls-hunter-search-wrapper .nls-field input {
+  .nls-hunter .SumoSelect,
+  .nls-hunter .nls-field input {
     width: 100%;
+  }
+}
+
+@media (min-width: 480.1px) {
+  .hot-job-card {
+    min-width: calc(50vw - 12rem);
+    max-width: calc(50vw - 4rem);
+  }
+
+  .smart-agent-card {
+    min-width: calc((100vw - 5rem) / 2);
+    max-width: calc((100vw - 5rem) / 2);
+  }
+}
+
+@media (min-width: 768.1px) {
+  .smart-agent-card {
+    min-width: calc((100vw - 14rem) / 3);
+    max-width: calc((100vw - 14rem) / 3);
+  }
+}
+
+@media (min-width: 960.1px) {
+  .smart-agent-card {
+    min-width: calc((100vw - 16rem) / 4);
+    max-width: calc((100vw - 16rem) / 4);
+  }
+}
+
+@media (min-width: 1200.1px) {
+  .hot-job-card {
+    min-width: calc(33vw - 3rem);
+    max-width: calc(33vw - 3rem);
+  }
+
+  .smart-agent-card {
+    min-width: calc((100vw - 18rem) / 5);
+    max-width: calc((100vw - 18rem) / 5);
+  }
+}
+
+@media (min-width: 1400.1px) {
+  .hot-job-card {
+    min-width: calc(25vw - 2rem);
+    max-width: calc(25vw - 2rem);
+  }
+
+  .smart-agent-card {
+    min-width: calc((100vw - 20rem) / 6);
+    max-width: calc((100vw - 20rem) / 6);
   }
 }

@@ -1,5 +1,5 @@
 <?php
-include_once ABSPATH . 'wp-content/plugins/NlsHunterFbf/includes/Hunter/NlsHelper.php';
+include_once NLS__PLUGIN_PATH . '/includes/Hunter/NlsHelper.php';
 
 /**
  * @job
@@ -13,11 +13,11 @@ include_once ABSPATH . 'wp-content/plugins/NlsHunterFbf/includes/Hunter/NlsHelpe
     </h2>
     <button type="button" class="hidden additional cancel"><img src="<?= plugins_url('NlsHunterFbf/public/images/cancel.svg') ?>" width="30" alt=""></button>
   </div>
-  <div class="flex justify-center items-center text-xl my-3 w-full">
+  <header class="flex justify-center items-center text-xl my-3 w-full">
     <span class="w-1/3 text-center whitespace-nowrap"><?= NlsHelper::proprtyValue($job, 'JobCode') ?></span>
     <span class="w-1/3 border-x-2 mx-2 px-2 border-primary text-center"><?= NlsHelper::proprtyValue($job, 'EmployerName') ?></span>
     <span class="w-1/3 text-center whitespace-nowrap"><?= NlsHelper::dateFormat(NlsHelper::proprtyValue($job, 'UpdateDate')) ?></span>
-  </div>
+  </header>
   <div class="text-description text-xl overflow-hidden no-additional w-full">
     <?= mb_strimwidth(strip_tags(html_entity_decode(NlsHelper::proprtyValue($job, 'Description'))), 0, 130, '...') ?>
   </div>
@@ -32,14 +32,16 @@ include_once ABSPATH . 'wp-content/plugins/NlsHunterFbf/includes/Hunter/NlsHelpe
     <span class="bg-chip text-primary px-2 my-2 rounded-md">מלאה</span>
   </div>
 
-  <?php if (false) : ?>
-    <button type="button" class="apply-employer rounded-md bg-secondary text-white px-8 text-xl font-bold py-1">
-      <?= __('Submit in employer site', 'NlsHunterFbf') ?>
-    </button>
-  <?php else : ?>
-    <button type="button" class="apply rounded-md bg-primary text-white px-8 text-xl font-bold py-1">
-      <?= __('Upload CV and submit', 'NlsHunterFbf') ?>
-    </button>
-  <?php endif; ?>
+  <footer>
+    <?php if (false) : ?>
+      <button type="button" class="apply-employer rounded-md bg-secondary text-white px-8 text-xl font-bold py-1">
+        <?= __('Submit in employer site', 'NlsHunterFbf') ?>
+      </button>
+    <?php else : ?>
+      <button type="button" class="apply rounded-md bg-primary text-white px-8 text-xl font-bold py-1">
+        <?= __('Upload CV and submit', 'NlsHunterFbf') ?>
+      </button>
+    <?php endif; ?>
+  </footer>
 
 </div>

@@ -160,6 +160,24 @@ class NlsHunterFbf_model
         }
     }
 
+    public function emailFrequency()
+    {
+        return [
+            [
+                'id' => 1,
+                'name' => __('Monthly', 'NlsHunterFbf')
+            ],
+            [
+                'id' => 2,
+                'name' => __('Weekly', 'NlsHunterFbf')
+            ],
+            [
+                'id' => 3,
+                'name' => __('Yearly', 'NlsHunterFbf')
+            ],
+        ];
+    }
+
     /**
      * Init directory service
      */
@@ -349,10 +367,10 @@ class NlsHunterFbf_model
         return $jobs;
     }
 
-    public function getHotJobs($professionalFields)
+    public function getHotJobs($professionalFields = null, $count)
     {
         $searchParams = is_array($professionalFields) ? ['' => $professionalFields] : [];
-        return $this->getJobHunterExecuteNewQuery2($searchParams, null, 0, $this->countHotJobs);
+        return $this->getJobHunterExecuteNewQuery2($searchParams, null, 0, $count ? $count : $this->countHotJobs);
     }
 
     private function joinVals($param)
@@ -526,5 +544,41 @@ class NlsHunterFbf_model
             }
         }
         return $applicantCvList;
+    }
+
+    public function getAgents()
+    {
+        return [
+            [
+                'id' => '132434-354235235-25353',
+                'name' => 'סוכן 1',
+                'date' => '15/12/2021'
+            ],
+            [
+                'id' => '132434-354235235-25353',
+                'name' => 'סוכן 2',
+                'date' => '15/12/2021'
+            ],
+            [
+                'id' => '132434-354235235-25353',
+                'name' => 'סוכן 3',
+                'date' => '15/12/2021'
+            ],
+            [
+                'id' => '132434-354235235-25353',
+                'name' => 'סוכן 4',
+                'date' => '15/12/2021'
+            ],
+            [
+                'id' => '132434-354235235-25353',
+                'name' => 'סוכן 5',
+                'date' => '15/12/2021'
+            ],
+            [
+                'id' => '132434-354235235-25353',
+                'name' => 'סוכן 6',
+                'date' => '15/12/2021'
+            ],
+        ];
     }
 }

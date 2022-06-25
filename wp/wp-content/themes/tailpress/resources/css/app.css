@@ -101,35 +101,6 @@
     color: theme("colors.placeholder") !important;
   }
 
-  .hot-job-card {
-    min-width: calc(86vw - 4rem);
-    max-width: calc(86vw - 4rem);
-    padding: theme("spacing.3");
-    box-shadow: 0 3px 6px 0 #002952;
-    background-color: theme("colors.white");
-  }
-
-  @media (min-width: 480.1px) {
-    .hot-job-card {
-      min-width: calc(50vw - 4rem);
-      max-width: calc(50vw - 4rem);
-    }
-  }
-
-  @media (min-width: 1200.1px) {
-    .hot-job-card {
-      min-width: calc(33vw - 3rem);
-      max-width: calc(33vw - 3rem);
-    }
-  }
-
-  @media (min-width: 1400.1px) {
-    .hot-job-card {
-      min-width: calc(25vw - 2rem);
-      max-width: calc(25vw - 2rem);
-    }
-  }
-
   @media (max-width: 768.9px) {
     .underline-decor {
       border-bottom-width: 2px;
@@ -164,7 +135,7 @@ section>.double-doted-border::before {
   top: -22px;
   left: calc(10 * 12px + 4px);
   height: 24px;
-  width: calc(100% - 10 * 12px + 6px + 7px + 6px);
+  width: calc(100% - 10 * 12px - 8px);
   z-index: 10;
   background-color: #f7f7f7;
 }
@@ -175,7 +146,7 @@ section>.double-doted-border::after {
   bottom: -22px;
   right: calc(10 * 12px + 4px);
   height: 24px;
-  width: calc(100% - 10 * 12px + 6px + 7px + 6px);
+  width: calc(100% - 10 * 12px - 8px);
   z-index: 10;
   background-color: #f7f7f7;
 }
@@ -189,5 +160,13 @@ section>.double-doted-border::after {
   section>.double-doted-border {
     outline: dotted 6px;
     outline-offset: 7px;
+  }
+
+  section>.double-doted-border::before {
+    width: calc(100% - 10 * 12px + 6px + 7px + 6px);
+  }
+
+  section>.double-doted-border::after {
+    width: calc(100% - 10 * 12px + 6px + 7px + 6px);
   }
 }

@@ -1,6 +1,7 @@
 const _ = require("lodash");
 const theme = require("./theme.json");
 const tailpress = require("@jeffreyvr/tailwindcss-tailpress");
+const lineClamp = require('@tailwindcss/line-clamp');
 
 module.exports = {
   mode: "jit",
@@ -95,5 +96,5 @@ module.exports = {
       xl: tailpress.theme("settings.layout.wideSize", theme),
     },
   },
-  plugins: [tailpress.tailwind],
+  plugins: [tailpress.tailwind, lineClamp],
 };

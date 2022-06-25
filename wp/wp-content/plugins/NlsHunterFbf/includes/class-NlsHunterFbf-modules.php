@@ -70,12 +70,11 @@ class NlsHunterFbf_modules
 
     public function nlsHotJobs_render()
     {
-        $professionalFields = $this->model->getCardProfessinalField($this->applicantId);
-        $hotJobs = $this->model->getHotJobs($professionalFields, 6);
+        $hotJobs = $this->model->getHotJobs(null, 6);
 
         ob_start();
         echo render('slider/horizontalSlider', [
-            'elements' => $hotJobs,
+            'elements' => $hotJobs['list'],
             'elementTemplate' => 'slider/nlsHotJob'
         ]);
         return ob_get_clean();
@@ -145,6 +144,56 @@ class NlsHunterFbf_modules
 
         return ob_get_clean();
     }
+
+    private function statItems()
+    {
+        return [
+            [
+                'label' => __('Jobs I applied to', 'NlsHunterFbf'),
+                'image' => NLS__PLUGIN_URL . '/public/images/personal/applied.svg',
+                'value' => '20'
+            ],
+            [
+                'label' => __('My CV Files', 'NlsHunterFbf'),
+                'image' => NLS__PLUGIN_URL . '/public/images/personal/cv.svg',
+                'value' => '1'
+            ],
+            [
+                'label' => __('Additional Files', 'NlsHunterFbf'),
+                'image' => NLS__PLUGIN_URL . '/public/images/personal/folder.svg',
+                'value' => '1'
+            ],
+            [
+                'label' => __('Jobs by Smart Agent', 'NlsHunterFbf'),
+                'image' => NLS__PLUGIN_URL . '/public/images/personal/agent.svg',
+                'value' => '1'
+            ],
+            [
+                'label' => __('Jobs by My Area', 'NlsHunterFbf'),
+                'image' => NLS__PLUGIN_URL . '/public/images/personal/matched.svg',
+                'value' => '1'
+            ]
+        ];
+    }
+
+    public function nlsHunterPersonalModule_render()
+    {
+        $agents = $this->model->getAgents();
+
+        ob_start();
+
+        echo render('personal/module', [
+            'model' => $this->model,
+            'statItems' => $this->statItems(),
+            'searchParams' =>  $this->searchParams(),
+            'agents' => $agents,
+            'personalPageUrl' => $this->getPersonalPageUrl()
+        ]);
+
+        return ob_get_clean();
+    }
+
+
 
     public function nlsHunterSearchResults_render()
     {

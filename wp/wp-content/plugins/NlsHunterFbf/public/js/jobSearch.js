@@ -5,31 +5,13 @@ var JobSearch =
         var rtl = false;
         var lang = 'en-US';
 
-        var jobCards = '.search-results-wrapper .job-card',
-            jocCardsDetailsBtn = '.job-card button.additional-details',
+        var jocCardsDetailsBtn = '.job-card button.additional-details',
             jocCardsCancelBtn = '.job-card button.cancel',
-            //jobApplyForm = '.search-results-wrapper .job-apply-form-wrapper',
+            jobSearchForm = '.nls-hunter-search-wrapper form',
             detailsClasses = 'details md:col-span-2 lg:col-span-3 md:p-8 animate-expand',
             applyBtn = '.job-card button.apply',
             moreResultsBtn = '.search-results-wrapper .footer button.more-results',
             applyEmployer = '.job-card button.apply-employer';
-
-        function initSumoSelect(selectBoxItem) {
-            var name = $(selectBoxItem).attr('name') || '';
-            var placeholder = $(selectBoxItem).attr('placeholder') || '';
-
-            $('select.sumo[name="' + name + '"]').SumoSelect({
-                placeholder: placeholder,
-                search: true,
-                csvDispCount: 2,
-                okCancelInMulti: true,
-                isClickAwayOk: true,
-                searchText: (rtl ? 'חפש ' : 'Search ') + placeholder,
-                locale: rtl ? ['בחר', 'בטל', 'בחר הכל', 'בטל הכל'] : ['OK', 'Cancel', 'Select All', 'Clear ALL'],
-                captionFormat: rtl ? '{0} נבחרו' : '{0} Selected',
-                captionFormatAllSelected: rtl ? '{0} כולם נבחרו!' : '{0} all selected!',
-            });
-        }
 
         function toggleAdvanced() {
             var el = '.nls-hunter-search-wrapper .search-advanced';
@@ -41,13 +23,6 @@ var JobSearch =
                     $(this).addClass('hidden');
                 });
             }
-        }
-
-        function clearFields() {
-            $('.nls-hunter-search-wrapper input').val('');
-            $('.nls-hunter-search-wrapper select.sumo').each(function () {
-                $(this)[0].sumo.unSelectAll();
-            });
         }
 
         function search(e) {
@@ -75,7 +50,7 @@ var JobSearch =
             if ($(jobCard).hasClass('details')) return jobCard;
 
             $(jobCard).removeClass('animate-expand w-full');
-            $(jobCard).find('span').removeClass('w-1/3');
+            $(jobCard).find('header span').removeClass('w-1/3');
             $(jobCard).find('.additional').removeClass('hidden');
             $(jobCard).find('.no-additional').addClass('hidden');
             $(jobCard).get(0).scrollIntoView({ behavior: "smooth" });
@@ -102,7 +77,7 @@ var JobSearch =
             $(jobCard).find('button.apply').removeClass('hidden');
             $(jobCard).removeClass(detailsClasses);
             $(jobCard).get(0).scrollIntoView({ behavior: "smooth", block: "center" });
-            $(jobCard).find('span').addClass('w-1/3');
+            $(jobCard).find('header span').addClass('w-1/3');
             $(jobCard).addClass('animate-expand w-full');
         }
 
@@ -131,33 +106,16 @@ var JobSearch =
             console.log('more', htmMoreResults);
         }
 
-        function datePickersInit() {
-            $('.nls-hunter-search-wrapper input[name="last-update"]').datepicker({
-                dateFormat: 'd/m/yy',
-                regional: 'he'
-            });
-
-            // if (lang === 'he-IL') {
-            //     $('.nls-hunter-search-wrapper input[name="last-update"]').datepicker(
-            //         $.datepicker.regional["he"]
-            //     );
-            // }
-
-            var d = new Date($('.nls-hunter-search-wrapper input[name="last-update"]').val());
-            if (!isNaN(d.valueOf())) {
-                $('.nls-hunter-search-wrapper input[name="last-update"]').datepicker('setDate', d)
-            }
-
-        }
-
         function registerEventListeners() {
             // Toggle advanced search options
             $('.nls-hunter-search-wrapper .search-buttons button.advanced').on('click', toggleAdvanced);
 
             // Clear fileds
-            $('.nls-hunter-search-wrapper .search-buttons button.eraser').on('click', clearFields);
+            $('.nls-hunter-search-wrapper .search-buttons button.eraser').on('click', function () {
+                FormValidator && FormValidator.clearFields(jobSearchForm);
+            });
 
-            // Clear fileds
+            // Search
             $('.nls-hunter-search-wrapper button.search').on('click', search);
 
             // Show job details and submit form
@@ -184,15 +142,12 @@ var JobSearch =
             rtl = $('html').attr('dir') === 'rtl';
             lang = $('html').attr('lang');
 
-            $('.nls-hunter-search-wrapper select.sumo').each(function () { initSumoSelect(this); });
-
-            datePickersInit();
-
             registerEventListeners()
         }
 
         return {
-            init: init
+            init: init,
+            hideJobDetails: hideJobDetails
         }
     })(jQuery);
 

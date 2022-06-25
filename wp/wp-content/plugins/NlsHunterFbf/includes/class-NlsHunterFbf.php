@@ -278,6 +278,7 @@ class NlsHunterFbf
 		add_shortcode('nls_hunter_search', [$this->modules, 'nlsHunterSearch_render']);
 		add_shortcode('nls_hunter_search_results', [$this->modules, 'nlsHunterSearchResults_render']);
 		add_shortcode('nls_hunter_personal_dashboard', [$this->modules, 'nlsHunterPersonalDashboard_render']);
+		add_shortcode('nls_hunter_personal_module', [$this->modules, 'nlsHunterPersonalModule_render']);
 	}
 
 	/**

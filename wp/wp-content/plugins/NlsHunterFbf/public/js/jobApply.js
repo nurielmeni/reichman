@@ -38,7 +38,7 @@ var JobApply =
         }
 
         function afterApply() {
-            $.nlsRemoveLoader();
+            //$.nlsRemoveLoader();
         }
 
         function applyForJob(event) {
@@ -60,9 +60,11 @@ var JobApply =
                 dataType: "json",
             })
                 .done(function (data) {
-                    alert("second success", data);
+                    $.nlsRemoveLoader();
+                    $(jobApplyForm).after(data.html);
                 })
                 .fail(function () {
+                    $.nlsRemoveLoader();
                     alert("error");
                 })
                 .always(afterApply);
@@ -82,6 +84,11 @@ var JobApply =
 
         function registerEventListeners() {
             $(document).on('click', jobApplyButton, applyForJob.bind(this));
+
+            $(document).on('click', 'button.back', function (event) {
+                JobSearch.hideJobDetails(event);
+                $(this).parents('.submit-response').remove();
+            });
         }
 
         function init() {
