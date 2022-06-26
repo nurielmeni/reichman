@@ -1,4 +1,5 @@
 <?php
+include_once 'class-NlsUserCredentials.php';
 
 /**
  * The file that defines the core plugin class
@@ -33,6 +34,7 @@ class NlsHunterFbf
 	const SEARCH_PAGE_SLUG = 'search_page';
 	const SEARCH_RESULTS_PAGE_SLUG = 'search_results_page';
 	const JOB_DETAILS_PAGE_SLUG = 'job_deatails_page';
+	const USER_CREDENTIALS = 'nls_user_credentials';
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -91,6 +93,12 @@ class NlsHunterFbf
 	private $modules;
 
 	/**
+	 * User Data
+	 */
+
+	private $userData;
+
+	/**
 	 * Define the core functionality of the plugin.
 	 *
 	 * Set the plugin name and the plugin version that can be used throughout the plugin.
@@ -124,6 +132,9 @@ class NlsHunterFbf
 			//throw new \Exception("Error: Could not create Niloos Module.\n" . $e->getMessage());
 		}
 
+		//$this->setUserCredentials();
+
+
 		$this->define_admin_hooks();
 		$this->define_shortcodes();
 		//$this->add_fbf_widget();
@@ -143,6 +154,22 @@ class NlsHunterFbf
 		$flash .= '<div><strong>' . $subject . '</strong> ' . $message . '</div><strong>x</strong>';
 		$flash .= '</div></div>';
 		return $flash;
+	}
+
+
+	private function setUserCredentials($userId = null)
+	{
+		$userId = $userId ? $userId : $this->model->queryParam('user-id', false, true);
+		//if (!$userId) return false;
+
+		$wp_session = WP_Session::get_instance();
+		$this->userData = $wp_session[self::USER_CREDENTIALS] ? $wp_session[self::USER_CREDENTIALS] : false;
+
+		if (!$this->userData) {
+			$applicant = $this->model->applicantGetByFilter2(['entityLocalName' => 'Oz']);
+		}
+
+		return $this->userData;
 	}
 
 	public function addErrorToPage($message, $subject)

@@ -10,4 +10,8 @@ RUN docker-php-ext-install soap
 RUN pecl install xdebug \
     && docker-php-ext-enable xdebug --ini-name 10-docker-php-ext-xdebug.ini
 
+# Install Apcu
+RUN pecl install apcu \
+    && docker-php-ext-enable apcu 
+
 COPY ./xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini

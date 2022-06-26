@@ -274,8 +274,15 @@ class NlsCards extends NlsService
      * @param guid $basketGuid the Basket Id
      * @return List of Applicants
      */
-    public function applicantGetByFilter2($entityLocalName = '', $mobilePhone = '', $officePhone = '', $homePhone = '', $email = '', $foreignEntityCode = '')
+    public function applicantGetByFilter2($fields)
     {
+        $entityLocalName = key_exists('entityLocalName', $fields) ? $fields['entityLocalName'] : '';
+        $mobilePhone = key_exists('mobilePhone', $fields) ? $fields['mobilePhone'] : '';
+        $officePhone = key_exists('officePhone', $fields) ? $fields['officePhone'] : '';
+        $homePhone = key_exists('homePhone', $fields) ? $fields['homePhone'] : '';
+        $email = key_exists('email', $fields) ? $fields['email'] : '';
+        $foreignEntityCode = key_exists('foreignEntityCode', $fields) ? $fields['foreignEntityCode'] : '';
+
         $filter = json_decode(
             '{"FromView":"Applicants",' .
                 ' "NumberOfRows":null,' .

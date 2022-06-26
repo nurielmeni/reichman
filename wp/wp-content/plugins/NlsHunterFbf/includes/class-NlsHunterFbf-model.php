@@ -528,6 +528,18 @@ class NlsHunterFbf_model
         return $this->nlsCards->jobGet($jobId);
     }
 
+    public function applicantGet($applicantGuid, $collections = 'None')
+    {
+        $this->initCardService();
+        return $this->nlsCards->applicantGet($applicantGuid, $collections);
+    }
+
+    public function applicantGetByFilter2($fields)
+    {
+        $this->initCardService();
+        return $this->nlsCards->applicantGetByFilter2($fields);
+    }
+
     public function getApplicantCVList($applicantId)
     {
         $cacheKey = 'APPLICANT_CV_' . $applicantId;

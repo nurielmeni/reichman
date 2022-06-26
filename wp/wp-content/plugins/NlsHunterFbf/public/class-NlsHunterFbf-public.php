@@ -55,6 +55,11 @@ class NlsHunterFbf_Public
     private $debug;
 
     /**
+     * User Data
+     */
+    private $userData;
+
+    /**
      * Initialize the class and set its properties.
      *
      * @since    1.0.0
