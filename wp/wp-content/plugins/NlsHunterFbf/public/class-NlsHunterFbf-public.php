@@ -35,10 +35,10 @@ class NlsHunterFbf_Public
      * The ID of this plugin.
      *
      * @since    1.0.0
-     * @access   private
-     * @var      string    $NlsHunterFbf    The ID of this plugin.
+     * @access   public
+     * @var      the class    $NlsHunterFbf .
      */
-    private $NlsHunterFbf;
+    public $NlsHunterFbf;
 
     /**
      * The version of this plugin.
@@ -59,6 +59,8 @@ class NlsHunterFbf_Public
      */
     private $userData;
 
+    private $model;
+
     /**
      * Initialize the class and set its properties.
      *
@@ -69,6 +71,7 @@ class NlsHunterFbf_Public
     public function __construct($NlsHunterFbf, $version, $debug = false)
     {
         $this->NlsHunterFbf = $NlsHunterFbf;
+        $this->model =  $this->NlsHunterFbf->getModel();
         $this->version = $version;
         $this->debug = $debug;
     }
@@ -102,7 +105,7 @@ class NlsHunterFbf_Public
             wp_enqueue_style('sumoselect-rtl', plugin_dir_url(__FILE__) . 'css/sumoselect-rtl.css', array(), $this->version, 'all');
         }
 
-        wp_enqueue_style('jquery-ui-theme-smoothness', sprintf('https://ajax.googleapis.com/ajax/libs/jqueryui/%s/themes/smoothness/jquery-ui.css', wp_scripts()->registered['jquery-ui-core']->ver));
+        //wp_enqueue_style('jquery-ui-theme-smoothness', sprintf('https://ajax.googleapis.com/ajax/libs/jqueryui/%s/themes/smoothness/jquery-ui.css', wp_scripts()->registered['jquery-ui-core']->ver));
     }
 
     /**
@@ -125,11 +128,11 @@ class NlsHunterFbf_Public
          * class.
          */
 
-
+        wp_enqueue_script('nls-scroll-to-event', plugin_dir_url(__FILE__) . 'js/scrollToEvent.js', array('jquery'), $this->version, false);
         wp_enqueue_script('nls-sumo-select', plugin_dir_url(__FILE__) . 'js/jquery.sumoselect.min.js', array('jquery'), $this->version, false);
         wp_enqueue_script('mobile-check-js', plugin_dir_url(__FILE__) . 'js/mobileCheck.js', array('jquery'), $this->version, false);
         wp_enqueue_script('nls-swipe-detect', plugin_dir_url(__FILE__) . 'js/swipeDetect.js', array('jquery'), $this->version, false);
-        wp_enqueue_script('jquery-ui-datepicker');
+        //wp_enqueue_script('jquery-ui-datepicker');
         wp_enqueue_script('slick-js', plugin_dir_url(__FILE__) . 'js/slick.min.js', array('jquery'), $this->version, false);
         wp_enqueue_script('nls-jquery-js', plugin_dir_url(__FILE__) . 'js/nlsJquery.js', array('jquery'), $this->version, false);
 
@@ -213,6 +216,24 @@ class NlsHunterFbf_Public
 
     public function results_page_function()
     {
-        return "MORE RESULTS";
+        $searchParams = $this->model->searchParams(true);
+        $page = intval($this->model->queryParam('page', 0, true));
+        $jobs = $this->model->getJobHunterExecuteNewQuery2($searchParams, null, $page + 1);
+        $jobDetailsPageUrl = $this->model->getJobDetailsPageUrl();
+
+        ob_start();
+
+        foreach ($jobs['list'] as $job) {
+            echo render('job/nlsJobCard', [
+                'model' => $this->model,
+                'job' => $job,
+                'jobDetailsPageUrl' => $jobDetailsPageUrl . '?jobcode=' .  NlsHelper::proprtyValue($job, 'JobCode')
+            ]);
+        }
+        wp_send_json([
+            'results' => htmlentities(ob_get_clean()),
+            'count' => count($jobs['list']),
+            'page' => $page + 1
+        ]);
     }
 }

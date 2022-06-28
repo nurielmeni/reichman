@@ -31,14 +31,17 @@
         'prepend' => plugins_url('NlsHunterFbf/public/images/search.svg'),
       ]) ?>
 
-      <button type="button" class="btn search hidden md:block text-2xl py-3 px-8 rounded-xl"><?= __('Search', 'NlshunterFbf') ?></button>
+      <button type="button" class="btn search hidden md:block text-2xl py-3 px-8 rounded-xl border-2 border-secondary"><?= __('Search', 'NlshunterFbf') ?></button>
     </div>
-    <div class="search-advanced flex flex-wrap justify-start gap-4 w-full mt-5">
-      <?= render('search/nlsAdvancedSearch', [
-        'model' => $model,
-        'searchParams' => $searchParams
-      ]) ?>
+    <div class="wrapper mt-5 h-16">
+      <div class="search-advanced flex justify-start gap-4">
+        <?= render('search/nlsAdvancedSearch', [
+          'model' => $model,
+          'searchParams' => $searchParams
+        ]) ?>
+      </div>
     </div>
+
     <div class="flex justify-center w-full md:hidden mt-6">
       <button type="button" class="btn search text-2xl py-3 w-full rounded-xl"><?= __('Search', 'NlshunterFbf') ?></button>
     </div>

@@ -15,7 +15,8 @@
  */
 $id = isset($name) ? str_replace('[]', '', $name) . '--0' : false;
 $required =  isset($required) && $required;
-$value = isset($value) && is_array($value) ? $value : [];
+$value = isset($value) && !is_array($value) ? [$value] : [];
+
 ?>
 <div class="nls-field select <?= isset($wrapperClass) ? $wrapperClass : '' ?>">
   <?php if (isset($label)) : ?>
@@ -24,7 +25,7 @@ $value = isset($value) && is_array($value) ? $value : [];
   <div class="relative flex md:justify-start items-center w-full">
     <select <?= $id ? 'for="' . $id . '"' : '' ?> name="<?= isset($name) ? $name : '' ?><?= isset($multiple) && $multiple ? '[]' : '' ?>" class="sumo <?= isset($class) ? $class : '' ?>" validator="<?= $required ? 'required' : '' ?>" aria-invalid="false" aria-required="<?= isset($required) && $required ? 'true' : 'false' ?>" placeholder="<?= isset($placeHolder) ? $placeHolder : '' ?>" <?= isset($multiple) && $multiple ? 'multiple' : '' ?> validator="<?= isset($validators) && is_array($validators) ? implode(' ', $validators) : '' ?>" aria-invalid="false" aria-required="<?= $required  ? 'true' : 'false' ?>">
       <?php if (!$multiple && isset($placeHolder)) : ?>
-        <option selected value=""><?= $placeHolder ?></option>
+        <option selected value="" class="opacity-50"><?= $placeHolder ?></option>
       <?php endif; ?>
       <?php foreach ($options as $option) : ?>
         <option value="<?= $option['id'] ?>" <?= in_array($option['id'], $value) ? 'selected' : '' ?>><?= $option['name'] ?></option>

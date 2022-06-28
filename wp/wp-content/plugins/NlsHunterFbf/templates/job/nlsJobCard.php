@@ -1,12 +1,14 @@
 <?php
 include_once NLS__PLUGIN_PATH . '/includes/Hunter/NlsHelper.php';
 
+$jobLink = NlsHelper::getExtendedProperty($job->ExtendedProperties, 'JobLink', false);
+
 /**
  * @job
  * 
  */
 ?>
-<div class="job-card flex flex-col justify-between items-center w-full" data-job-code="<?= NlsHelper::proprtyValue($job, 'JobCode') ?>">
+<li class="job-card flex flex-col justify-between items-center w-full" data-job-code="<?= NlsHelper::proprtyValue($job, 'JobCode') ?>">
   <div class="flex space-between items-center w-full">
     <h2 class="job-title text-primary font-bold truncate w-full" title="<?= NlsHelper::proprtyValue($job, 'JobTitle') ?>">
       <?= NlsHelper::proprtyValue($job, 'JobTitle') ?>
@@ -26,22 +28,23 @@ include_once NLS__PLUGIN_PATH . '/includes/Hunter/NlsHelper.php';
   </div>
   <button type="button" class="additional-details no-additional text-center text-primary text-xl my-3"><?= __('Additional Details', 'NlsHunterFbf') ?></button>
   <div class="flex justify-start gap-3 w-full mb-4">
+    <?php if (strlen(NlsHelper::getValueById($model->jobScopes(), NlsHelper::proprtyValue($job, 'JobScope'))) > 0) : ?>
+      <span class="bg-chip text-primary px-2 rounded-md"><?= NlsHelper::getValueById($model->jobScopes(), NlsHelper::proprtyValue($job, 'JobScope')) ?></span>
+    <?php endif; ?>
     <?php if (strlen(NlsHelper::getValueById($model->jobRanks(), NlsHelper::proprtyValue($job, 'Rank'))) > 0) : ?>
       <span class="bg-chip text-primary px-2 rounded-md"><?= NlsHelper::getValueById($model->jobRanks(), NlsHelper::proprtyValue($job, 'Rank')) ?></span>
     <?php endif; ?>
-    <span class="bg-chip text-primary px-2 my-2 rounded-md">מלאה</span>
   </div>
 
   <footer>
-    <?php if (false) : ?>
-      <button type="button" class="apply-employer rounded-md bg-secondary text-white px-8 text-xl font-bold py-1">
+    <?php if ($jobLink) : ?>
+      <a href="<?= $jobLink ?>" class="apply-employer rounded-md bg-secondary text-white px-8 text-xl font-bold py-[7px]">
         <?= __('Submit in employer site', 'NlsHunterFbf') ?>
-      </button>
+      </a>
     <?php else : ?>
       <button type="button" class="apply rounded-md bg-primary text-white px-8 text-xl font-bold py-1">
         <?= __('Upload CV and submit', 'NlsHunterFbf') ?>
       </button>
     <?php endif; ?>
   </footer>
-
-</div>
+</li>

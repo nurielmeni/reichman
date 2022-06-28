@@ -23,13 +23,14 @@ class NlsHelper
         }
     }
 
-    public static function getExtendedProperty($extendedProperties, $name)
+    public static function getExtendedProperty($extendedProperties, $name, $default = '')
     {
-        foreach ($extendedProperties as $extendedProperty) {
-            if ($extendedProperty->PropertyName === $name) {
-                return $extendedProperty->Value;
-            }
+        if (!is_object($extendedProperties)) return $default;
+        foreach ($extendedProperties as $key => $value) {
+            if ($key === 'ExtendedProperty' && is_object($value) && property_exists($value, 'Value') && property_exists($value, 'PropertyName') && $value->PropertyName == $name)
+                return !empty($value->Value) ? $value->Value : $default;
         }
+        return $default;
     }
 
     public static function newGuid()
@@ -135,7 +136,7 @@ class NlsHelper
         return date('d/m/Y', $time);
     }
 
-    
+
     /**
      * Retriev s a list value by the Id
      * @list - a list from the directory service
@@ -145,7 +146,7 @@ class NlsHelper
     {
         if (!is_array($list) || !$id) return '';
         foreach ($list as $listItem) {
-            if ($listItem['id'] === $id) return $listItem['name'];
+            if ($listItem['id'] == $id) return $listItem['name'];
         }
         return '';
     }

@@ -36,3 +36,5 @@ require_once NLS__PLUGIN_PATH . '/renderFunction.php';
     ]); ?>
 
 </section>
+
+<?= render('personal/modal', ['modalId' => isset($modalId) ? $modalId : 'defaultModal']) ?>

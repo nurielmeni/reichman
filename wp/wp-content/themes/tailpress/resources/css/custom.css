@@ -43,6 +43,14 @@
   }
 }
 
+.nls-hunter .entry-content ul a.text-white {
+  color: white;
+}
+
+.nls-hunter .entry-content ul a {
+  text-decoration: none;
+}
+
 .p-in-e-11 {
   padding-inline-end: 2.75rem;
 }

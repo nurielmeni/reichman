@@ -6,6 +6,7 @@
   --nls-text-primary: #002952;
   --nls-bg-primary: #002952;
   --nls-placeholder: #7f94a8;
+  --nls-bg-dark-gray: #808080;
 }
 
 /** Sumo Select */
@@ -71,12 +72,26 @@
   min-height: 21px;
 }
 
+.nls-hunter .SumoSelect>.CaptionCont.bg-primary {
+  background-color: var(--nls-bg-primary);
+  color: white;
+}
+
+.nls-hunter .SumoSelect>.CaptionCont.bg-dark-gray {
+  background-color: var(--nls-bg-dark-gray);
+  color: white;
+}
+
 .SumoSelect>.CaptionCont>span.placeholder {
   color: var(--nls-placeholder) !important;
 }
 
 .nls-hunter .nls-field {
   min-width: 9rem;
+}
+
+.nls-hunter .nls-field.select {
+  padding-top: 2px;
 }
 
 .hot-job-card {
@@ -96,6 +111,14 @@
 .hot-job-card,
 .smart-agent-card {
   box-shadow: 0 3px 6px 0 #002952;
+}
+
+.search-advanced {
+  overflow: auto;
+  position: absolute;
+  min-height: 348px;
+  width: calc(100% - 3rem);
+  padding-inline: 2px;
 }
 
 @media (max-width: 1279.9px) {
@@ -171,6 +194,22 @@
   .smart-agent-card {
     min-width: calc((100vw - 18rem) / 5);
     max-width: calc((100vw - 18rem) / 5);
+  }
+}
+
+@media (max-width: 1279.9px) {
+
+  .nls-hunter .SumoSelect>.CaptionCont.bg-primary>label>i,
+  .nls-hunter .SumoSelect>.CaptionCont.bg-dark-gray>label>i {
+    filter: invert(100%);
+    opacity: 1;
+  }
+}
+
+@media (min-width: 1280px) {
+  .nls-hunter .SumoSelect>.CaptionCont.lg\:bg-white {
+    background-color: white;
+    color: var(--nls-bg-primary);
   }
 }
 

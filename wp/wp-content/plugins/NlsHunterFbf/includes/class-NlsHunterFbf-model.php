@@ -71,6 +71,51 @@ class NlsHunterFbf_model
         return isset($_GET[$param]) ? $_GET[$param] : $default;
     }
 
+    public function getSearchResultsPageUrl()
+    {
+        $language = get_bloginfo('language');
+        $searcResultsPageId = $language === 'he-IL' ?
+            get_option(NlsHunterFbf_Admin::NLS_SEARCH_RESULTS_PAGE_HE) :
+            get_option(NlsHunterFbf_Admin::NLS_SEARCH_RESULTS_PAGE_EN);
+        $searcResultsPageUrl = get_page_link($searcResultsPageId);
+        return $searcResultsPageUrl;
+    }
+
+    public function getJobDetailsPageUrl()
+    {
+        $language = get_bloginfo('language');
+        $jobDetailsPageId = $language === 'he-IL' ?
+            get_option(NlsHunterFbf_Admin::NLS_JOB_DETAILS_PAGE_HE) :
+            get_option(NlsHunterFbf_Admin::NLS_JOB_DETAILS_PAGE_EN);
+        $jobDetailsPageUrl = get_page_link($jobDetailsPageId);
+        return $jobDetailsPageUrl;
+    }
+
+    public function getPersonalPageUrl()
+    {
+        $language = get_bloginfo('language');
+        $jobDetailsPageId = $language === 'he-IL' ?
+            get_option(NlsHunterFbf_Admin::NLS_PERSONAL_PAGE_HE) :
+            get_option(NlsHunterFbf_Admin::NLS_PERSONAL_PAGE_EN);
+        $jobDetailsPageUrl = get_page_link($jobDetailsPageId);
+        return $jobDetailsPageUrl;
+    }
+
+
+
+    public function searchParams($post = false)
+    {
+        $params['keyword'] = $this->queryParam('keywords', '', $post);
+        $params['category'] = $this->queryParam('job-category', [], $post);
+        $params['scope'] = $this->queryParam('job-scope', [], $post);
+        $params['rank'] = $this->queryParam('job-rank', [], $post);
+        $params['date-range'] = $this->queryParam('date-range', '', $post);
+        $params['employmentType'] = $this->queryParam('employments-type', [], $post);
+        $params['location'] = $this->queryParam('job-location', [], $post);
+
+        return $params;
+    }
+
     public function nlsGetSupplierId()
     {
         return $this->supplierId;
@@ -165,7 +210,7 @@ class NlsHunterFbf_model
         return [
             [
                 'id' => 1,
-                'name' => __('Monthly', 'NlsHunterFbf')
+                'name' => __('Daily', 'NlsHunterFbf')
             ],
             [
                 'id' => 2,
@@ -173,7 +218,7 @@ class NlsHunterFbf_model
             ],
             [
                 'id' => 3,
-                'name' => __('Yearly', 'NlsHunterFbf')
+                'name' => __('Monthly', 'NlsHunterFbf')
             ],
         ];
     }
@@ -263,6 +308,28 @@ class NlsHunterFbf_model
         }
 
         return is_array($jobRanks) ? $jobRanks : [];
+    }
+
+    public function getDateRange()
+    {
+        return [
+            [
+                'id' => 'today',
+                'name' => __('Today', 'NlsHunterFbf'),
+            ],
+            [
+                'id' => 'lastWeek',
+                'name' => __('Last Week', 'NlsHunterFbf'),
+            ],
+            [
+                'id' => 'lastMonth',
+                'name' => __('Last Month', 'NlsHunterFbf'),
+            ],
+            [
+                'id' => 'all',
+                'name' => __('All', 'NlsHunterFbf'),
+            ]
+        ];
     }
 
     public function professionalFields()
@@ -406,7 +473,7 @@ class NlsHunterFbf_model
         $category = key_exists('category', $searchParams) && count($searchParams['category']) > 0 ? $searchParams['category'] : false;
         $scope = key_exists('scope', $searchParams) && count($searchParams['scope']) > 0 ? $searchParams['scope'] : false;
         $rank = key_exists('rank', $searchParams) && count($searchParams['rank']) > 0 ? $searchParams['rank'] : false;
-        $lastUpdate = key_exists('lastUpdate', $searchParams) && strlen($searchParams['lastUpdate']) > 0 ? $searchParams['lastUpdate'] : false;
+        $dateRange = key_exists('date-range', $searchParams) && strlen($searchParams['date-range']) > 0 ? $searchParams['date-range'] : false;
         $employmentForm = key_exists('employmentForm', $searchParams) && strlen($searchParams['employmentForm']) > 0 ? $searchParams['employmentForm'] : false;
         $employmentType = key_exists('employmentType', $searchParams) && count($searchParams['employmentType']) > 0 ? $searchParams['employmentType'] : false;
 
@@ -414,7 +481,7 @@ class NlsHunterFbf_model
         $cache_key .= $category ? $this->joinVals($category) : '';
         $cache_key .= $scope ? $this->joinVals($scope) : '';
         $cache_key .= $rank ? $this->joinVals($rank) : '';
-        $cache_key .= $lastUpdate ? $this->joinVals($lastUpdate) : '';
+        $cache_key .= $dateRange ? $this->joinVals($dateRange) : '';
         $cache_key .= $employmentType ? $this->joinVals($employmentType) : '';
         $cache_key .= $keyword ? $keyword : '';
         $cache_key .= $resultRowOffset . '_' . $resultRowLimit;
@@ -454,10 +521,25 @@ class NlsHunterFbf_model
                 $filter->addWhereFilter($filterField, is_array($filterField) ? WhereCondition::C_OR : WhereCondition::C_AND);
             }
 
-            if ($lastUpdate) {
+            if ($dateRange) {
                 // date("m/d/Y", $start) . " - " . date("m/d/Y", $end)
-                $startDate = date("m/d/Y", strtotime($lastUpdate));
-                $endDate = date("m/d/Y", time());
+                $now = new DateTime('now');
+                $endDate = $now->modify('+1 day')->format('m/d/Y');
+
+                switch ($dateRange) {
+                    case 'today':
+                        $startDate = $now->format('m/d/Y');
+                        break;
+                    case 'lastWeek':
+                        $startDate = $now->modify('-7 day')->format('m/d/Y');
+                        break;
+                    case 'lastMonth':
+                        $startDate = $now->modify('-1 month')->format('m/d/Y');
+                        break;
+                    default:
+                        return;
+                }
+
                 $dateSpan = $startDate . '-' . $endDate;
 
                 $filterField = new FilterField('UpdateDate', SearchPhrase::BETWEEN_DATES, $dateSpan, NlsFilter::DATE_TIME_RANGE);

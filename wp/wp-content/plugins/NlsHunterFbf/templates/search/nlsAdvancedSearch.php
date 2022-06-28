@@ -37,17 +37,14 @@
     'multiple' => true
 ]) ?>
 
-<!-- Last Update -->
-<?= render('form/nlsInputField', [
-    'label' => null,
-    'placeHolder' => __('Last Date', 'NlsHunterFbf'),
-    'name' => 'last-update',
-    'type' => wp_is_mobile() ? 'date' : 'text',
-    'wrapperClass' => 'date relative',
-    'class' => 'date-picker py-2 rounded-xl px-2 w-40',
-    'value' => key_exists('lastUpdate', $searchParams) ? $searchParams['lastUpdate'] : '',
-    'append' => wp_is_mobile() ? false : plugins_url('NlsHunterFbf/public/images/crate-down.svg'),
-    'iconSize' => 11
+<!-- Date Range -->
+<?= render('form/nlsSelectField', [
+    'options' => $model->getDateRange(),
+    'placeHolder' => __('Date Range', 'NlsHunterFbf'),
+    'name' => 'date-range',
+    'class' => 'rounded-xl border-none py-2 text-xl',
+    'value' => key_exists('date-range', $searchParams) ? $searchParams['date-range'] : '',
+    'multiple' => false
 ]) ?>
 
 <!-- Employment Form -->

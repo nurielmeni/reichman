@@ -4,6 +4,8 @@ var JobSearch =
         "use strict";
         var rtl = false;
         var lang = 'en-US';
+        var jobsGrid = 'section.search-results-wrapper > ul.grid';
+        var loading = false;
 
         var jocCardsDetailsBtn = '.job-card button.additional-details',
             jocCardsCancelBtn = '.job-card button.cancel',
@@ -29,19 +31,7 @@ var JobSearch =
             console.log(e);
             var form = $(e.target).parents('form')[0];
 
-            // To keep the format
-            var textVal = $('.nls-hunter-search-wrapper input[name="last-update"]').val();
-            var dateVal = $('.nls-hunter-search-wrapper input[name="last-update"]').datepicker('getDate');
-            if (dateVal) {
-                $('.nls-hunter-search-wrapper input[name="last-update"]').css('color', 'transparent').val(dateVal.toISOString());
-            }
-
             form.submit();
-
-            // To keep the format
-            if (dateVal) {
-                $('.nls-hunter-search-wrapper input[name="last-update"]').css('color', 'inherit').val(textVal);
-            }
         }
 
         function showJobDetails(event) {
@@ -81,29 +71,61 @@ var JobSearch =
             $(jobCard).addClass('animate-expand w-full');
         }
 
-        function moreResults(event) {
-            var button = event.target;
-            var currentPage = $(button).data('page') || 0;
+        function showSpinner() {
+            $('.footer .spinner svg').removeClass('hidden');
+        }
 
-            $(button).find('svg').removeClass('hidden');
+        function hideSpinner() {
+            $('.footer .spinner svg').addClass('hidden');
+        }
+
+        function moreResults(page) {
+            if (loading) return;
+            var page = page || $(jobsGrid).data('page') || 1;
+
+            var data = new FormData(document.querySelector('form[name="nls-job-search"]'));
+            data.append('page', page);
+            data.append('action', 'results_page');
 
             $.ajax({
                 url: frontend_ajax.url,
-                data: {
-                    action: 'results_page',
-                    page: currentPage,
+                method: "POST",
+                //enctype: 'multipart/form-data',
+                processData: false,
+                contentType: false,
+                data: data,
+                beforeSend: function () {
+                    showSpinner();
+                    loading = true;
                 },
                 success: renderMoreResults,
-                dataType: 'html'
+                dataType: 'json',
+                complete: function () {
+                    loading = false;
+                    hideSpinner();
+
+                    // Call this function so the wp will inform the change to the post
+                    $(document.body).trigger("post-load");
+                }
             });
 
-            // Call this function so the wp will inform the change to the post
-            $(document.body).trigger("post-load");
 
         }
 
         function renderMoreResults(htmMoreResults) {
-            console.log('more', htmMoreResults);
+            if (typeof htmMoreResults !== 'object' || !htmMoreResults.hasOwnProperty('results')) return;
+
+            var decodedResults = $("<div />").html(htmMoreResults.results).text();
+            $(jobsGrid).append(decodedResults);
+
+            if (htmMoreResults.hasOwnProperty('page'))
+                $(jobsGrid).data('page', htmMoreResults.page)
+
+            if (htmMoreResults.count)
+                ScrollTo && ScrollTo.setCalls('#jobs-loader .spinner', 1);
+            else
+                ScrollTo && ScrollTo.remove('#jobs-loader .spinner');
+
         }
 
         function registerEventListeners() {
@@ -131,9 +153,6 @@ var JobSearch =
 
             // Load more serach results
             //$(document).on('click')
-
-            // Date picker colors
-            //$('.nls-hunter-search-wrapper input[name="last-update"]').on('change', datePickersColor);
         }
 
         function init() {
@@ -143,6 +162,8 @@ var JobSearch =
             lang = $('html').attr('lang');
 
             registerEventListeners()
+
+            ScrollTo && ScrollTo.add('#jobs-loader .spinner', moreResults, 1);
         }
 
         return {

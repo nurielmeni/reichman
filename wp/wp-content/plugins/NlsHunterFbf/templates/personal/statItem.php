@@ -1,4 +1,4 @@
-<div class="flex justify-start items-center bg-white md:bg-inherit drop-shadow-lg md:drop-shadow-none rounded-lg md:rounded-none px-4 py-2 md:py-8">
+<button type="button" class="flex justify-start items-center bg-white md:bg-inherit drop-shadow-lg md:drop-shadow-none rounded-lg md:rounded-none px-4 py-2 md:py-8" <?= isset($action) && !empty($action) ? ' data-action="' . $action . '" ' : '' ?> <?= isset($action) && !empty($modalToggle) ? ' data-modal-toggle="' . $modalToggle . '" ' : '' ?>>
     <div class="flex justify-center items-center rounded-full bg-border w-[56px] md:w-[90px] h-[56px] md:h-[90px]">
         <img class="w-[86%] h-[86%]" src="<?= $image ?>" alt="">
     </div>
@@ -10,4 +10,4 @@
             <?= $label ?>
         </p>
     </div>
-</div>
+</button>

@@ -25,49 +25,6 @@ class NlsHunterFbf_modules
         $this->applicantId = '826084ab-89b4-4909-b831-bb790a2ede7b';
     }
 
-    private function getSearchResultsPageUrl()
-    {
-        $language = get_bloginfo('language');
-        $searcResultsPageId = $language === 'he-IL' ?
-            get_option(NlsHunterFbf_Admin::NLS_SEARCH_RESULTS_PAGE_HE) :
-            get_option(NlsHunterFbf_Admin::NLS_SEARCH_RESULTS_PAGE_EN);
-        $searcResultsPageUrl = get_page_link($searcResultsPageId);
-        return $searcResultsPageUrl;
-    }
-
-    private function getJobDetailsPageUrl()
-    {
-        $language = get_bloginfo('language');
-        $jobDetailsPageId = $language === 'he-IL' ?
-            get_option(NlsHunterFbf_Admin::NLS_JOB_DETAILS_PAGE_HE) :
-            get_option(NlsHunterFbf_Admin::NLS_JOB_DETAILS_PAGE_EN);
-        $jobDetailsPageUrl = get_page_link($jobDetailsPageId);
-        return $jobDetailsPageUrl;
-    }
-
-    private function getPersonalPageUrl()
-    {
-        $language = get_bloginfo('language');
-        $jobDetailsPageId = $language === 'he-IL' ?
-            get_option(NlsHunterFbf_Admin::NLS_PERSONAL_PAGE_HE) :
-            get_option(NlsHunterFbf_Admin::NLS_PERSONAL_PAGE_EN);
-        $jobDetailsPageUrl = get_page_link($jobDetailsPageId);
-        return $jobDetailsPageUrl;
-    }
-
-    private function searchParams()
-    {
-        $params['keyword'] = $this->model->queryParam('keywords');
-        $params['category'] = $this->model->queryParam('job-category', []);
-        $params['scope'] = $this->model->queryParam('job-scope', []);
-        $params['rank'] = $this->model->queryParam('job-rank', []);
-        $params['lastUpdate'] = $this->model->queryParam('last-update');
-        $params['employmentType'] = $this->model->queryParam('employments-type', []);
-        $params['location'] = $this->model->queryParam('job-location', []);
-
-        return $params;
-    }
-
     public function nlsHotJobs_render()
     {
         $hotJobs = $this->model->getHotJobs(null, 6);
@@ -113,14 +70,14 @@ class NlsHunterFbf_modules
 
     public function nlsHunterSearch_render()
     {
-        $searchParams = $this->searchParams();
+        $searchParams = $this->model->searchParams();
 
         ob_start();
 
         echo render('search/nlsJobSearch', [
             'model' => $this->model,
             'searchParams' => $searchParams,
-            'searcResultsPageUrl' => $this->getSearchResultsPageUrl()
+            'searcResultsPageUrl' => $this->model->getSearchResultsPageUrl()
         ]);
 
         return ob_get_clean();
@@ -139,7 +96,7 @@ class NlsHunterFbf_modules
         echo render('personal/dashboard', [
             'model' => $this->model,
             'data' => $data,
-            'personalPageUrl' => $this->getPersonalPageUrl()
+            'personalPageUrl' => $this->model->getPersonalPageUrl()
         ]);
 
         return ob_get_clean();
@@ -149,26 +106,33 @@ class NlsHunterFbf_modules
     {
         return [
             [
+                'action' => 'applied-jobs',
                 'label' => __('Jobs I applied to', 'NlsHunterFbf'),
                 'image' => NLS__PLUGIN_URL . '/public/images/personal/applied.svg',
                 'value' => '20'
             ],
             [
+                'action' => 'cv-files',
+                'modalToggle' => 'fileManagerModal',
                 'label' => __('My CV Files', 'NlsHunterFbf'),
                 'image' => NLS__PLUGIN_URL . '/public/images/personal/cv.svg',
                 'value' => '1'
             ],
             [
+                'action' => 'additional-files',
+                'modalToggle' => 'fileManagerModal',
                 'label' => __('Additional Files', 'NlsHunterFbf'),
                 'image' => NLS__PLUGIN_URL . '/public/images/personal/folder.svg',
                 'value' => '1'
             ],
             [
+                'action' => 'agent-jobs',
                 'label' => __('Jobs by Smart Agent', 'NlsHunterFbf'),
                 'image' => NLS__PLUGIN_URL . '/public/images/personal/agent.svg',
                 'value' => '1'
             ],
             [
+                'action' => 'my-area-jobs',
                 'label' => __('Jobs by My Area', 'NlsHunterFbf'),
                 'image' => NLS__PLUGIN_URL . '/public/images/personal/matched.svg',
                 'value' => '1'
@@ -185,25 +149,22 @@ class NlsHunterFbf_modules
         echo render('personal/module', [
             'model' => $this->model,
             'statItems' => $this->statItems(),
-            'searchParams' =>  $this->searchParams(),
+            'searchParams' =>  $this->model->searchParams(),
             'agents' => $agents,
-            'personalPageUrl' => $this->getPersonalPageUrl()
+            'personalPageUrl' => $this->model->getPersonalPageUrl(),
+            'modalId' => 'fileManagerModal'
         ]);
 
         return ob_get_clean();
     }
 
-
-
     public function nlsHunterSearchResults_render()
     {
-        $searchParams = $this->searchParams();
-        $from =  get_query_var('last_page', 0);
-        $jobs = $this->model->getJobHunterExecuteNewQuery2($searchParams, null, $from);
+        $searchParams = $this->model->searchParams();
+        $page = $this->model->queryParam('page', 0);
+        $jobs = $this->model->getJobHunterExecuteNewQuery2($searchParams, null, $page);
 
-
-
-        $jobDetailsPageUrl = $this->getJobDetailsPageUrl();
+        $jobDetailsPageUrl = $this->model->getJobDetailsPageUrl();
         $applicantCVs = $this->model->getApplicantCVList($this->applicantId);
 
         ob_start();
@@ -211,7 +172,7 @@ class NlsHunterFbf_modules
         echo render('search/nlsJobSearch', [
             'model' => $this->model,
             'searchParams' => $searchParams,
-            'searcResultsPageUrl' => $this->getSearchResultsPageUrl()
+            'searcResultsPageUrl' => $this->model->getSearchResultsPageUrl()
         ]);
 
         if (!$jobs) {

@@ -22,26 +22,6 @@
         });
     }
 
-
-    function datePickersInit() {
-        $('.nls-hunter input[type="text"].date-picker').datepicker({
-            dateFormat: 'd/m/yy',
-            regional: 'he'
-        });
-
-        // if (lang === 'he-IL') {
-        //     $('.nls-hunter-search-wrapper input[name="last-update"]').datepicker(
-        //         $.datepicker.regional["he"]
-        //     );
-        // }
-
-        var d = new Date($('.nls-hunter-search-wrapper input[name="last-update"]').val());
-        if (!isNaN(d.valueOf())) {
-            $('.nls-hunter-search-wrapper input[name="last-update"]').datepicker('setDate', d)
-        }
-
-    }
-
     $(function () {
         console.log('App Init');
 
@@ -80,8 +60,6 @@
                     }
                 }]
         });
-
-        datePickersInit();
 
         $('.nls-field select.sumo').each(function () { initSumoSelect(this); });
     });

@@ -147,6 +147,11 @@ class NlsHunterFbf
 		 * */
 	}
 
+	public function getModel()
+	{
+		return $this->model;
+	}
+
 	public function addFlash($message, $subject = '', $type = 'info')
 	{
 		$flash = '<div class="nls-flash-message-wrapper flex">';
@@ -327,7 +332,7 @@ class NlsHunterFbf
 	 */
 	public function get_NlsHunterFbf()
 	{
-		return $this->NlsHunterFbf;
+		return $this;
 	}
 
 	/**
