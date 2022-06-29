@@ -118,7 +118,7 @@ class NlsSearch extends NlsService
                 "queryConfig" => array("ResultRowLimit" => $from, "ResultRowOffset" => $ofset),
                 "oQueryInfo" => $filter
             );
-            $res = $this->client->ApplicantHunterExecuteNewQuery2($params)->JobHunterExecuteNewQuery2Result; //->Results;
+            $res = $this->client->ApplicantHunterExecuteNewQuery2($params)->ApplicantHunterExecuteNewQuery2Result; //->Results;
             return $res;
         } catch (SoapFault $ex) {
             //var_dump($ex);
@@ -163,6 +163,23 @@ class NlsSearch extends NlsService
                 "HunterId" => $hunter_id
             );
             $this->client->AutomaticHunterConfirmReset($params);
+        } catch (SoapFault $ex) {
+            //var_dump($ex);
+            throw new Exception('Error: SOAP Error: Check the log for more details.');
+        } catch (Exception $ex) {
+            throw new Exception('Error: Niloos services are not availiable, try later.');
+        }
+    }
+
+    public function SearchApplicantsByName($applicantName)
+    {
+        $transactionCode = NlsHelper::newGuid();
+        try {
+            $params = array(
+                "transactionCode" => $transactionCode,
+                "partialName" => $applicantName
+            );
+            $this->client->SearchApplicantsByName($params);
         } catch (SoapFault $ex) {
             //var_dump($ex);
             throw new Exception('Error: SOAP Error: Check the log for more details.');

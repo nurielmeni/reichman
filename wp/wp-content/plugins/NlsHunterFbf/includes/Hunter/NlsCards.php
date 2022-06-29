@@ -274,7 +274,7 @@ class NlsCards extends NlsService
      * @param guid $basketGuid the Basket Id
      * @return List of Applicants
      */
-    public function applicantGetByFilter2($fields)
+    public function applicantGetByFilter2_fields($fields)
     {
         $entityLocalName = key_exists('entityLocalName', $fields) ? $fields['entityLocalName'] : '';
         $mobilePhone = key_exists('mobilePhone', $fields) ? $fields['mobilePhone'] : '';
@@ -327,6 +327,49 @@ class NlsCards extends NlsService
             }
 
             return ['res' => $result, 'Params' => $params];
+        } catch (Exception $ex) {
+            /**
+             * var_dump($ex);
+             * echo "Request " . $this->client->__getLastRequest();
+             * echo "Response " . $this->client->__getLastResponse();
+             * die;
+             **/
+            throw new Exception('Error: Niloos services are not availiable, try later.');
+        }
+    }
+
+    /**
+     * Search applicant by parameters
+     * @param guid $basketGuid the Basket Id
+     * @return List of Applicants
+     */
+    public function applicantGetByFilter2($filter)
+    {
+        $transactionCode = NlsHelper::newGuid();
+        try {
+            $params = [
+                'totalNumResults' => 0,
+                'cardFilter' => $filter,
+                'transactionCode' => $transactionCode,
+                'languageId' => NlsHelper::languageCode(),
+            ];
+
+            $res = $this->client->ApplicantGetByFilter2($params);
+            if ($res->totalNumResults > 0) {
+                $xmlObj = isset($res->ApplicantGetByFilter2Result->any) ? substr($res->ApplicantGetByFilter2Result->any, strpos($res->ApplicantGetByFilter2Result->any, '<diffgr:')) : null;
+                $resObj = simplexml_load_string($xmlObj);
+                $resArray = json_decode(json_encode($resObj), TRUE);
+                foreach ($resArray['DocumentElement']['Cards'] as &$card) {
+                    foreach ($card as $key => $value)
+                        if (!is_string($value))
+                            $card[$key] = "";
+                }
+                $result = ['totalNumResults' => $res->totalNumResults, 'results' => $resArray['DocumentElement']['Cards']];
+            } else {
+                $result = ['totalNumResults' => $res->totalNumResults, 'results' => []];
+            }
+
+            return ['res' => $result, 'params' => $params];
         } catch (Exception $ex) {
             /**
              * var_dump($ex);

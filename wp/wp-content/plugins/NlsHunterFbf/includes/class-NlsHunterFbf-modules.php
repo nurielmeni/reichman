@@ -63,6 +63,7 @@ class NlsHunterFbf_modules
 
         ob_start();
         echo render('nlsCategories', [
+            'model' => $this->model,
             'categories' => $categories,
         ]);
         return ob_get_clean();
@@ -143,6 +144,8 @@ class NlsHunterFbf_modules
     public function nlsHunterPersonalModule_render()
     {
         $agents = $this->model->getAgents();
+        $applicant = $this->model->applicantGetByFilter2(['entityLocalName' => 'Oz']);
+        $cvList = $this->model->getApplicantCVList($applicant['res']['results'][0]['CardId']);
 
         ob_start();
 

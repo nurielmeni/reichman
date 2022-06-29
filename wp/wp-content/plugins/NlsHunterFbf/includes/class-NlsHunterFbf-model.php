@@ -101,8 +101,6 @@ class NlsHunterFbf_model
         return $jobDetailsPageUrl;
     }
 
-
-
     public function searchParams($post = false)
     {
         $params['keyword'] = $this->queryParam('keywords', '', $post);
@@ -203,6 +201,8 @@ class NlsHunterFbf_model
             );
             return null;
         }
+
+        return true;
     }
 
     public function emailFrequency()
@@ -616,10 +616,87 @@ class NlsHunterFbf_model
         return $this->nlsCards->applicantGet($applicantGuid, $collections);
     }
 
-    public function applicantGetByFilter2($fields)
+    public function applicantGetByFilter2($searchParams)
     {
-        $this->initCardService();
-        return $this->nlsCards->applicantGetByFilter2($fields);
+        if (!is_array($searchParams)) return [];
+
+        $entityLocalName = key_exists('entityLocalName', $searchParams) && strlen($searchParams['entityLocalName']) > 0 ? $searchParams['entityLocalName'] : false;
+        $mobilePhone = key_exists('mobilePhone', $searchParams) && count($searchParams['mobilePhone']) > 0 ? $searchParams['mobilePhone'] : false;
+        $officePhone = key_exists('officePhone', $searchParams) && count($searchParams['officePhone']) > 0 ? $searchParams['officePhone'] : false;
+        $homePhone = key_exists('homePhone', $searchParams) && count($searchParams['homePhone']) > 0 ? $searchParams['homePhone'] : false;
+        $email = key_exists('email', $searchParams) && count($searchParams['email']) > 0 ? $searchParams['email'] : false;
+        $foreignEntityCode = key_exists('foreignEntityCode', $searchParams) && count($searchParams['foreignEntityCode']) > 0 ? $searchParams['foreignEntityCode'] : false;
+
+        $cache_key = 'nls_hunter_applicants_';
+        $cache_key .= $entityLocalName ? $entityLocalName : '';
+        $cache_key .= $mobilePhone ? $this->joinVals($mobilePhone) : '';
+        $cache_key .= $officePhone ? $this->joinVals($officePhone) : '';
+        $cache_key .= $homePhone ? $this->joinVals($homePhone) : '';
+        $cache_key .= $email ? $this->joinVals($email) : '';
+        $cache_key .= $foreignEntityCode ? $this->joinVals($foreignEntityCode) : '';
+        $hashedKey = hash('md5', $cache_key);
+
+        if ($this->nlsFlashCache) wp_cache_delete($hashedKey);
+
+        $applicants = wp_cache_get($hashedKey);
+
+
+        if (false === $applicants) {
+            if (!$this->initCardService()) return ['totalHits' => 0, 'list' => []];
+
+            if (!is_array($searchParams)) $applicants = [];
+            $filter = new NlsFilter('Applicants');
+
+            if ($entityLocalName) {
+                $filterField = new FilterField('EntityLocalName', SearchPhrase::LIKE, $entityLocalName, NlsFilter::TERMS_NON_ANALAYZED);
+                $filter->addWhereFilter($filterField, WhereCondition::C_OR);
+            }
+
+            if ($mobilePhone) {
+                $filterField = new FilterField('MobilePhone', SearchPhrase::LIKE, $mobilePhone, NlsFilter::TERMS_NON_ANALAYZED);
+                $filter->addWhereFilter($filterField, WhereCondition::C_OR);
+            }
+
+            if ($officePhone) {
+                $filterField = new FilterField('officePhone', SearchPhrase::LIKE, $officePhone, NlsFilter::TERMS_NON_ANALAYZED);
+                $filter->addWhereFilter($filterField, WhereCondition::C_OR);
+            }
+
+            if ($homePhone) {
+                $filterField = new FilterField('homePhone', SearchPhrase::LIKE, $homePhone, NlsFilter::TERMS_NON_ANALAYZED);
+                $filter->addWhereFilter($filterField, WhereCondition::C_OR);
+            }
+
+            if ($email) {
+                $filterField = new FilterField('email', SearchPhrase::LIKE, $email, NlsFilter::TERMS_NON_ANALAYZED);
+                $filter->addWhereFilter($filterField, WhereCondition::C_OR);
+            }
+
+            if ($foreignEntityCode) {
+                $filterField = new FilterField('foreignEntityCode', SearchPhrase::EXACT, $foreignEntityCode, NlsFilter::NUMERIC_VALUES);
+                $filter->addWhereFilter($filterField, WhereCondition::C_OR);
+            }
+
+            $filter->setSort('EntityLocalName');
+
+            $filter->addSelectFilterFields([
+                'CardId',
+                'EntityLocalName',
+                'MobilePhone',
+                'Email'
+            ]);
+
+            try {
+                $res = $this->nlsCards->applicantGetByFilter2($filter);
+
+                return $res;
+
+                wp_cache_set($cache_key, $applicants);
+            } catch (Exception $ex) {
+                $this->notice('Model: getJobHunterExecuteNewQuery2', $ex->getMessage());
+                return null;
+            }
+        }
     }
 
     public function getApplicantCVList($applicantId)
@@ -674,5 +751,11 @@ class NlsHunterFbf_model
                 'date' => '15/12/2021'
             ],
         ];
+    }
+
+    public function searchApplicantsByName($name)
+    {
+        $this->initSearchService();
+        return $this->nlsCards->SearchApplicantsByName($name);
     }
 }

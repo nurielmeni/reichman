@@ -9,7 +9,7 @@
       <div class="underline-decor"></div>
     </div>
     <div class="hidden md:flex  justify-end items-end">
-      <button type="button" class="all-jobs btn mb-3"><?= __('All Jobs', 'NlsHunterFbf') ?></button>
+      <a href="<?= $model->getSearchResultsPageUrl() ?>" type="button" class="all-jobs btn mb-3"><?= __('All Jobs', 'NlsHunterFbf') ?></a>
     </div>
   </div>
 
@@ -21,10 +21,10 @@
           <?= $category['imageTag'] ?>
         </div>
         <span class="text-sm md:text-2xl text-bold"><?= $category['title'] ?></span>
-    </button>
+      </button>
     <?php endforeach; ?>
     <button type="button" class="md:hidden all-jobs category-card flex flex-grow  justify-center flex-col items-center p-4" category-id="<?= $category['categoryId'] ?>">
-        <span class="md:text-2xl text-bold"><?= __('To all jobs  >>', 'NlsHunterFbf') ?></span>
+      <span class="md:text-2xl text-bold"><?= __('To all jobs  >>', 'NlsHunterFbf') ?></span>
     </button>
   </div>
 </section>

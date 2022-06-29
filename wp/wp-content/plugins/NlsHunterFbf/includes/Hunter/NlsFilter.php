@@ -12,6 +12,13 @@ abstract class SearchPhrase
   const EXACT = 'Exact';
   const ONE_OR_MORE = 'OneOrMore';
   const BETWEEN_DATES = 'BetweenDates';
+  const LIKE = 'Like';
+}
+
+abstract class SortDirection
+{
+  const ASC = 'Ascending';
+  const DESC = 'Descending';
 }
 
 class FilterField
@@ -75,6 +82,7 @@ class NlsFilter
   public $FromView;
   public $LanguageId;
   public $SelectFilterFields = [];
+  public $OrderByFilterSort;
   public $WhereFilters = [];
 
   public function __construct($view = 'Jobs')
@@ -104,6 +112,19 @@ class NlsFilter
   {
     $fieldsArray = !is_array($fields) ? [$fields] : $fields;
     $this->SelectFilterFields = array_merge($this->SelectFilterFields, $fieldsArray);
+  }
+
+  /**
+   * Add sorting
+   */
+  public function setSort($field, $direction = SortDirection::ASC)
+  {
+    $this->OrderByFilterSort = [
+      'CardFilterSort' => [
+        'Direction' => $direction,
+        'Field' => $field,
+      ]
+    ];
   }
 
   /**
