@@ -31,9 +31,9 @@
         'prepend' => plugins_url('NlsHunterFbf/public/images/search.svg'),
       ]) ?>
 
-      <button type="button" class="btn search hidden md:block text-2xl py-3 px-8 rounded-xl border-2 border-secondary"><?= __('Search', 'NlshunterFbf') ?></button>
+      <button type="button" class="btn search hidden md:block text-2xl py-3 px-8 rounded-xl border-2 border-secondary"><?= __('Search', 'NlsHunterFbf') ?></button>
     </div>
-    <div class="wrapper mt-5 h-16">
+    <div class="advanced-wrapper mt-5 h-16">
       <div class="search-advanced flex justify-start gap-4">
         <?= render('search/nlsAdvancedSearch', [
           'model' => $model,

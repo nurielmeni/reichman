@@ -11,18 +11,12 @@ class NlsHunterFbf_modules
 {
     private $model;
     private $attributes;
-    private $applicantId;
+    private $nlsUser;
 
-    public function __construct($model)
+    public function __construct($model, $nlsUser)
     {
         $this->model = $model;
-        $this->attributes = [
-            'phone' => ['054-7641456'],
-            'fullName' => ['כלכלה כלכלה'],
-            'applicantID' => ['55555']
-        ];
-
-        $this->applicantId = '826084ab-89b4-4909-b831-bb790a2ede7b';
+        $this->nlsUser = $nlsUser;
     }
 
     public function nlsHotJobs_render()
@@ -143,9 +137,16 @@ class NlsHunterFbf_modules
 
     public function nlsHunterPersonalModule_render()
     {
+        $applicanrUserId = '52a6d317-48ea-42f2-931f-91c58bb1b6e1';
         $agents = $this->model->getAgents();
+        $user = $this->model->userGetById('215025255');
+        $getCvList = $this->model->applicantGet('52a6d317-48ea-42f2-931f-91c58bb1b6e1');
+        //'C57986DC-1665-44B3-B84B-77929A046035';//'D1236B22-E3D9-452F-80BF-C42FD9C411E7';// '6a92814f-0723-48af-9d6a-8f8b865384ea1';
         $applicant = $this->model->applicantGetByFilter2(['entityLocalName' => 'Oz']);
-        $cvList = $this->model->getApplicantCVList($applicant['res']['results'][0]['CardId']);
+        $applicant1 = $this->model->getApplicantByUserName('55555');
+
+        //$cvList = $this->model->getApplicantCVList($applicant['res']['results'][2]['CardId']);
+        $cvList = $this->model->getApplicantCVList('451D2E28-BB7F-4076-A56E-0E6E2445E458');
 
         ob_start();
 

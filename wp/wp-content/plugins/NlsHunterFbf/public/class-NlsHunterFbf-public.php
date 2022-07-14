@@ -65,7 +65,7 @@ class NlsHunterFbf_Public
      * Initialize the class and set its properties.
      *
      * @since    1.0.0
-     * @param      string    $NlsHunterFbf       The name of the plugin.
+     * @param      Object    $NlsHunterFbf       The plugin.
      * @param      string    $version    The version of this plugin.
      */
     public function __construct($NlsHunterFbf, $version, $debug = false)
@@ -168,7 +168,24 @@ class NlsHunterFbf_Public
      */
     public function apply_for_job_function()
     {
-        $response = ['status' => self::STATUS_SUCCESS, 'html' => $this->sentSuccess()];
+        // 1. Get Job Code
+        $jobCode = $this->model->queryParam('job-code', false, true);
+
+        // 2. Get the CV File ID
+        $cvFileId = $this->model->queryParam('cv-file', false, true);
+
+        // 3. Get the additional File ID
+        $additionalFileId = $this->model->queryParam('additional-file', false, true);
+
+        $response = [
+            'status' => self::STATUS_SUCCESS,
+            'html' => $this->sentSuccess(),
+            'params' => [
+                'jobCode' => $jobCode,
+                'cvFileId' => $cvFileId,
+                'additionalFileId' => $additionalFileId
+            ]
+        ];
         wp_send_json($response);
     }
 

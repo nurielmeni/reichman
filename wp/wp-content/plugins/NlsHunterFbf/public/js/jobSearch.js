@@ -13,10 +13,12 @@ var JobSearch =
             detailsClasses = 'details md:col-span-2 lg:col-span-3 md:p-8 animate-expand',
             applyBtn = '.job-card button.apply',
             moreResultsBtn = '.search-results-wrapper .footer button.more-results',
+            jobCategory = '.nls-hunter-search-wrapper select[name="job-category[]"]',
+            jobCategoryButton = '.nls-hunter-categories-wrapper button.category-card',
             applyEmployer = '.job-card button.apply-employer';
 
         function toggleAdvanced() {
-            var el = '.nls-hunter-search-wrapper .search-advanced';
+            var el = '.nls-hunter-search-wrapper .advanced-wrapper';
             if ($(el).hasClass('hidden')) {
                 $(el).removeClass('hidden');
                 $(el).slideDown(500);
@@ -27,11 +29,18 @@ var JobSearch =
             }
         }
 
-        function search(e) {
-            console.log(e);
-            var form = $(e.target).parents('form')[0];
+        function search() {
+            var form = $(jobSearchForm).submit();
+        }
 
-            form.submit();
+        function searchByCategory(event) {
+            var el = event.target;
+            var categoryId = $(el).parents('button').attr('category-id');
+
+
+            clearFields();
+            $(jobCategory).val([categoryId]);
+            search();
         }
 
         function showJobDetails(event) {
@@ -128,14 +137,16 @@ var JobSearch =
 
         }
 
+        function clearFields() {
+            FormValidator && FormValidator.clearFields(jobSearchForm);
+        }
+
         function registerEventListeners() {
             // Toggle advanced search options
             $('.nls-hunter-search-wrapper .search-buttons button.advanced').on('click', toggleAdvanced);
 
             // Clear fileds
-            $('.nls-hunter-search-wrapper .search-buttons button.eraser').on('click', function () {
-                FormValidator && FormValidator.clearFields(jobSearchForm);
-            });
+            $('.nls-hunter-search-wrapper .search-buttons button.eraser').on('click', clearFields);
 
             // Search
             $('.nls-hunter-search-wrapper button.search').on('click', search);
@@ -150,6 +161,8 @@ var JobSearch =
             $(document).on('click', moreResultsBtn, moreResults);
 
             $(document).on('click', applyBtn, showApplyForm);
+
+            $(document).on('click', jobCategoryButton, searchByCategory);
 
             // Load more serach results
             //$(document).on('click')

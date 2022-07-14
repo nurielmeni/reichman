@@ -152,8 +152,8 @@ var FormValidator =
     };
 
     var clearValidation = function (form) {
-      form.find(".nls-invalid").removeClass("nls-invalid");
-      form.find(".nls-field .help-block").text("");
+      $(form).find(".nls-invalid").removeClass("nls-invalid");
+      $(form).find(".nls-field .help-block").text("");
       validForm();
     };
 

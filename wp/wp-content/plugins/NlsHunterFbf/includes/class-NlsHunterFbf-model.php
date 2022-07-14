@@ -616,6 +616,12 @@ class NlsHunterFbf_model
         return $this->nlsCards->applicantGet($applicantGuid, $collections);
     }
 
+    public function getApplicantByUserName($userName)
+    {
+        $this->initDirectoryService();
+        return $this->nlsDirectory->getApplicantByUserName($userName);
+    }
+
     public function applicantGetByFilter2($searchParams)
     {
         if (!is_array($searchParams)) return [];
@@ -757,5 +763,11 @@ class NlsHunterFbf_model
     {
         $this->initSearchService();
         return $this->nlsCards->SearchApplicantsByName($name);
+    }
+
+    public function userGetById($userId, $utilizerId = 3856)
+    {
+        $this->initDirectoryService();
+        return $this->nlsDirectory->userGetById($userId);
     }
 }

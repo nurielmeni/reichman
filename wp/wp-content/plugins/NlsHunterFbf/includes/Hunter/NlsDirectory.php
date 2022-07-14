@@ -372,20 +372,8 @@ class NlsDirectory extends NlsService
 
             return $res;
         } catch (SoapFault $ex) {
-            /**
-             * var_dump($ex);
-             * echo "Request " . $this->client->__getLastRequest();
-             * echo "Response " . $this->client->__getLastResponse();
-             * die;
-             **/
             throw new Exception('Error: Niloos services are not availiable, try later.');
         } catch (Exception $ex) {
-            /**
-             * var_dump($ex);
-             * echo "Request " . $this->client->__getLastRequest();
-             * echo "Response " . $this->client->__getLastResponse();
-             * die;
-             **/
             throw new Exception('Error: Niloos services are not availiable, try later.');
         }
     }
@@ -494,7 +482,7 @@ class NlsDirectory extends NlsService
      * $utilizerId the utilizer Id
      * @return List of Applicants
      */
-    public function userGetById($userId, $utilizerId = 5806) //3856
+    public function userGetById($userId, $utilizerId = 3856) //3856 - IDC, 5806 - Colman
     {
         $transactionCode = NlsHelper::newGuid();
         try {

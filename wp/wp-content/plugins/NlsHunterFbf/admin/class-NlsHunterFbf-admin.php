@@ -106,7 +106,7 @@ class NlsHunterFbf_Admin
          * class.
          */
 
-        wp_enqueue_style($this->nlsHunterApi, plugin_dir_url(__FILE__) . 'css/NlsHunterFbf-admin.css', array(), $this->version, 'all');
+        wp_enqueue_style($this->nlsHunterApi->NlsHunterFbf, plugin_dir_url(__FILE__) . 'css/NlsHunterFbf-admin.css', array(), $this->version, 'all');
     }
 
     /**
@@ -129,7 +129,7 @@ class NlsHunterFbf_Admin
          * class.
          */
 
-        wp_enqueue_script($this->nlsHunterApi, plugin_dir_url(__FILE__) . 'js/NlsHunterFbf-admin.js', array('jquery'), $this->version, false);
+        wp_enqueue_script($this->nlsHunterApi->NlsHunterFbf, plugin_dir_url(__FILE__) . 'js/NlsHunterFbf-admin.js', array('jquery'), $this->version, false);
     }
 
     public function NlsHunterFbf_plugin_menu()

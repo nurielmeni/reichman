@@ -44,9 +44,10 @@ var JobApply =
         function applyForJob(event) {
             var jobCard = $(event.target).parents('.job-card');
             var jobCode = $(jobCard).data('job-code');
+            var formEl = $(jobCard).find('.job-apply-form-wrapper form');
 
-            var formData = new FormData();
-            formData.append('jobCode', jobCode);
+            var formData = new FormData(formEl.get(0));
+            formData.append('job-code', jobCode);
             formData.append('action', 'apply_for_job');
 
             $.ajax({

@@ -1,5 +1,5 @@
 <?php
-include_once 'class-NlsUserCredentials.php';
+include_once 'class-NlsUser.php';
 
 /**
  * The file that defines the core plugin class
@@ -53,7 +53,7 @@ class NlsHunterFbf
 	 * @access   protected
 	 * @var      string    $NlsHunterFbf    The string used to uniquely identify this plugin.
 	 */
-	protected $NlsHunterFbf;
+	public $NlsHunterFbf;
 
 	/**
 	 * The current version of the plugin.
@@ -96,7 +96,7 @@ class NlsHunterFbf
 	 * User Data
 	 */
 
-	private $userData;
+	private $nlsUser;
 
 	/**
 	 * Define the core functionality of the plugin.
@@ -124,8 +124,8 @@ class NlsHunterFbf
 		// Instantiate the modules class
 		try {
 			$this->model = new NlsHunterFbf_model();
-
-			$this->modules = new NlsHunterFbf_modules($this->model);
+			$this->nlsUser = new NlsUser($this->model, ['userId' => '451D2E28-BB7F-4076-A56E-0E6E2445E458']);
+			$this->modules = new NlsHunterFbf_modules($this->model, $this->nlsUser);
 		} catch (\Exception $e) {
 			$this->addErrorToPage($e->getMessage(), "Error: Could not create Niloos Module.");
 			return null;

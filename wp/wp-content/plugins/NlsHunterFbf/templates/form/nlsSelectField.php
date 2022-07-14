@@ -16,7 +16,7 @@
 $id = isset($name) ? str_replace('[]', '', $name) . '--0' : false;
 $required =  isset($required) && $required;
 $value = isset($value) && !is_array($value) ? [$value] : [];
-
+$multiple = isset($multiple) ? $multiple : false;
 ?>
 <div class="nls-field select <?= isset($wrapperClass) ? $wrapperClass : '' ?>">
   <?php if (isset($label)) : ?>
