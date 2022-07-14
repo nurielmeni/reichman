@@ -8,12 +8,14 @@ require_once NLS__PLUGIN_PATH . '/renderFunction.php';
         <div class="underline-decor"></div>
     </header>
 
-    <?= render('personal/details', []); ?>
+    <?= render('personal/details', [
+        'user' => $user
+    ]); ?>
 </section>
 
 <section class="stats my-12">
     <?= render('personal/stats', [
-        'statItems' => $statItems
+        'statItems' => $user->getStatItems()
     ]); ?>
 </section>
 

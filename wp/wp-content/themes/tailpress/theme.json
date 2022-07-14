@@ -67,6 +67,11 @@
           "color": "#eae8e8"
         },
         {
+          "name": "Overlay",
+          "slug": "overlay",
+          "color": "rgba(0, 41, 82, 0.82)"
+        },
+        {
           "name": "Border",
           "slug": "border",
           "color": "#d5d5d5"
@@ -104,7 +109,7 @@
           "slug": "xxxl",
           "name": "3XL",
           "size": "1.875rem"
-        }  
+        }
       ]
     }
   }

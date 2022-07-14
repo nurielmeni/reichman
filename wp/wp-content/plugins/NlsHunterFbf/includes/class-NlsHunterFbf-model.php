@@ -707,20 +707,74 @@ class NlsHunterFbf_model
 
     public function getApplicantCVList($applicantId)
     {
+        $this->initCardService();
         $cacheKey = 'APPLICANT_CV_' . $applicantId;
         $applicantCvList = wp_cache_get($cacheKey);
 
         if (false === $applicantCvList) {
-            $applicantCvList = [];
             $this->initCardService();
             $cvList = $this->nlsCards->getCVList($applicantId);
 
-            foreach ($cvList as $cv) {
-                $fileInfo = $this->nlsCards->getFileInfo($cv->FileId, $applicantId);
-                $applicantCvList[] = $fileInfo->FileGetByFileIdResult;
-            }
+
+            $applicantCvList = new stdClass();
+            $applicantCvList->list = is_array($cvList) ? $cvList : [$cvList];
+            $applicantCvList->totalNumResults = count($applicantCvList->list);
+
+            wp_cache_set($cacheKey, $applicantCvList, 'card', 20 * 60);
         }
+
         return $applicantCvList;
+    }
+
+    public function getFileInfo($fileId, $applicantId)
+    {
+        $this->initCardService();
+        $cacheKey = 'FILE_INFO_' . $fileId . $applicantId;
+
+        $fileInfo = wp_cache_get($cacheKey);
+
+        if (false === $fileInfo) {
+            $res = $this->nlsCards->getFileInfo($fileId, $applicantId);
+            $fileInfo = $res->FileGetByFileIdResult;
+            wp_cache_set($cacheKey, $fileInfo, 'card', 20 * 60);
+        }
+
+        return $fileInfo;
+    }
+
+    public function fileGetWithContent($fileId, $applicantId)
+    {
+        $this->initCardService();
+        $cacheKey = 'FILE_INFO_CONTENT' . $fileId . $applicantId;
+
+        $fileInfo = wp_cache_get($cacheKey);
+
+        if (false === $fileInfo) {
+            $res = $this->nlsCards->getFileInfo($fileId, $applicantId, true);
+            $fileInfo = $res->FileGetByFileIdResult;
+            wp_cache_set($cacheKey, $fileInfo, 'card', 20 * 60);
+        }
+
+        return $fileInfo;
+    }
+
+    public function getFileList($applicantId)
+    {
+        $this->initCardService();
+        $cacheKey = 'FILE_LIST' . $applicantId;
+
+        $fileList = wp_cache_get($cacheKey);
+
+        if (false === $fileList) {
+            $res = $this->nlsCards->getFileList($applicantId);
+            $fileList = new stdClass();
+            $fileList->list = count(get_object_vars($res->FilesListGetResult)) === 0 ? [] : (is_array($res->FilesListGetResult) ? $res->FilesListGetResult : [$res->FilesListGetResult]);
+            $fileList->totalNumResults = $res->totalNumResults ? $res->totalNumResults : count($fileList->list);
+
+            wp_cache_set($cacheKey, $fileList, 'card', 20 * 60);
+        }
+
+        return $fileList;
     }
 
     public function getAgents()
@@ -769,5 +823,21 @@ class NlsHunterFbf_model
     {
         $this->initDirectoryService();
         return $this->nlsDirectory->userGetById($userId);
+    }
+
+    public function getUserIdByCardId($cardId)
+    {
+        $this->initCardService();
+        $cacheKey = 'USER_ID_BY_CARD' . $cardId;
+
+        $userId = wp_cache_get($cacheKey);
+
+        if (false === $userId) {
+            $res = $this->nlsCards->getUserIdByCardId($cardId);
+            wp_cache_set($cacheKey, $userId, 'card', 20 * 60);
+            return $res;
+        }
+
+        return $userId;
     }
 }

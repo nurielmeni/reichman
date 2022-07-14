@@ -62,5 +62,22 @@
         });
 
         $('.nls-field select.sumo').each(function () { initSumoSelect(this); });
+
+        /**
+         * Tailwinds Modal Toggle
+         */
+        $('button.modal-action').on('click', function () {
+            var modal = $(this).data('modal-toggle');
+            $('#' + modal).toggleClass('hidden');
+        });
+
+        /**
+         * User Actions
+         */
+        $('button.modal-action').on('click', function () {
+            var action = $(this).data('action');
+            if (!action) return;
+            console.log('Action', action);
+        });
     });
 })(jQuery);

@@ -124,7 +124,7 @@ class NlsHunterFbf
 		// Instantiate the modules class
 		try {
 			$this->model = new NlsHunterFbf_model();
-			$this->nlsUser = new NlsUser($this->model, ['userId' => '451D2E28-BB7F-4076-A56E-0E6E2445E458']);
+			$this->nlsUser = new NlsUser($this->model, ['userId' => 'niloosoft']);
 			$this->modules = new NlsHunterFbf_modules($this->model, $this->nlsUser);
 		} catch (\Exception $e) {
 			$this->addErrorToPage($e->getMessage(), "Error: Could not create Niloos Module.");

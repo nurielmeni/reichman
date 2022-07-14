@@ -106,108 +106,6 @@ class NlsCards extends NlsService
         }
     }
 
-
-    /**
-     * Return the applicants for a specific basket
-     * @param guid $basketGuid the Basket Id
-     * @return List of Applicants
-     */
-    public function applicantsGetByBasket($basketGuid)
-    {
-        $transactionCode = NlsHelper::newGuid();
-        try {
-            $params = [
-                'languageId' => NlsHelper::languageCode(),
-                'basketId' => $basketGuid,
-                'transactionCode' => $transactionCode,
-            ];
-            $res = $this->client->ApplicantsGetByBasket($params);
-            $applicantsList = json_decode(json_encode($res), TRUE);
-
-
-            return ['res' => $applicantsList, 'Params' => $params];
-        } catch (Exception $ex) {
-            throw new Exception('Error: Niloos services are not availiable, try later.');
-        }
-    }
-
-    /**
-     * Return the applicants for a specific basket
-     * (int languageId, string ActivityType, Guid basketId, Guid transactionCode)
-     * @param guid $basketGuid the Basket Id
-     * @return List of Applicants
-     */
-    public function applicantsGetByBasket2($basketGuid, $activityType = '704')
-    {
-        $transactionCode = NlsHelper::newGuid();
-        try {
-            $params = [
-                'languageId' => NlsHelper::languageCode(),
-                'ActivityType' => $activityType,
-                'basketId' => $basketGuid,
-                'transactionCode' => $transactionCode,
-            ];
-            $res = $this->client->ApplicantsGetByBasket2($params);
-            $applicantsList = json_decode(json_encode($res), TRUE);
-
-
-            return ['res' => $applicantsList, 'Params' => $params];
-        } catch (Exception $ex) {
-            throw new Exception('Error: Niloos services are not availiable, try later.');
-        }
-    }
-
-    /**
-     * Remove the applicant from a specific basket
-     * @param guid $basketGuid the Basket Id
-     * @return List of Applicants
-     */
-    public function applicantRemoveFromBaskets($applicantGuid, $basketGuid)
-    {
-        $transactionCode = NlsHelper::newGuid();
-        try {
-            $params = [
-                'applicantId' => $applicantGuid,
-                'basketsIDs' =>  array($basketGuid),
-                'transactionCode' => $transactionCode,
-            ];
-            $res = $this->client->ApplicantRemoveFromBaskets($params);
-
-            return ['res' => $res, 'Params' => $params];
-        } catch (Exception $ex) {
-            throw new Exception('Error: Niloos services are not availiable, try later.');
-        }
-    }
-
-    /**
-     * Remove the applicant from a specific basket
-     * @param guid $basketGuid the Basket Id
-     * @return List of Applicants
-     */
-    public function applicantsAddToBaskets($applicantGuid, $basketGuid)
-    {
-        $transactionCode = NlsHelper::newGuid();
-        if (!is_array($applicantGuid)) $applicantGuid = array($applicantGuid);
-        try {
-            $params = [
-                'applicantsIDs' => $applicantGuid,
-                'basketsIDs' => array($basketGuid),
-                'transactionCode' => $transactionCode,
-            ];
-            $res = $this->client->ApplicantsAddToBaskets($params);
-
-            return ['res' => $res, 'Params' => $params];
-        } catch (Exception $ex) {
-            /**
-             * var_dump($ex);
-             * echo "Request " . $this->client->__getLastRequest();
-             * echo "Response " . $this->client->__getLastResponse();
-             * die;
-             **/
-            throw new Exception('Error: Niloos services are not availiable, try later.');
-        }
-    }
-
     /**
      * Update fields for applicant
      * @param guid $applicantGuid the applicant Id
@@ -296,7 +194,7 @@ class NlsCards extends NlsService
                 '       {"Field":"MobilePhone","SearchPhrase":"Like","Value":"' . $mobilePhone . '"},' .
                 '       {"Field":"OfficePhone","SearchPhrase":"Like","Value":"' . $officePhone . '"},' .
                 '       {"Field":"HomePhone","SearchPhrase":"Like","Value":"' . $homePhone . '"},' .
-                '       {"Field":"Email","SearchPhrase":"Like","Value":"' . $email . '"},' .
+                '       {"Field":"Email","SearchPhrase":"Exact","Value":"' . $email . '"},' .
                 '       {"Field":"ForeignEntityCode","SearchPhrase":"Exact","Value":"' . $foreignEntityCode . '"}' .
                 '     ]}' .
                 '  ]}'
@@ -899,7 +797,9 @@ class NlsCards extends NlsService
         }
     }
 
-
+    /**
+     * FILES
+     */
     public function getCVList($userID)
     {
         $transactionCode = NlsHelper::newGuid();
@@ -917,7 +817,7 @@ class NlsCards extends NlsService
                 return [];
             }
         } catch (Exception $ex) {
-            throw new Exception('Error: getCVList: Niloos services are not availiable, try later.');
+            throw new Exception('Error: getCVList: ' . $ex->faultstring);
         }
     }
 
@@ -936,6 +836,43 @@ class NlsCards extends NlsService
             return $res;
         } catch (Exception $ex) {
             throw new Exception('Error: getFileInfo: Niloos services are not availiable, try later.' . $ex->getMessage());
+        }
+    }
+
+    public function getFileList($userId, $fromRow = null, $toRow = null)
+    {
+
+        $transactionCode = NlsHelper::newGuid();
+        try {
+
+            $params = array(
+                "transactionCode" => $transactionCode,
+                "ParentId" => $userId,
+                "filter" => [],
+                "fromRow" => $fromRow,
+                "toRow" => $toRow,
+                "sortColumn" => "Name",
+            );
+            $res = $this->client->FilesListGet($params);
+
+            return $res;
+        } catch (Exception $ex) {
+            throw new Exception('Error: getFileList: ' . $ex->getMessage());
+        }
+    }
+
+    public function getUserIdByCardId($cardId)
+    {
+        $transactionCode = NlsHelper::newGuid();
+        try {
+            $params = [
+                'cardId' => $cardId,
+                'transactionCode' => $transactionCode,
+            ];
+            $res = $this->client->GetUserIdByCardId($params);
+            return $res->GetUserIdByCardIdResult;
+        } catch (Exception $ex) {
+            throw new Exception('Error: getUserIdByCardId: ' . $ex->getMessage());
         }
     }
 }
