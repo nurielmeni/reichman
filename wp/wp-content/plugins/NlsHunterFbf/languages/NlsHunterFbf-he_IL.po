@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: NlsHunterFbf\n"
-"POT-Creation-Date: 2022-07-17 00:06+0300\n"
-"PO-Revision-Date: 2022-07-17 00:07+0300\n"
+"POT-Creation-Date: 2022-07-18 02:07+0300\n"
+"PO-Revision-Date: 2022-07-18 02:08+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: he_IL\n"
@@ -94,7 +94,35 @@ msgstr "הכל"
 msgid "The User is not logged in, please log in"
 msgstr "המשתמש לא נמצא, היכנס בבקשה"
 
-#: public/class-NlsHunterFbf-public.php:278
+#: includes/class-NlsUser.php:56 includes/class-NlsUser.php:73
+msgid "Logout"
+msgstr "יציאה"
+
+#: includes/class-NlsUser.php:65
+msgid "Login"
+msgstr "כניסה"
+
+#: includes/class-NlsUser.php:132 templates/personal/dashboard.php:6
+msgid "My CV Files"
+msgstr "קבצי קורות החיים שלי"
+
+#: includes/class-NlsUser.php:138
+msgid "Additional Files"
+msgstr "מסמכים נוספים"
+
+#: includes/class-NlsUser.php:143
+msgid "Jobs I applied to"
+msgstr "משרות אליהן פניתי"
+
+#: includes/class-NlsUser.php:148
+msgid "Jobs by Smart Agent"
+msgstr "משרות שהסוכן החכם מצא לי"
+
+#: includes/class-NlsUser.php:153
+msgid "Jobs by My Area"
+msgstr "משרות שמתאימות לתחום הלימוד שלי"
+
+#: public/class-NlsHunterFbf-public.php:339
 msgid "CV Applied from Reichman Jobs Site"
 msgstr "קורות חיים נשלחו מאתר משרות רייכמן"
 
@@ -198,10 +226,6 @@ msgstr "שמור סוכן החכם"
 msgid "Created on-"
 msgstr "נוצר ב-"
 
-#: templates/personal/dashboard.php:6
-msgid "My CV Files"
-msgstr "קבצי קורות החיים שלי"
-
 #: templates/personal/dashboard.php:10
 msgid "Jobs for me"
 msgstr "משרות אליהן פניתי"
@@ -301,18 +325,6 @@ msgstr ".‫API fot Niloosoft HunterHRMS System"
 #. Author of the plugin/theme
 msgid "Meni Nurie"
 msgstr "מני נוריאל"
-
-#~ msgid "Jobs I applied to"
-#~ msgstr "משרות אליהן פניתי"
-
-#~ msgid "Additional Files"
-#~ msgstr "מסמכים נוספים"
-
-#~ msgid "Jobs by Smart Agent"
-#~ msgstr "משרות שהסוכן החכם מצא לי"
-
-#~ msgid "Jobs by My Area"
-#~ msgstr "משרות שמתאימות לתחום הלימוד שלי"
 
 #~ msgid "More Results"
 #~ msgstr "תוצאות נוספות"

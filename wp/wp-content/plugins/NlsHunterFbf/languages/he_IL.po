@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: NlsHunterFbf\n"
-"POT-Creation-Date: 2022-06-28 16:56+0300\n"
-"PO-Revision-Date: 2022-06-28 16:56+0300\n"
+"POT-Creation-Date: 2022-07-18 02:05+0300\n"
+"PO-Revision-Date: 2022-07-18 02:06+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: he_IL\n"
@@ -11,14 +11,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n==2 ? 1 : n>10 && n%10==0 ? "
 "2 : 3);\n"
-"X-Generator: Poedit 3.1\n"
+"X-Generator: Poedit 3.1.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: NlsHunterFbf.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
-"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 
@@ -26,7 +26,7 @@ msgstr ""
 msgid "You do not have sufficient permissions to access this page."
 msgstr "אין לך הרשאות מספיקות כדי לגשת לעמוד זה."
 
-#: includes/Hunter/NlsHelper.php:102
+#: includes/Hunter/NlsHelper.php:103
 msgid "Select"
 msgstr "בחר"
 
@@ -38,84 +38,95 @@ msgstr "אין אפשרות ליצור מודל."
 msgid "Error: NlsHunterFbf_model: "
 msgstr "שגיאה: NlsHunterFbf_model: "
 
-#: includes/class-NlsHunterFbf-model.php:156
+#: includes/class-NlsHunterFbf-model.php:199
 msgid "Could not init Card Services."
 msgstr "אין אפשרות להתחבר לשירותי Card"
 
-#: includes/class-NlsHunterFbf-model.php:157
+#: includes/class-NlsHunterFbf-model.php:200
 msgid "Error: Card Services: "
 msgstr "שגיאה: שירותי כרטיס"
 
-#: includes/class-NlsHunterFbf-model.php:168
+#: includes/class-NlsHunterFbf-model.php:213
 msgid "Daily"
 msgstr "יומי"
 
-#: includes/class-NlsHunterFbf-model.php:172
+#: includes/class-NlsHunterFbf-model.php:217
 msgid "Weekly"
 msgstr "שבועי"
 
-#: includes/class-NlsHunterFbf-model.php:176
+#: includes/class-NlsHunterFbf-model.php:221
 msgid "Monthly"
 msgstr "חודשי"
 
-#: includes/class-NlsHunterFbf-model.php:194
+#: includes/class-NlsHunterFbf-model.php:239
 msgid "Could not init Directory Services."
 msgstr "אין אפשרות להתחבר לשירותי Directory"
 
-#: includes/class-NlsHunterFbf-model.php:195
+#: includes/class-NlsHunterFbf-model.php:240
 msgid "Error: Directory Services: "
 msgstr "שגיאה: שירותי מדריך"
 
-#: includes/class-NlsHunterFbf-model.php:214
+#: includes/class-NlsHunterFbf-model.php:259
 msgid "Could not init Search Services."
 msgstr "אין אפשרות להתחבר לשירותי Search"
 
-#: includes/class-NlsHunterFbf-model.php:215
+#: includes/class-NlsHunterFbf-model.php:260
 msgid "Error: Search Services: "
 msgstr "שגיאה: שירותי חיפוש"
 
-#: includes/class-NlsHunterFbf-model.php:273
+#: includes/class-NlsHunterFbf-model.php:318
 msgid "Today"
 msgstr "היום"
 
-#: includes/class-NlsHunterFbf-model.php:277
+#: includes/class-NlsHunterFbf-model.php:322
 msgid "Last Week"
 msgstr "השבוע האחרון"
 
-#: includes/class-NlsHunterFbf-model.php:281
+#: includes/class-NlsHunterFbf-model.php:326
 msgid "Last Month"
 msgstr "החודש האחרון"
 
-#: includes/class-NlsHunterFbf-model.php:285
+#: includes/class-NlsHunterFbf-model.php:330
 msgid "All"
 msgstr "הכל"
 
-#: includes/class-NlsHunterFbf-modules.php:153
-msgid "Jobs I applied to"
-msgstr "משרות אליהן פניתי"
+#: includes/class-NlsHunterFbf.php:128 public/class-NlsHunterFbf-public.php:196
+msgid "The User is not logged in, please log in"
+msgstr "המשתמש לא התחבר, התחבר בבקשה"
 
-#: includes/class-NlsHunterFbf-modules.php:160
-#: templates/personal/dashboard.php:6
+#: includes/class-NlsUser.php:56 includes/class-NlsUser.php:73
+msgid "Logout"
+msgstr "יציאה"
+
+#: includes/class-NlsUser.php:65
+msgid "Login"
+msgstr "כניסה"
+
+#: includes/class-NlsUser.php:132 templates/personal/dashboard.php:6
 msgid "My CV Files"
 msgstr "קורות החיים שלי"
 
-#: includes/class-NlsHunterFbf-modules.php:167
+#: includes/class-NlsUser.php:138
 msgid "Additional Files"
 msgstr "מסמכים נוספים"
 
-#: includes/class-NlsHunterFbf-modules.php:173
+#: includes/class-NlsUser.php:143
+msgid "Jobs I applied to"
+msgstr "משרות אליהן פניתי"
+
+#: includes/class-NlsUser.php:148
 msgid "Jobs by Smart Agent"
 msgstr "משרות שהסוכן החכם מצא לי"
 
-#: includes/class-NlsHunterFbf-modules.php:179
+#: includes/class-NlsUser.php:153
 msgid "Jobs by My Area"
 msgstr "משרות שמתאימות לתחום הלימוד שלי"
 
-#: public/class-NlsHunterFbf-public.php:180
+#: public/class-NlsHunterFbf-public.php:339
 msgid "CV Applied from Reichman Jobs Site"
 msgstr "קורות חיים הוגשו מאתר המשרות של רייכמן"
 
-#: templates/form/nlsSelectField.php:22
+#: templates/form/nlsSelectField.php:23
 msgid "Not required"
 msgstr "לא נדרש"
 
@@ -143,15 +154,15 @@ msgstr "(לא חובה)"
 msgid "Apply CV"
 msgstr "הגש קורות חיים"
 
-#: templates/job/nlsJobCard.php:27
+#: templates/job/nlsJobCard.php:29
 msgid "Additional Details"
 msgstr "פרטים נוספים"
 
-#: templates/job/nlsJobCard.php:38
+#: templates/job/nlsJobCard.php:42
 msgid "Submit in employer site"
 msgstr "הגש באתר המעסיק"
 
-#: templates/job/nlsJobCard.php:42
+#: templates/job/nlsJobCard.php:46
 msgid "Upload CV and submit"
 msgstr "העלה קו״ח והגש"
 
@@ -227,21 +238,25 @@ msgstr "משרות אליהן פניתי"
 msgid "To personal erae"
 msgstr "לאיזור האישי"
 
-#: templates/personal/details.php:17
+#: templates/personal/details.php:9
 msgid "Full Name"
 msgstr "שם החבר:"
 
-#: templates/personal/details.php:22
+#: templates/personal/details.php:14
 msgid "Mail"
 msgstr "מייל"
 
-#: templates/personal/details.php:27
+#: templates/personal/details.php:19
 msgid "Phone"
 msgstr "טלפון"
 
-#: templates/personal/details.php:32
+#: templates/personal/details.php:24
 msgid "Id Number"
 msgstr "תעודת זהות"
+
+#: templates/personal/fileList.php:11
+msgid "Uploaded At"
+msgstr "תאריך העלאה"
 
 #: templates/personal/fileManager.php:11
 msgid "Date Uploaded"
@@ -251,7 +266,7 @@ msgstr "תאריך העלאה"
 msgid "My Personal Area"
 msgstr "האיזור האישי שלי"
 
-#: templates/personal/module.php:22
+#: templates/personal/module.php:24
 msgid "My Smart Agents"
 msgstr "הסוכנים החכמים שלי"
 
@@ -291,10 +306,6 @@ msgstr "ניתן להגדיר כל חיפוש כסוכן חכם דרך האיז�
 msgid "Jobs"
 msgstr "משרות"
 
-#: templates/search/nlsSearcResults.php:24
-msgid "More Results"
-msgstr "תוצאות נוספות"
-
 #: templates/slider/horizontalSlider.php:14
 msgid "Jobs we thought will intrest you"
 msgstr "משרות שחשבנו שיתאימו לך"
@@ -314,6 +325,9 @@ msgstr ".‫API fot Niloosoft HunterHRMS System"
 #. Author of the plugin/theme
 msgid "Meni Nurie"
 msgstr "מני נוריאל"
+
+#~ msgid "More Results"
+#~ msgstr "תוצאות נוספות"
 
 #~ msgid "Yearly"
 #~ msgstr "שנתי"

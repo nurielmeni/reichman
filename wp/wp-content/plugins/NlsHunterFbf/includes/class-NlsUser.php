@@ -129,28 +129,28 @@ class NlsUser
     private function getUserCvList()
     {
         $res = $this->cardId ? $this->model->getApplicantCVList($this->cardId) : (object) ['list' => [], 'totalNumResults' => 0];
-        $this->cvList = new NlsBoardItem('cv-list', $res->list, 'My CV Files', $res->totalNumResults, 'fileManagerModal');
+        $this->cvList = new NlsBoardItem('cv-list', $res->list, __('My CV Files', 'NlsHunterFbf'), $res->totalNumResults, 'fileManagerModal');
     }
 
     private function getUserFileList()
     {
         $res = $this->cardId ? $this->model->getFileList($this->cardId) : (object) ['list' => [], 'totalNumResults' => 0];
-        $this->fileList = new NlsBoardItem('file-list', $res->list, 'Additional Files', $res->totalNumResults, 'fileManagerModal');
+        $this->fileList = new NlsBoardItem('file-list', $res->list, __('Additional Files', 'NlsHunterFbf'), $res->totalNumResults, 'fileManagerModal');
     }
 
     private function getUserAppliedJobs()
     {
-        $this->appliedJobs = new NlsBoardItem('applied-jobs', [], 'Jobs I applied to', 0, 'fileManagerModal');
+        $this->appliedJobs = new NlsBoardItem('applied-jobs', [], __('Jobs I applied to', 'NlsHunterFbf'), 0, 'fileManagerModal');
     }
 
     private function getUserAgentJobs()
     {
-        $this->agentJobs = new NlsBoardItem('agent-jobs', [], 'Jobs by Smart Agent', 0);
+        $this->agentJobs = new NlsBoardItem('agent-jobs', [], __('Jobs by Smart Agent', 'NlsHunterFbf'), 0);
     }
 
     private function getUserMyAreaJobs()
     {
-        $this->myAreaJobs = new NlsBoardItem('my-area-jobs', [], 'Jobs by My Area', 0);
+        $this->myAreaJobs = new NlsBoardItem('my-area-jobs', [], __('Jobs by My Area', 'NlsHunterFbf'), 0);
     }
 
     public function getStatItems()
