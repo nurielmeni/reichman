@@ -11,6 +11,7 @@ class NlsBoardItem
 
     public function __construct($name, $list, $label, $count, $modalToggle = null, $image = '')
     {
+
         $this->name = is_string($name) ? preg_replace('/[ ,:]+/', '-', trim($name)) : '';
         $this->list = is_array($list) ? $list : [];
         $this->label = is_string($label) ? $label : '';
@@ -19,10 +20,11 @@ class NlsBoardItem
         $this->image = is_string($image) && !empty($image) ? $image : NLS__PLUGIN_URL . '/public/images/personal/matched.svg';
     }
 }
+
 class NlsUser
 {
+    public $requestUserId;
     public $userId;
-
     public $cardId;
     public $firstName;
     public $lastName;
@@ -47,10 +49,41 @@ class NlsUser
                 $this->$key = $value;
             }
         }
-        $this->getUserByUserId();
 
-        $res = $this->model->getUserIdByCardId('C57986DC-1665-44B3-B84B-77929A046035');
+        if (isset($_COOKIE['REICHMAN_USER'])) {
+            $userData = unserialize(base64_decode($_COOKIE['REICHMAN_USER']));
+        } else {
+            // Career Test userId = '33120', cardId = '52a6d317-48ea-42f2-931f-91c58bb1b6e1'
+            if (empty($this->requestUserId) && !empty($this->cardId)) {
+                $this->requestUserId = $this->model->getUserIdByCardId($this->cardId);
+            }
 
+            if (!$this->requestUserId) return false;
+
+            $userData = $this->model->userGetById($this->requestUserId);
+            setcookie('REICHMAN_USER', base64_encode(serialize($userData)), time() + 60 * 1);
+        }
+        $this->mapUserData($userData);
+        $this->getUserData();
+
+        $this->mapUserData($userData);
+    }
+
+    public function logout()
+    {
+        unset($_COOKIE['REICHMAN_USER']);
+        foreach ($this as $key => $value) {
+            unset($this->$key);
+        }
+    }
+
+    public function isLoggedIn()
+    {
+        return !empty($this->userId);
+    }
+
+    public function getUserData()
+    {
         $this->getUserCvList();
         $this->getUserFileList();
         $this->getUserAppliedJobs();
@@ -63,20 +96,18 @@ class NlsUser
         return $this->firstName . ($this->lastName ? ' ' . $this->lastName : '');
     }
 
-    private function getUserByUserId()
+    private function mapUserData($userData)
     {
-        if (!$this->userId) return false;
-        $res = $this->model->userGetById($this->userId);
+        if (!$userData) return false;
 
-        if (!$res) return false;
-
-        $this->cardId = property_exists($res, 'CardId') && $res->CardId ? $res->CardId : false;
-        $this->firstName = property_exists($res, 'FirstName') && $res->FirstName ? $res->FirstName : '';
-        $this->lastName = property_exists($res, 'LastName') && $res->LastName ? $res->LastName : '';
+        $this->userId = property_exists($userData, 'UserId') && $userData->UserId ? $userData->UserId : false;
+        $this->cardId = property_exists($userData, 'CardId') && $userData->CardId ? $userData->CardId : false;
+        $this->firstName = property_exists($userData, 'FirstName') && $userData->FirstName ? $userData->FirstName : '';
+        $this->lastName = property_exists($userData, 'LastName') && $userData->LastName ? $userData->LastName : '';
         $this->fullName = $this->firstName . ' ' . $this->lastName;
-        $this->email = property_exists($res, 'Email') && $res->Email ? $res->Email : '';
-        $this->userName = property_exists($res, 'UserName') && $res->UserName ? $res->UserName : '';
-        $this->phone = $this->getUserPhone($res);
+        $this->email = property_exists($userData, 'Email') && $userData->Email ? $userData->Email : '';
+        $this->userName = property_exists($userData, 'UserName') && $userData->UserName ? $userData->UserName : '';
+        $this->phone = $this->getUserPhone($userData);
     }
 
     private function getUserPhone($user)
@@ -111,13 +142,6 @@ class NlsUser
     {
         $this->myAreaJobs = new NlsBoardItem('my-area-jobs', [], 'Jobs by My Area', 0);
     }
-
-    public function setUserId($userId)
-    {
-        $this->userId = $userId;
-        return $this->getUserByUserId($userId);
-    }
-
 
     public function getStatItems()
     {

@@ -32,8 +32,6 @@
 								<?php echo get_bloginfo('description'); ?>
 							</h2>
 
-
-
 							<div class="flex lg:hidden">
 								<?php
 								wp_nav_menu(
@@ -70,17 +68,22 @@
 								'fallback_cb'     => false,
 							)
 						);
-						wp_nav_menu(
-							array(
-								'container_id'    => 'header-language-switcher',
-								'container_class' => 'hidden lg:flex',
-								'menu_class'      => 'lg:flex lg:-mx-4 text-white',
-								'theme_location'  => 'language-switcher',
-								'li_class'        => 'lg:mx-4 text-white',
-								'fallback_cb'     => false,
-							)
-						);
 						?>
+						<div class="flex flex-col justify-center items-center">
+							<?php
+							wp_nav_menu(
+								array(
+									'container_id'    => 'header-language-switcher',
+									'container_class' => 'hidden lg:flex mb-1',
+									'menu_class'      => 'lg:flex lg:-mx-4 text-white',
+									'theme_location'  => 'language-switcher',
+									'li_class'        => 'lg:mx-4 text-white',
+									'fallback_cb'     => false,
+								)
+							);
+							?>
+							<button type="button" class="user-logout text-white mt-1 px-2 border"><?= __('Logout', 'NlsHunetrFbf') ?></button>
+						</div>
 					</div>
 				</div>
 			</div>

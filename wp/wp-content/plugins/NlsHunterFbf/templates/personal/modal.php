@@ -1,6 +1,6 @@
 <!-- File Manager modal -->
-<div id="<?= $modalId ?>" tabindex="-1" aria-hidden="true" class="flex bg-overlay hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full justify-center items-center">
-    <div class="relative p-4 w-7/8 md:w-4/5 h-full md:h-auto">
+<div id="<?= $modalId ?>" tabindex="-1" aria-hidden="true" class="nls-modal flex bg-overlay hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full justify-center items-center">
+    <div class="relative p-4 w-11/12 md:w-4/5 h-full md:h-auto">
         <!-- Modal content -->
         <div class="relative shadow bg-white">
             <!-- Modal header -->

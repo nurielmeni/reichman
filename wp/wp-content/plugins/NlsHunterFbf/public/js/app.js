@@ -3,6 +3,7 @@
     var rtl = false;
     var lang = 'en-US';
 
+    // Horizontal Slider
     var container = '.hs-container';
 
     function initSumoSelect(selectBoxItem) {
@@ -61,23 +62,14 @@
                 }]
         });
 
+        // logout event listener
+        $('button.user-logout').on('click', function () {
+
+
+            $(document.body).append($('<form id="nls_logout" action="/" method="post"><input name="logout" /></form>'));
+            $('form#nls_logout').submit();
+        });
+
         $('.nls-field select.sumo').each(function () { initSumoSelect(this); });
-
-        /**
-         * Tailwinds Modal Toggle
-         */
-        $('button.modal-action').on('click', function () {
-            var modal = $(this).data('modal-toggle');
-            $('#' + modal).toggleClass('hidden');
-        });
-
-        /**
-         * User Actions
-         */
-        $('button.modal-action').on('click', function () {
-            var action = $(this).data('action');
-            if (!action) return;
-            console.log('Action', action);
-        });
     });
 })(jQuery);

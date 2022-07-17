@@ -39,6 +39,10 @@ module.exports = {
       width: {
         '1/31': '31%',
       },
+      minHeight: {
+        '20': '5rem',
+        '40': '10rem',
+      },
       rotate: {
         '270': '270deg',
       },

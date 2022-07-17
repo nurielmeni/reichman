@@ -128,6 +128,14 @@ li.transparent-text {
   background: url("../images/mail_circle_white.svg") no-repeat;
 }
 
+.file-item:hover {
+  background-color: #f0f0f0;
+}
+
+.file-item {
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+}
+
 /* Responsive design */
 @media (max-width: 1023.9px) {
   ul li.social>a {

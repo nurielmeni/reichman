@@ -150,4 +150,25 @@ class NlsHelper
         }
         return '';
     }
+
+    public static function base64_file($base64Data, $filePath = null)
+    {
+        // split the string on commas
+        // $data[ 0 ] == "data:image/png;base64"
+        // $data[ 1 ] == <actual base64 string>
+        $data = explode(',', $base64Data);
+
+        if (!$filePath) return $data;
+
+        // open the output file for writing
+        $ifp = fopen($filePath, 'wb');
+
+        // we could add validation here with ensuring count( $data ) > 1
+        fwrite($ifp, base64_decode($data[1]));
+
+        // clean up the file resource
+        fclose($ifp);
+
+        return $filePath;
+    }
 }

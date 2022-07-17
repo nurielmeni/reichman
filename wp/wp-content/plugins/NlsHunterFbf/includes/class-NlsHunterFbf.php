@@ -107,7 +107,7 @@ class NlsHunterFbf
 	 *
 	 * @since    2.0.0
 	 */
-	public function __construct()
+	public function __construct($requestUserId = '33120')
 	{
 		if (defined('NlsHunterFbf_VERSION')) {
 			$this->version = NlsHunterFbf_VERSION;
@@ -124,7 +124,8 @@ class NlsHunterFbf
 		// Instantiate the modules class
 		try {
 			$this->model = new NlsHunterFbf_model();
-			$this->nlsUser = new NlsUser($this->model, ['userId' => 'niloosoft']);
+			$this->nlsUser = new NlsUser($this->model, ['requestUserId' => $requestUserId]); // 33120
+			if (!$this->nlsUser->isLoggedIn()) throw new Exception(__('The User is not logged in, please log in', 'NlsHunterFbf'));
 			$this->modules = new NlsHunterFbf_modules($this->model, $this->nlsUser);
 		} catch (\Exception $e) {
 			$this->addErrorToPage($e->getMessage(), "Error: Could not create Niloos Module.");
@@ -145,6 +146,17 @@ class NlsHunterFbf
 		 *  If Search Results page loads the jobs to $searchResultJobs
 		 *  If JobDetails Loads the Job Data to $jobDetails
 		 * */
+	}
+
+	public function userLoggedIn()
+	{
+		if (!$this->nlsUser) return false;
+		return $this->nlsUser->isLoggedIn();
+	}
+
+	public function getNlsUser()
+	{
+		return $this->nlsUser;
 	}
 
 	public function getModel()
@@ -293,6 +305,29 @@ class NlsHunterFbf
 		// THE AJAX RESULTS PAGE
 		$this->loader->add_action('wp_ajax_results_page', $plugin_public, 'results_page_function');
 		$this->loader->add_action('wp_ajax_nopriv_results_page', $plugin_public, 'results_page_function'); // need this to serve non logged in users
+
+		/**
+		 * User data functions
+		 */
+		// THE AJAX CV FILES
+		$this->loader->add_action('wp_ajax_get_user_cv_files', $plugin_public, 'get_user_cv_files');
+		$this->loader->add_action('wp_ajax_nopriv_get_user_cv_files', $plugin_public, 'get_user_cv_files');
+		// THE AJAX FILE LIST
+		$this->loader->add_action('wp_ajax_get_user_file_list', $plugin_public, 'get_user_file_list');
+		$this->loader->add_action('wp_ajax_nopriv_get_user_file_list', $plugin_public, 'get_user_file_list');
+		// THE AJAX APPLIED JOBS
+		$this->loader->add_action('wp_ajax_get_user_applied_jobs', $plugin_public, 'get_user_applied_jobs');
+		$this->loader->add_action('wp_ajax_nopriv_get_user_applied_jobs', $plugin_public, 'get_user_applied_jobs');
+		// THE AJAX AGENT PAGE
+		$this->loader->add_action('wp_ajax_get_user_agent_jobs', $plugin_public, 'get_user_agent_jobs');
+		$this->loader->add_action('wp_ajax_nopriv_get_user_agent_jobs', $plugin_public, 'get_user_agent_jobs');
+		// THE AJAX AREA JOBS
+		$this->loader->add_action('wp_ajax_get_user_area_jobs', $plugin_public, 'get_user_area_jobs');
+		$this->loader->add_action('wp_ajax_nopriv_get_user_area_jobs', $plugin_public, 'get_user_area_jobs');
+
+		// THE AJAX DOWNLOAD FILE
+		$this->loader->add_action('wp_ajax_download_file', $plugin_public, 'download_file');
+		$this->loader->add_action('wp_ajax_nopriv_download_file', $plugin_public, 'download_file');
 	}
 
 	/**

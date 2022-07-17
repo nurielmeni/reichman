@@ -144,10 +144,8 @@ class NlsHunterFbf_Public
         wp_enqueue_script('nls-form-validation', plugin_dir_url(__FILE__) . 'js/NlsHunterFormValidation.js', array('jquery'), $this->version, false);
         wp_enqueue_script('job-search-js', plugin_dir_url(__FILE__) . 'js/jobSearch.js', array('jquery'), $this->version, false);
         wp_enqueue_script('job-apply-js', plugin_dir_url(__FILE__) . 'js/jobApply.js', array('jquery'), $this->version, false);
-        wp_enqueue_script('agent-js', plugin_dir_url(__FILE__) . 'js/agent.js', array('jquery'), $this->version, false);
         wp_enqueue_script('nls-app', plugin_dir_url(__FILE__) . 'js/app.js', array('jquery'), $this->version, false);
-        //wp_enqueue_script('jquery-datepicker-he', plugin_dir_url(__FILE__) . 'js/datepicker-he.js', array('jquery'), $this->version, false);
-
+        wp_enqueue_script('personal-area-js', plugin_dir_url(__FILE__) . 'js/personalArea.js', array('jquery'), $this->version, false);
     }
 
     /**
@@ -189,6 +187,113 @@ class NlsHunterFbf_Public
         wp_send_json($response);
     }
 
+    private function verifyUserIsSet()
+    {
+        //unset($_COOKIE['REICHMAN_USER']);
+        if (!$this->NlsHunterFbf->userLoggedIn()) {
+            $response = [
+                'status' => self::STATUS_ERROR,
+                'html' => '<p>' . __('The User is not logged in, please log in', 'NlsHunterFbf') . '</p>',
+                'params' => []
+            ];
+            wp_send_json($response);
+            die(403);
+        }
+        return;
+    }
+
+    /**
+     * User data fetch functions
+     */
+    public function get_user_cv_files()
+    {
+        $this->verifyUserIsSet();
+        $user = $this->NlsHunterFbf->getNlsUser();
+        $files = $this->model->getFilesInfo($user->cvList->list, $user->cardId);
+        $response = [
+            'status' => self::STATUS_SUCCESS,
+            'html' => render('personal/fileList', [
+                'files' => $files,
+                'type' => 'cv-list'
+            ]),
+            'params' => [
+                'count' => $user->cvList->count,
+                'label' => __($user->cvList->label, 'NlsHunterFbf'),
+            ]
+        ];
+        wp_send_json($response);
+    }
+
+    public function get_user_file_list()
+    {
+        $response = [
+            'status' => self::STATUS_SUCCESS,
+            'html' => '<p>USER FILE LIST</p>',
+            'params' => []
+        ];
+        wp_send_json($response);
+    }
+
+    public function get_user_applied_jobs()
+    {
+        $response = [
+            'status' => self::STATUS_SUCCESS,
+            'html' => '<p>APPLIED JOBS</p>',
+            'params' => []
+        ];
+        wp_send_json($response);
+    }
+
+    public function get_user_agent_jobs()
+    {
+        $response = [
+            'status' => self::STATUS_SUCCESS,
+            'html' => '<p>AGENT JOBS</p>',
+            'params' => []
+        ];
+        wp_send_json($response);
+    }
+
+    public function get_user_area_jobs()
+    {
+        $response = [
+            'status' => self::STATUS_SUCCESS,
+            'html' => '<p>AREA JOBS</p>',
+            'params' => []
+        ];
+        wp_send_json($response);
+    }
+
+    public function download_file()
+    {
+        $fileId = $this->model->queryParam('fileId', false, true);
+        $user = $this->NlsHunterFbf->getNlsUser();
+        if (!$fileId || !$user->cardId) {
+            $response = [
+                'status' => self::STATUS_ERROR,
+                'html' => '<p>Something went wrong: file download error.</p>',
+                'params' => [
+                    'fileId' => $fileId
+                ]
+            ];
+            wp_send_json($response);
+        }
+
+        $file = $this->model->fileGetWithContent($fileId, $user->cardId);
+
+        $response = [
+            'status' => self::STATUS_SUCCESS,
+            'fileData' => base64_decode($file->FileContent),
+            'params' => [
+                'fileName' => trim($file->Name) . '.' . trim($file->Type),
+            ]
+        ];
+        wp_send_json($response);
+    }
+
+    /**
+     * Mail
+     */
     public function sendHtmlMail($jobcode, $files, $fields, $i, $msg = '')
     {
         // Change the $fields value for strongSide to include the name and not the id

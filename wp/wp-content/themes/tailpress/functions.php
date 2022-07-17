@@ -3,6 +3,10 @@ include_once 'includes/customizerAdjustments.php';
 
 const NLS_FLOW_ELEMENTS = 3;
 
+if (isset($_POST['logout'])) {
+	if (session_status() == PHP_SESSION_ACTIVE) session_destroy();
+}
+
 /**
  * Theme setup.
  */
@@ -157,3 +161,12 @@ function end_my_session()
 }
 
 //add_action('end_session_action', 'end_my_session');
+
+function is_logged_in()
+{
+	if (isset($_COOKIE['REICHMAN_USER'])) {
+		$userData = unserialize(base64_decode($_COOKIE['REICHMAN_USER']));
+		return $userData && !empty($userData->UserId);
+	}
+	return false;
+}

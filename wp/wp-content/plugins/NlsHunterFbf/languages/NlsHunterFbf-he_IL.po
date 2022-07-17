@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: NlsHunterFbf\n"
-"POT-Creation-Date: 2022-07-10 16:28+0300\n"
-"PO-Revision-Date: 2022-07-11 15:04+0300\n"
+"POT-Creation-Date: 2022-07-17 00:06+0300\n"
+"PO-Revision-Date: 2022-07-17 00:07+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: he_IL\n"
@@ -17,8 +17,8 @@ msgstr ""
 "X-Poedit-WPHeader: NlsHunterFbf.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
-"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 
@@ -90,28 +90,11 @@ msgstr "החודש האחרון"
 msgid "All"
 msgstr "הכל"
 
-#: includes/class-NlsHunterFbf-modules.php:111
-msgid "Jobs I applied to"
-msgstr "משרות אליהן פניתי"
+#: includes/class-NlsHunterFbf.php:128 public/class-NlsHunterFbf-public.php:196
+msgid "The User is not logged in, please log in"
+msgstr "המשתמש לא נמצא, היכנס בבקשה"
 
-#: includes/class-NlsHunterFbf-modules.php:118
-#: templates/personal/dashboard.php:6
-msgid "My CV Files"
-msgstr "קבצי קורות החיים שלי"
-
-#: includes/class-NlsHunterFbf-modules.php:125
-msgid "Additional Files"
-msgstr "מסמכים נוספים"
-
-#: includes/class-NlsHunterFbf-modules.php:131
-msgid "Jobs by Smart Agent"
-msgstr "משרות שהסוכן החכם מצא לי"
-
-#: includes/class-NlsHunterFbf-modules.php:137
-msgid "Jobs by My Area"
-msgstr "משרות שמתאימות לתחום הלימוד שלי"
-
-#: public/class-NlsHunterFbf-public.php:183
+#: public/class-NlsHunterFbf-public.php:278
 msgid "CV Applied from Reichman Jobs Site"
 msgstr "קורות חיים נשלחו מאתר משרות רייכמן"
 
@@ -215,6 +198,10 @@ msgstr "שמור סוכן החכם"
 msgid "Created on-"
 msgstr "נוצר ב-"
 
+#: templates/personal/dashboard.php:6
+msgid "My CV Files"
+msgstr "קבצי קורות החיים שלי"
+
 #: templates/personal/dashboard.php:10
 msgid "Jobs for me"
 msgstr "משרות אליהן פניתי"
@@ -227,21 +214,25 @@ msgstr "משרות אליהן פניתי"
 msgid "To personal erae"
 msgstr "לאיזור האישי שלי"
 
-#: templates/personal/details.php:17
+#: templates/personal/details.php:9
 msgid "Full Name"
 msgstr "שם החבר:"
 
-#: templates/personal/details.php:22
+#: templates/personal/details.php:14
 msgid "Mail"
 msgstr "מייל"
 
-#: templates/personal/details.php:27
+#: templates/personal/details.php:19
 msgid "Phone"
 msgstr "טלפון"
 
-#: templates/personal/details.php:32
+#: templates/personal/details.php:24
 msgid "Id Number"
 msgstr "תעודת זהות"
+
+#: templates/personal/fileList.php:11
+msgid "Uploaded At"
+msgstr "תאריך העלאה"
 
 #: templates/personal/fileManager.php:11
 msgid "Date Uploaded"
@@ -251,7 +242,7 @@ msgstr "תאריך העלאה"
 msgid "My Personal Area"
 msgstr "האיזור האישי שלי"
 
-#: templates/personal/module.php:22
+#: templates/personal/module.php:24
 msgid "My Smart Agents"
 msgstr "הסוכנים החכמים שלי"
 
@@ -310,6 +301,18 @@ msgstr ".‫API fot Niloosoft HunterHRMS System"
 #. Author of the plugin/theme
 msgid "Meni Nurie"
 msgstr "מני נוריאל"
+
+#~ msgid "Jobs I applied to"
+#~ msgstr "משרות אליהן פניתי"
+
+#~ msgid "Additional Files"
+#~ msgstr "מסמכים נוספים"
+
+#~ msgid "Jobs by Smart Agent"
+#~ msgstr "משרות שהסוכן החכם מצא לי"
+
+#~ msgid "Jobs by My Area"
+#~ msgstr "משרות שמתאימות לתחום הלימוד שלי"
 
 #~ msgid "More Results"
 #~ msgstr "תוצאות נוספות"

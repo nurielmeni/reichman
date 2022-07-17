@@ -833,7 +833,7 @@ class NlsCards extends NlsService
 
         try {
             $res = $this->client->FileGetByFileId($params);
-            return $res;
+            return $res && property_exists($res, 'FileGetByFileIdResult') ? $res->FileGetByFileIdResult : false;
         } catch (Exception $ex) {
             throw new Exception('Error: getFileInfo: Niloos services are not availiable, try later.' . $ex->getMessage());
         }

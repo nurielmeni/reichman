@@ -750,8 +750,7 @@ class NlsHunterFbf_model
         $fileInfo = wp_cache_get($cacheKey);
 
         if (false === $fileInfo) {
-            $res = $this->nlsCards->getFileInfo($fileId, $applicantId, true);
-            $fileInfo = $res->FileGetByFileIdResult;
+            $fileInfo = $this->nlsCards->getFileInfo($fileId, $applicantId, true);
             wp_cache_set($cacheKey, $fileInfo, 'card', 20 * 60);
         }
 
@@ -769,7 +768,7 @@ class NlsHunterFbf_model
             $res = $this->nlsCards->getFileList($applicantId);
             $fileList = new stdClass();
             $fileList->list = count(get_object_vars($res->FilesListGetResult)) === 0 ? [] : (is_array($res->FilesListGetResult) ? $res->FilesListGetResult : [$res->FilesListGetResult]);
-            $fileList->totalNumResults = $res->totalNumResults ? $res->totalNumResults : count($fileList->list);
+            $fileList->totalNumResults = count($fileList->list); //$res->totalNumResults ? $res->totalNumResults :
 
             wp_cache_set($cacheKey, $fileList, 'card', 20 * 60);
         }
@@ -827,17 +826,65 @@ class NlsHunterFbf_model
 
     public function getUserIdByCardId($cardId)
     {
-        $this->initCardService();
+        $this->initDirectoryService();
         $cacheKey = 'USER_ID_BY_CARD' . $cardId;
 
         $userId = wp_cache_get($cacheKey);
 
         if (false === $userId) {
-            $res = $this->nlsCards->getUserIdByCardId($cardId);
+            $res = $this->nlsDirectory->getUserIdByCardId($cardId);
             wp_cache_set($cacheKey, $userId, 'card', 20 * 60);
             return $res;
         }
 
         return $userId;
+    }
+
+    public function getFilesInfo($files, $cardId)
+    {
+        $files = is_array($files) ? $files : (is_int($files) ? [$files] : []);
+
+        $this->initCardService();
+        $res = [];
+        foreach ($files as $file) {
+            $fileInfo = $this->nlsCards->getFileInfo($file->FileId, $cardId);
+            if (!$fileInfo) continue;
+
+            $fileObj = new stdClass();
+            $fileObj->id = $fileInfo->FileId;
+            $fileObj->name = trim($fileInfo->Name) . '.' . trim($fileInfo->Type);
+            $fileObj->updateDate = strtotime($fileInfo->UpdateDate);
+            $fileObj->mimeType = $this->fileMimeType($fileInfo);
+            $res[] = $fileObj;
+        }
+        return $res;
+    }
+
+    private function fileMimeType($file)
+    {
+        if (!$file || !$file->Type) return '';
+
+        $mimeType = '';
+        switch (trim($file->Type)) {
+            case 'txt':
+                $mimeType = 'text/plain';
+                break;
+            case 'pdf':
+                $mimeType = 'application/pdf';
+                break;
+            case 'doc':
+                $mimeType = 'application/msword';
+                break;
+            case 'docx':
+                $mimeType = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+                break;
+            case 'rtf':
+                $mimeType = 'application/rtf';
+                break;
+            default:
+                break;
+        }
+
+        return $mimeType;
     }
 }
