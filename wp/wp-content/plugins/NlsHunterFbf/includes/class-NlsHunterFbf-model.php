@@ -776,6 +776,14 @@ class NlsHunterFbf_model
         return $fileList;
     }
 
+    public function fileDelete($cardId, $fileId)
+    {
+        $this->initCardService();
+
+        $res = $this->nlsCards->fileDelete($cardId, $fileId);
+        return $res;
+    }
+
     public function getAgents()
     {
         return [

@@ -105,6 +105,24 @@ var Agent =
                 });
         }
 
+        function deleteFile(fileId, fileCard) {
+            $.ajax({
+                url: frontend_ajax.url,
+                data: {
+                    action: 'delete_file',
+                    fileId: fileId,
+                },
+                method: 'post',
+                cache: false
+            })
+                .done(function (res) {
+                    $(fileCard).hide('slow', function () { fileCard.remove(); });
+                })
+                .fail(function (res) {
+                    console.debug('res', res);
+                });
+        }
+
         function openFile(res) {
             if (!res.fileUrl) return;
 
@@ -145,8 +163,17 @@ var Agent =
              * Download file
              */
             $(document).on('click', 'button.download', function () {
-                var fileId = $(this).data('fileId');
+                var fileId = $(this).parent().data('fileId');
                 fileId && downloadFile(fileId);
+            });
+
+            /**
+             * Delete file
+             */
+            $(document).on('click', 'button.delete', function () {
+                var fileId = $(this).parent().data('fileId');
+                var fileCard = $(this).parents('article.file-card');
+                fileId && deleteFile(fileId, fileCard);
             });
 
         }

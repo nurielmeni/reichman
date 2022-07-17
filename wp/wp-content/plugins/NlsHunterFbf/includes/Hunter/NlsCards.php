@@ -569,6 +569,35 @@ class NlsCards extends NlsService
     }
 
     /**
+     * Delete file by file Id
+     * @param cardId the apllicantId (Card ID)
+     * @param fileId the file ID to get
+     * @return FileInfo of the requested file (byte array)
+     */
+    public function fileDelete($cardId, $fileId)
+    {
+        $transactionCode = NlsHelper::newGuid();
+        try {
+            $params = [
+                'cardId' => $cardId,
+                'fileId' => $fileId,
+                'transactionCode' => $transactionCode,
+            ];
+            $res = $this->client->FileDelete($params);
+            $res = isset($res->FileDeleteResult) ? $res->FileDeleteResult : null;
+            return ['res' => $res, 'Params' => $params];
+        } catch (Exception $ex) {
+            /**
+             * var_dump($ex);
+             * echo "Request " . $this->client->__getLastRequest();
+             * echo "Response " . $this->client->__getLastResponse();
+             * die;
+             **/
+            throw new Exception('Error: File Delete: Niloos services are not availiable, try later.');
+        }
+    }
+
+    /**
      * Get file by file Id
      * @param applicantGuid the apllicantId (Card ID)
      * @param fileId the file ID to get

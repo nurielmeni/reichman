@@ -328,6 +328,9 @@ class NlsHunterFbf
 		// THE AJAX DOWNLOAD FILE
 		$this->loader->add_action('wp_ajax_download_file', $plugin_public, 'download_file');
 		$this->loader->add_action('wp_ajax_nopriv_download_file', $plugin_public, 'download_file');
+		// THE AJAX DELETE FILE
+		$this->loader->add_action('wp_ajax_delete_file', $plugin_public, 'delete_file');
+		$this->loader->add_action('wp_ajax_nopriv_delete_file', $plugin_public, 'delete_file');
 	}
 
 	/**

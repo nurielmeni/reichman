@@ -325,6 +325,33 @@ class NlsHunterFbf_Public
         return $this->getFileUrl($fileName);
     }
 
+    public function delete_file($fileId)
+    {
+        $fileId = $this->model->queryParam('fileId', false, true);
+        $user = $this->NlsHunterFbf->getNlsUser();
+        if (!$fileId || !$user->cardId) {
+            $response = [
+                'status' => self::STATUS_ERROR,
+                'html' => '<p>Something went wrong: file delete error.</p>',
+                'params' => [
+                    'fileId' => $fileId
+                ]
+            ];
+            wp_send_json($response);
+        }
+
+        $file = $this->model->fileDelete($user->cardId, $fileId);
+
+        $response = [
+            'status' => self::STATUS_SUCCESS,
+            'fileUrl' => $file,
+            'params' => [
+                'fileName' => $file,
+            ]
+        ];
+        wp_send_json($response);
+    }
+
     /**
      * Mail
      */
