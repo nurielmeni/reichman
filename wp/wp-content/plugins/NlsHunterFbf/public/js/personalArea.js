@@ -105,47 +105,17 @@ var Agent =
                 });
         }
 
-        function getBinaryFile(fileId, fileName, mimeType) {
-            const oReq = new XMLHttpRequest();
-            oReq.open("GET", "/myfile.png", true);
-            oReq.responseType = "blob";
-
-            oReq.onload = function (oEvent) {
-                const blob = oReq.response;
-
-            };
-
-            oReq.send();
-        }
-
-        function openFile(data) {
-            console.log('data', data);
-            var linkSource = `data:${data.params.mimeType},${data.fileData}` || false;
-            var fileName = data.params.fileName || false;
-            if (!linkSource || !fileName) return;
+        function openFile(res) {
+            if (!res.fileUrl) return;
 
             const downloadLink = document.createElement('a');
             document.body.appendChild(downloadLink);
 
-            downloadLink.href = linkSource;
+            downloadLink.href = res.fileUrl;
             downloadLink.target = '_self';
-            downloadLink.download = fileName;
+            downloadLink.download = res.params.fileName;
             downloadLink.click();
-            //downloadLink.remove();
-        }
-
-        function openFileByteArray(data) {
-            console.log('data', data);
-
-            var bytes = new Uint8Array(data.fileData); // pass your byte response to this constructor
-
-            var blob = new Blob([bytes], { type: data.params.mimeType });// change resultByte to bytes
-
-            var link = document.createElement('a');
-            link.href = window.URL.createObjectURL(blob);
-            link.download = data.params.fileName;
-            link.click();
-            //downloadLink.remove();
+            downloadLink.remove();
         }
 
         function registerEventListeners() {
@@ -176,9 +146,7 @@ var Agent =
              */
             $(document).on('click', 'button.download', function () {
                 var fileId = $(this).data('fileId');
-                var fileName = $(this).data('fileName');
-                var mimeType = $(this).data('mimeType');
-                fileId && getBinaryFile(fileId, fileName, mimeType);
+                fileId && downloadFile(fileId);
             });
 
         }

@@ -280,15 +280,49 @@ class NlsHunterFbf_Public
         }
 
         $file = $this->model->fileGetWithContent($fileId, $user->cardId);
+        $fileName = trim($file->Name) . '.' . trim($file->Type);
+        $fileUrl = $this->saveLocalFile($fileName, $file->FileContent);
 
         $response = [
             'status' => self::STATUS_SUCCESS,
-            'fileData' => base64_decode($file->FileContent),
+            'fileUrl' => $fileUrl,
             'params' => [
-                'fileName' => trim($file->Name) . '.' . trim($file->Type),
+                'fileName' => $fileName,
             ]
         ];
         wp_send_json($response);
+    }
+
+    private function getFilePath($fileName)
+    {
+        $file = 'public/tmp/' . session_id() . '/' . $fileName;
+        return NLS__PLUGIN_PATH . $file;
+    }
+
+    private function getFileUrl($fileName)
+    {
+        $file = 'public/tmp/' . session_id() . '/' . $fileName;
+        return NLS__PLUGIN_URL . $file;
+    }
+
+    private function saveLocalFile($fileName, $fileData)
+    {
+        $path = $this->getFilePath($fileName);
+
+        $dirname = dirname($path);
+        if (!is_dir($dirname)) {
+            mkdir($dirname, 0755, true);
+        }
+
+        // open the output file for writing
+        $ifp = fopen($path, 'wb');
+
+        fwrite($ifp, $fileData);
+
+        // clean up the file resource
+        fclose($path);
+
+        return $this->getFileUrl($fileName);
     }
 
     /**

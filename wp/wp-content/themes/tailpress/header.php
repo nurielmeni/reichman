@@ -82,7 +82,7 @@
 								)
 							);
 							?>
-							<button type="button" class="user-logout text-white mt-1 px-2 border"><?= __('Logout', 'NlsHunetrFbf') ?></button>
+							<button type="button" class="user-logout text-white mt-1 px-2 border"><?= apply_filters('nym_auth_action_label', __('...', 'NlsHunetrFbf')) ?></button>
 						</div>
 					</div>
 				</div>

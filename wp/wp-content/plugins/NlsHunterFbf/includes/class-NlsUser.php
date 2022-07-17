@@ -52,16 +52,26 @@ class NlsUser
 
         if (isset($_COOKIE['REICHMAN_USER'])) {
             $userData = unserialize(base64_decode($_COOKIE['REICHMAN_USER']));
+            add_filter('nym_auth_action_label', function () {
+                return __('Logout', 'NlsHunetrFbf');
+            });
         } else {
             // Career Test userId = '33120', cardId = '52a6d317-48ea-42f2-931f-91c58bb1b6e1'
             if (empty($this->requestUserId) && !empty($this->cardId)) {
                 $this->requestUserId = $this->model->getUserIdByCardId($this->cardId);
             }
 
+            add_filter('nym_auth_action_label', function () {
+                return __('Login', 'NlsHunetrFbf');
+            });
+
             if (!$this->requestUserId) return false;
 
             $userData = $this->model->userGetById($this->requestUserId);
             setcookie('REICHMAN_USER', base64_encode(serialize($userData)), time() + 60 * 1);
+            add_filter('nym_auth_action_label', function () {
+                return __('Logout', 'NlsHunetrFbf');
+            });
         }
         $this->mapUserData($userData);
         $this->getUserData();

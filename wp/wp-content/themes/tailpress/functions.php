@@ -157,10 +157,17 @@ add_action('init', 'start_my_session', 1);
 
 function end_my_session()
 {
+	// Remove all the tmp files created by the user
+	$userTmpDir = NLS__PLUGIN_PATH . 'public/tmp/' . session_id();
+	if (!is_dir('userTmpDir')) {
+		rmdir($userTmpDir);
+	}
+
 	session_destroy();
 }
 
-//add_action('end_session_action', 'end_my_session');
+add_action('end_session_action', 'end_my_session');
+add_action('auth_cookie_expired', 'end_my_session');
 
 function is_logged_in()
 {
