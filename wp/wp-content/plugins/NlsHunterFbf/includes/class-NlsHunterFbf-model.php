@@ -5,6 +5,7 @@ require_once 'Hunter/NlsDirectory.php';
 require_once 'Hunter/NlsSearch.php';
 require_once 'Hunter/NlsHelper.php';
 require_once 'Hunter/NlsFilter.php';
+require_once 'class-NlsFileInfo.php';
 /**
  * Description of class-NlsHunterFbf-modules
  *
@@ -177,10 +178,12 @@ class NlsHunterFbf_model
     /**
      * Add file to card
      */
-    public function insertNewFile($cardId, $file)
+    public function insertNewFile($cardId, $file, $isCvFile = false)
     {
-        $fileContent = file_get_contents($file['path']);
-        return $this->nlsCards->insertNewFile($cardId, $fileContent, $file['name'], $file['ext']);
+        $name = pathinfo($file['name'], PATHINFO_FILENAME);
+        $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
+        $fileContent = file_get_contents($file['tmp_name']);
+        return $this->nlsCards->insertNewFile($cardId, $fileContent, $name, $ext, $isCvFile);
     }
 
     /**
@@ -858,7 +861,7 @@ class NlsHunterFbf_model
             $fileInfo = $this->nlsCards->getFileInfo($file->FileId, $cardId);
             if (!$fileInfo) continue;
 
-            $fileObj = new stdClass();
+            $fileObj = new NlsFileInfo();
             $fileObj->id = $fileInfo->FileId;
             $fileObj->name = trim($fileInfo->Name) . '.' . trim($fileInfo->Type);
             $fileObj->updateDate = strtotime($fileInfo->UpdateDate);

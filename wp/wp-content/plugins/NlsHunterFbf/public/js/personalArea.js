@@ -126,7 +126,7 @@ var Agent =
         function openFile(res) {
             if (!res.fileUrl) return;
 
-            const downloadLink = document.createElement('a');
+            var downloadLink = document.createElement('a');
             document.body.appendChild(downloadLink);
 
             downloadLink.href = res.fileUrl;
@@ -134,6 +134,40 @@ var Agent =
             downloadLink.download = res.params.fileName;
             downloadLink.click();
             downloadLink.remove();
+        }
+
+        function newFile(fileType, fileCardsEl) {
+            var fileInput = document.createElement('input');
+            document.body.appendChild(fileInput);
+
+            fileInput.type = 'file';
+            fileInput.accept = 'doc,docx,pdf,rtf,txt';
+
+            $(fileInput).on('change', function () {
+                var formData = new FormData();
+                formData.append("file", this.files[0]);
+                formData.append("action", "new_file");
+                formData.append("type", fileType);
+                $.ajax({
+                    url: frontend_ajax.url,
+                    type: 'POST',
+                    data: formData,
+                    processData: false,  // tell jQuery not to process the data
+                    contentType: false,  // tell jQuery not to set contentType
+                    cache: false,
+                })
+                    .done(function (res) {
+                        if (res && res.status === 'success') {
+
+                            $(fileCardsEl).append(res.html);
+                        } else {
+                            console.debug('fileUpload: error', res);
+                        }
+                    })
+            });
+
+            fileInput.click();
+            fileInput.remove();
         }
 
         function registerEventListeners() {
@@ -172,10 +206,19 @@ var Agent =
              */
             $(document).on('click', 'button.delete', function () {
                 var fileId = $(this).parent().data('fileId');
-                var fileCard = $(this).parents('article.file-card');
-                fileId && deleteFile(fileId, fileCard);
+                var fileCardEl = $(this).parents('article.file-card');
+                fileId && deleteFile(fileId, fileCardEl);
             });
 
+            /**
+             * New file
+             */
+            $(document).on('click', 'button.new-file', function () {
+                var fileType = $(this).data('file-type');
+                var fileCardsEl = $(this).parents('section.file-items');
+
+                newFile(fileType, fileCardsEl);
+            });
         }
 
         function init() {

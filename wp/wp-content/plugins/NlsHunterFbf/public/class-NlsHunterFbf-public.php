@@ -1,6 +1,6 @@
 <?php
 include_once ABSPATH . 'wp-content/plugins/NlsHunterFbf/renderFunction.php';
-
+include_once NLS__PLUGIN_PATH . 'includes/class-NlsFileInfo.php';
 /**
  * The public-facing functionality of the plugin.
  *
@@ -347,6 +347,42 @@ class NlsHunterFbf_Public
             'fileUrl' => $file,
             'params' => [
                 'fileName' => $file,
+            ]
+        ];
+        wp_send_json($response);
+    }
+
+    public function new_file()
+    {
+        $file = key_exists('file', $_FILES) ? $_FILES['file'] : false;
+        $type = $this->model->queryParam('type', false, true);
+        $user = $this->NlsHunterFbf->getNlsUser();
+        if ($file && $user->cardId) {
+            $res = $this->model->insertNewFile($user, $file, $type === 'cv-list');
+        }
+        if (!$res) {
+            $response = [
+                'status' => self::STATUS_ERROR,
+                'html' => '<p>Something went wrong: file upload error.</p>',
+                'params' => [
+                    'file' => $file
+                ]
+            ];
+            wp_send_json($response);
+        }
+
+
+        $fileObj = new NlsFileInfo();
+        $fileObj->id = $res;
+        $fileObj->name = $file['name'];
+        $fileObj->updateDate = time();
+        $fileObj->mimeType = $file['type'];
+
+        $response = [
+            'status' => self::STATUS_SUCCESS,
+            'html' => render('personal/fileItem', ['file' => $fileObj]),
+            'params' => [
+                'fileId' => $res,
             ]
         ];
         wp_send_json($response);

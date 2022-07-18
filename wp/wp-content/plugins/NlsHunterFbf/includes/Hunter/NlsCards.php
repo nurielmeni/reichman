@@ -65,20 +65,20 @@ class NlsCards extends NlsService
      * @param $type - the file type (file extension)
      * @param $fileType - if "cv" will upload cv file
      */
-    public function InsertNewFile($cardId, $file, $name, $type, $fileType = null)
+    public function InsertNewFile($user, $file, $name, $type, $isCvFile = false)
     {
 
         $transactionCode = NlsHelper::newGuid();
         try {
-            if ($fileType == "cv") {
+            if (false) {
                 $params = [
                     "TransactionCode" => $transactionCode,
                     "CountryCode" => "IS",
-                    "SupplierId" => NlsHunterFbf_Admin::NSOFT_SUPPLIER_ID,
+                    "SupplierId" => get_option(NlsHunterFbf_Admin::NSOFT_SUPPLIER_ID),
                     "LanguageId" => NlsHelper::languageCode(),
                     "fInfo" => [
-                        "CardId" => $cardId,
-                        "CreatedBy" => 2,
+                        "CardId" => $user->cardId,
+                        "CreatedBy" => $user->userId,
                         "FolderId" => 1,
                         "Type" => $type,
                         "Name" => $name,
@@ -90,9 +90,9 @@ class NlsCards extends NlsService
                 $params = array(
                     "transactionCode" => $transactionCode,
                     "resumeInfo" => array(
-                        "CardId" => $cardId,
-                        "CreatedBy" => 6,
-                        "FolderId" => 2,
+                        "CardId" => $user->cardId,
+                        "CreatedBy" => $user->userId,
+                        "FolderId" => $isCvFile ? 1 : 2,
                         "Type" => $type,
                         "Name" => $name,
                         "FileContent" => $file,
@@ -102,7 +102,7 @@ class NlsCards extends NlsService
             }
             return $res->FileInsertBinaryResult;
         } catch (Exception $ex) {
-            throw new Exception("Error: CardService: InsertNewCvFile: Could not insert new file. \n\rTC: $transactionCode \nrCardId: $cardId");
+            throw new Exception("Error: CardService: InsertNewCvFile: Could not insert new file. \n\rTC: $transactionCode \nrCardId: $user->cardId");
         }
     }
 
