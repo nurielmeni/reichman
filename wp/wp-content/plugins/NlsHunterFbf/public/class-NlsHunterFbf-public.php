@@ -276,17 +276,40 @@ class NlsHunterFbf_Public
         }
 
         $file = $this->model->fileGetWithContent($fileId, $user->cardId);
-        $fileName = trim($file->Name) . '.' . trim($file->Type);
-        $fileUrl = $this->saveLocalFile($fileName, $file->FileContent);
 
-        $response = [
-            'status' => self::STATUS_SUCCESS,
-            'fileUrl' => $fileUrl,
-            'params' => [
-                'fileName' => $fileName,
-            ]
-        ];
-        wp_send_json($response);
+        $fileName = trim($file->Name) . '.' . trim($file->Type);
+        $size = $file->Size;
+
+        if (is_null($size)) {
+            if (function_exists('mb_strlen')) {
+                $size = mb_strlen($file->FileContent, '8bit');
+            } else {
+                $size = strlen($file->FileContent);
+            }
+        }
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename="' . $fileName . '"');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        header('Pragma: public');
+
+        header('Content-Length: ' . $size);
+
+        echo $file->FileContent;
+        exit;
+
+
+        // $fileUrl = $this->saveLocalFile($fileName, $file->FileContent);
+
+        // $response = [
+        //     'status' => self::STATUS_SUCCESS,
+        //     'fileUrl' => $fileUrl,
+        //     'params' => [
+        //         'fileName' => $fileName,
+        //     ]
+        // ];
+        // wp_send_json($response);
     }
 
     private function getFilePath($fileName)

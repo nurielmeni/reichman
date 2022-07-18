@@ -868,7 +868,7 @@ class NlsCards extends NlsService
         }
     }
 
-    public function getFileList($userId, $fromRow = null, $toRow = null)
+    public function getFileList($userCardId)
     {
 
         $transactionCode = NlsHelper::newGuid();
@@ -876,11 +876,8 @@ class NlsCards extends NlsService
 
             $params = array(
                 "transactionCode" => $transactionCode,
-                "ParentId" => $userId,
-                "filter" => [],
-                "fromRow" => $fromRow,
-                "toRow" => $toRow,
-                "sortColumn" => "Name",
+                "ParentId" => $userCardId,
+                "filter" => []
             );
             $res = $this->client->FilesListGet($params);
 

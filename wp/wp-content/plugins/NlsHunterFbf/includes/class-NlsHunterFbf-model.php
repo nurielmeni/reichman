@@ -768,15 +768,15 @@ class NlsHunterFbf_model
         return $fileInfo;
     }
 
-    public function getFileList($applicantId)
+    public function getFileList($userCardId)
     {
         $this->initCardService();
-        $cacheKey = 'FILE_LIST' . $applicantId;
+        $cacheKey = 'FILE_LIST' . $userCardId;
 
         $fileList = wp_cache_get($cacheKey);
 
         if (false === $fileList) {
-            $res = $this->nlsCards->getFileList($applicantId);
+            $res = $this->nlsCards->getFileList($userCardId);
             $fileList = new stdClass();
             $fileList->list = count(get_object_vars($res->FilesListGetResult)) === 0 ? [] : (is_array($res->FilesListGetResult) ? $res->FilesListGetResult : [$res->FilesListGetResult]);
             $fileList->totalNumResults = count($fileList->list); //$res->totalNumResults ? $res->totalNumResults :
