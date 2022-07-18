@@ -175,6 +175,14 @@ class NlsHunterFbf_model
         return $card;
     }
 
+    private function readFileBinary($path)
+    {
+        $handle = fopen($path, "rb");
+        $contents = fread($handle, filesize($path));
+        fclose($handle);
+        return $contents;
+    }
+
     /**
      * Add file to card
      */
@@ -182,7 +190,7 @@ class NlsHunterFbf_model
     {
         $name = pathinfo($file['name'], PATHINFO_FILENAME);
         $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
-        $fileContent = file_get_contents($file['tmp_name']);
+        $fileContent = $this->readFileBinary($file['tmp_name']);
         return $this->nlsCards->insertNewFile($cardId, $fileContent, $name, $ext, $isCvFile);
     }
 

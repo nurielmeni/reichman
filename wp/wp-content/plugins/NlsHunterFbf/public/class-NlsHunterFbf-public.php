@@ -207,29 +207,25 @@ class NlsHunterFbf_Public
      */
     public function get_user_cv_files()
     {
+        $response = $this->get_user_file_list();
+        wp_send_json($response);
+    }
+
+    public function get_user_file_list($isCvFiles = true)
+    {
         $this->verifyUserIsSet();
         $user = $this->NlsHunterFbf->getNlsUser();
-        $files = $this->model->getFilesInfo($user->cvList->list, $user->cardId);
+        $files = $this->model->getFilesInfo($isCvFiles ? $user->cvList->list : $user->fileList->list, $user->cardId);
         $response = [
             'status' => self::STATUS_SUCCESS,
             'html' => render('personal/fileList', [
                 'files' => $files,
-                'type' => 'cv-list'
+                'type' => $isCvFiles ? 'cv-list' : 'file-list'
             ]),
             'params' => [
-                'count' => $user->cvList->count,
-                'label' => __($user->cvList->label, 'NlsHunterFbf'),
+                'count' => $isCvFiles ? $user->cvList->count : $user->fileList->count,
+                'label' => __($isCvFiles ? $user->cvList->label : $user->fileList->label, 'NlsHunterFbf'),
             ]
-        ];
-        wp_send_json($response);
-    }
-
-    public function get_user_file_list()
-    {
-        $response = [
-            'status' => self::STATUS_SUCCESS,
-            'html' => '<p>USER FILE LIST</p>',
-            'params' => []
         ];
         wp_send_json($response);
     }
@@ -320,7 +316,7 @@ class NlsHunterFbf_Public
         fwrite($ifp, $fileData);
 
         // clean up the file resource
-        fclose($path);
+        fclose($ifp);
 
         return $this->getFileUrl($fileName);
     }
@@ -380,7 +376,7 @@ class NlsHunterFbf_Public
 
         $response = [
             'status' => self::STATUS_SUCCESS,
-            'html' => render('personal/fileItem', ['file' => $fileObj]),
+            'html' => render('personal/fileItem', ['fileObj' => $fileObj]),
             'params' => [
                 'fileId' => $res,
             ]
