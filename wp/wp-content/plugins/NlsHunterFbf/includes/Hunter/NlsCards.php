@@ -77,7 +77,7 @@ class NlsCards extends NlsService
                     "LanguageId" => NlsHelper::languageCode(),
                     "file" => [
                         "CardId" => $user->cardId,
-                        "CreatedBy" => $user->userId,
+                        "CreatedBy" => 2, //$user->userId,
                         "FolderId" => 1,
                         "Type" => $type,
                         "Name" => $name,
@@ -90,7 +90,7 @@ class NlsCards extends NlsService
                     "transactionCode" => $transactionCode,
                     "resumeInfo" => array(
                         "CardId" => $user->cardId,
-                        "CreatedBy" => $user->userId,
+                        "CreatedBy" => 2, //$user->userId,
                         "FolderId" => 13,
                         "Type" => $type,
                         "Name" => $name,

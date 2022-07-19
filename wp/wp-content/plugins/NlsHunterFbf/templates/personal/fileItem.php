@@ -1,6 +1,3 @@
-<?php
-$temp = $fileObj;
-?>
 <article class="file-card flex flex-col justify-between w-full min-h-20 md:min-h-40 file-item p-2 md:p-4 min-h-fit">
   <header class="flex justify-between items-top">
     <span class="text-bold md:text-3xl pl-4 text-ellipsis" dir="ltr"><?= $fileObj->name ?></span>
