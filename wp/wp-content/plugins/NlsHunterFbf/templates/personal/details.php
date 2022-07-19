@@ -12,12 +12,12 @@
 
         <div class="flex flex-col items-start py-2 border-b border-border md:border-b-0">
             <dt><?= __('Mail', 'NlsHunterFbf') ?></dt>
-            <dd class="md:text-xl"><strong><?= $user->email ?></strong></dd>
+            <dd class="md:text-xl" dir="ltr"><strong><?= $user->email ?></strong></dd>
         </div>
 
         <div class="flex flex-col items-start py-2 border-b border-border md:border-b-0">
             <dt><?= __('Phone', 'NlsHunterFbf') ?></dt>
-            <dd class="md:text-xl"><strong><?= $user->phone ?></strong></dd>
+            <dd class="md:text-xl" dir="ltr"><strong><?= $user->phone ?></strong></dd>
         </div>
 
         <div class="flex flex-col items-start py-2">

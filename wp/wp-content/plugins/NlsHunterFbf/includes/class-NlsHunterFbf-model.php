@@ -190,7 +190,7 @@ class NlsHunterFbf_model
     {
         $name = pathinfo($file['name'], PATHINFO_FILENAME);
         $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
-        $fileContent = $this->readFileBinary($file['tmp_name']);
+        $fileContent = file_get_contents($file['tmp_name']);
         return $this->nlsCards->insertNewFile($cardId, $fileContent, $name, $ext, $isCvFile);
     }
 
@@ -905,5 +905,26 @@ class NlsHunterFbf_model
         }
 
         return $mimeType;
+    }
+
+
+    /**
+     * Get user applied jobs
+     */
+    public function getAppliedJobs($userCardId)
+    {
+        $this->initCardService();
+
+        $cacheKey = 'USER_APPLIED_JOBS' . $userCardId;
+
+        $userAppliedJobs = wp_cache_get($cacheKey);
+
+        if (false === $userAppliedJobs) {
+            $res = $this->nlsCards->getAppliedJobs($userCardId);
+            wp_cache_set($cacheKey, $userAppliedJobs, 'card', 20 * 60);
+            return $res;
+        }
+
+        return $userAppliedJobs;
     }
 }

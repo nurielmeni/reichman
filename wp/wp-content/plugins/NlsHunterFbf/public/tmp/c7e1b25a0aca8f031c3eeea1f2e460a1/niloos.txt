@@ -1,0 +1,4 @@
+site: Huji Int		user: hujint		host: 185.53.210.13	passwd: CRMd4b7=hBCE55pr^2mB
+Site: Colman		user: colman		host: 185.53.210.13	passwd: AE+s+wTreC7m=Khe
+Site: Elbit Campaign	user: ikeacampaign1	host: 185.53.210.13	passwd: GMB=8r39gjZaCTpJy
+Site: Ikea Campaign	user: ikeacampaign		host: 185.53.210.13	passwd: qrWUW6TKb8kacaNQ

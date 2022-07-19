@@ -79,6 +79,10 @@ class NlsUser
         $this->mapUserData($userData);
     }
 
+    public function getAuth()
+    {
+    }
+
     public function logout()
     {
         unset($_COOKIE['REICHMAN_USER']);
@@ -140,17 +144,20 @@ class NlsUser
 
     private function getUserAppliedJobs()
     {
-        $this->appliedJobs = new NlsBoardItem('applied-jobs', [], __('Jobs I applied to', 'NlsHunterFbf'), 0, 'fileManagerModal');
+        $res = $this->cardId ? $this->model->getAppliedJobs($this->cardId) : (object) ['list' => [], 'totalNumResults' => 0];
+        $this->appliedJobs = new NlsBoardItem('applied-jobs', $res, __('Jobs I applied to', 'NlsHunterFbf'), 0, 'fileManagerModal');
     }
 
     private function getUserAgentJobs()
     {
-        $this->agentJobs = new NlsBoardItem('agent-jobs', [], __('Jobs by Smart Agent', 'NlsHunterFbf'), 0);
+        $res = []; //$this->cardId ? $this->model->getUserAppliedJobs($this->cardId) : (object) ['list' => [], 'totalNumResults' => 0];
+        $this->agentJobs = new NlsBoardItem('agent-jobs', $res, __('Jobs by Smart Agent', 'NlsHunterFbf'), 0);
     }
 
     private function getUserMyAreaJobs()
     {
-        $this->myAreaJobs = new NlsBoardItem('my-area-jobs', [], __('Jobs by My Area', 'NlsHunterFbf'), 0);
+        $res = []; //$this->cardId ? $this->model->getUserAppliedJobs($this->cardId) : (object) ['list' => [], 'totalNumResults' => 0];
+        $this->myAreaJobs = new NlsBoardItem('my-area-jobs', $res, __('Jobs by My Area', 'NlsHunterFbf'), 0);
     }
 
     public function getStatItems()

@@ -267,49 +267,42 @@ class NlsHunterFbf_Public
         if (!$fileId || !$user->cardId) {
             $response = [
                 'status' => self::STATUS_ERROR,
-                'html' => '<p>Something went wrong: file download error.</p>',
+                'title' => __('Something went wrong', 'NlsHunterFbf'),
+                'message' => __('The requested file could not be found for the user.', 'NlsHunterFbf'),
                 'params' => [
                     'fileId' => $fileId
                 ]
             ];
             wp_send_json($response);
+            wp_die();
         }
 
         $file = $this->model->fileGetWithContent($fileId, $user->cardId);
-
         $fileName = trim($file->Name) . '.' . trim($file->Type);
-        $size = $file->Size;
+        $fileUrl = $this->saveLocalFile($fileName, $file->FileContent);
 
-        if (is_null($size)) {
-            if (function_exists('mb_strlen')) {
-                $size = mb_strlen($file->FileContent, '8bit');
-            } else {
-                $size = strlen($file->FileContent);
-            }
+        if (!$fileUrl) {
+            $response = [
+                'status' => self::STATUS_ERROR,
+                'title' => __('Something went wrong', 'NlsHunterFbf'),
+                'message' => __('Could not prepare the file for download', 'NlsHunterFbf'),
+                'params' => [
+                    'fileId' => $fileId
+                ]
+            ];
+            wp_send_json($response);
+            wp_die();
         }
-        header('Content-Description: File Transfer');
-        header('Content-Type: application/octet-stream');
-        header('Content-Disposition: attachment; filename="' . $fileName . '"');
-        header('Expires: 0');
-        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-        header('Pragma: public');
 
-        header('Content-Length: ' . $size);
-
-        echo $file->FileContent;
-        exit;
-
-
-        // $fileUrl = $this->saveLocalFile($fileName, $file->FileContent);
-
-        // $response = [
-        //     'status' => self::STATUS_SUCCESS,
-        //     'fileUrl' => $fileUrl,
-        //     'params' => [
-        //         'fileName' => $fileName,
-        //     ]
-        // ];
-        // wp_send_json($response);
+        $response = [
+            'status' => self::STATUS_SUCCESS,
+            'fileUrl' => $fileUrl,
+            'params' => [
+                'fileName' => $fileName,
+            ]
+        ];
+        wp_send_json($response);
+        wp_die();
     }
 
     private function getFilePath($fileName)
@@ -341,7 +334,7 @@ class NlsHunterFbf_Public
         // clean up the file resource
         fclose($ifp);
 
-        return $this->getFileUrl($fileName);
+        return file_exists($path) ? $this->getFileUrl($fileName) : false;
     }
 
     public function delete_file($fileId)

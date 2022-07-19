@@ -123,8 +123,17 @@ var Agent =
                 });
         }
 
+        function showError(parentEl, title, message) {
+            $(parentEl).find('.title').text(title);
+            $(parentEl).find('.message').text(message);
+            $(parentEl).find('.error').slideDown();
+        }
+
         function openFile(res) {
-            if (!res.fileUrl) return;
+            if (res.status !== 'success') {
+                showError('#fileManagerModal footer', res.title, res.message);
+                return;
+            }
 
             var downloadLink = document.createElement('a');
             document.body.appendChild(downloadLink);
@@ -218,6 +227,13 @@ var Agent =
                 var fileCardsEl = $(this).parents('section.file-items');
 
                 newFile(fileType, fileCardsEl);
+            });
+
+            /**
+             * Close error
+             */
+            $(document).on('click', 'button.close-error', function () {
+                $(this).parents('.error').slideUp();
             });
         }
 

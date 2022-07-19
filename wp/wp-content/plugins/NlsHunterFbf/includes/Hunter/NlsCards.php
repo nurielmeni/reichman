@@ -67,7 +67,6 @@ class NlsCards extends NlsService
      */
     public function InsertNewFile($user, $file, $name, $type, $isCvFile = false)
     {
-
         $transactionCode = NlsHelper::newGuid();
         try {
             if ($isCvFile) {
@@ -78,7 +77,7 @@ class NlsCards extends NlsService
                     "LanguageId" => NlsHelper::languageCode(),
                     "file" => [
                         "CardId" => $user->cardId,
-                        "CreatedBy" => 2, //$user->userId,
+                        "CreatedBy" => $user->userId,
                         "FolderId" => 1,
                         "Type" => $type,
                         "Name" => $name,
@@ -91,7 +90,7 @@ class NlsCards extends NlsService
                     "transactionCode" => $transactionCode,
                     "resumeInfo" => array(
                         "CardId" => $user->cardId,
-                        "CreatedBy" => 2, //$user->userId,
+                        "CreatedBy" => $user->userId,
                         "FolderId" => 13,
                         "Type" => $type,
                         "Name" => $name,
@@ -829,12 +828,12 @@ class NlsCards extends NlsService
     /**
      * FILES
      */
-    public function getCVList($userID)
+    public function getCVList($userCardId)
     {
         $transactionCode = NlsHelper::newGuid();
         try {
             $params = array(
-                "applicantId" => $userID,
+                "applicantId" => $userCardId,
                 "transactionCode" => $transactionCode,
             );
             $res = $this->client->CvInfoGetCvVersions($params);
@@ -899,6 +898,28 @@ class NlsCards extends NlsService
             return $res->GetUserIdByCardIdResult;
         } catch (Exception $ex) {
             throw new Exception('Error: getUserIdByCardId: ' . $ex->getMessage());
+        }
+    }
+
+    public function getAppliedJobs($userCardId, $fromRow = null, $toRow = null)
+    {
+        $transactionCode = NlsHelper::newGuid();
+        try {
+            $params = array(
+                "applicantId" => $userCardId,
+                "transactionCode" => $transactionCode,
+                "fromRow" => $fromRow,
+                "toRow" => $toRow,
+                "sortColumn" => "JobTitle",
+                "isAscending" => true,
+                "filter" => [],
+            );
+
+            $res = $this->client->ApplicantJobMatchesListGet($params);
+
+            return $res;
+        } catch (Exception $ex) {
+            throw new Exception('Error: getAppliedJobs: ' . $ex->getMessage());
         }
     }
 }
