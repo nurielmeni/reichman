@@ -58,9 +58,32 @@ class NlsService
             $nlsSecurity = new NlsSecurity();
             $this->auth = $nlsSecurity->isAuth();
         }
+
+        /**
+         *  Get token and secret depend on type of auth
+         *  1. username  password 
+         *  2. auth by secret key
+         */
+        if (is_object($this->auth) && property_exists($this->auth, 'UsernameToken')) {
+            $cred1 = $this->auth->UsernameToken;
+        } elseif (is_object($this->auth) && property_exists($this->auth, 'plainToken')) {
+            $cred1 = $this->auth->plainToken;
+        } else {
+            $cred1 = null;
+        }
+
+        if (is_object($this->auth) && property_exists($this->auth, 'PasswordToken')) {
+            $cred2 = $this->auth->PasswordToken;
+        } elseif (is_object($this->auth) && property_exists($this->auth, 'signedToken')) {
+            $cred2 = $this->auth->signedToken;
+        } else {
+            $cred2 = null;
+        }
+
+
         $this->soap_headers = [
-            new SoapHeader('_', 'NiloosoftCred1', (is_object($this->auth) && property_exists($this->auth, 'UsernameToken')) ? $this->auth->UsernameToken : null),
-            new SoapHeader('_', 'NiloosoftCred2', (is_object($this->auth) && property_exists($this->auth, 'PasswordToken')) ? $this->auth->PasswordToken : null)
+            new SoapHeader('_', 'NiloosoftCred1', $cred1),
+            new SoapHeader('_', 'NiloosoftCred2', $cred2)
         ];
         $this->langCode = NlsHelper::languageCode();
     }

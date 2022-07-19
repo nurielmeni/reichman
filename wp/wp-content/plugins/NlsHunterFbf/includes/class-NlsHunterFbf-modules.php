@@ -99,7 +99,8 @@ class NlsHunterFbf_modules
 
     public function nlsHunterPersonalModule_render()
     {
-        $agents = $this->model->getAgents();
+        $agents = $this->model->jobHuntersGetForUser($this->nlsUser);
+        $agents = !$agents ? [] : (is_array($agents) ? $agents : [$agents]);
 
         ob_start();
 
@@ -122,7 +123,6 @@ class NlsHunterFbf_modules
         $jobs = $this->model->getJobHunterExecuteNewQuery2($searchParams, null, $page);
 
         $jobDetailsPageUrl = $this->model->getJobDetailsPageUrl();
-        $applicantCVs = $this->model->getApplicantCVList($this->applicantId);
 
         ob_start();
 

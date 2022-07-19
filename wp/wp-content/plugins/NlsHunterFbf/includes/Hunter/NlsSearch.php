@@ -44,10 +44,10 @@ class NlsSearch extends NlsService
             return $res;
         } catch (SoapFault $ex) {
             //var_dump($ex);
-            throw new Exception('Error: SOAP Error: Check the log for more details.');
+            throw new Exception('Error: JobHuntersGetForUser: SOAP Error: Check the log for more details.');
         } catch (Exception $ex) {
             $ex->transactionCode = $transactionCode;
-            throw new Exception('Error: Niloos services are not availiable, try later.');
+            throw new Exception('Error: JobHuntersGetForUser: Niloos services are not availiable, try later.');
         }
     }
 

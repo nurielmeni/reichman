@@ -75,6 +75,10 @@
             <input type="text" name="nlsConsumerKey" id="nlsConsumerKey" value="<?= $nlsConsumerKey ?>">
             <br>
 
+            <label for="nlsSecretKey">Secret Key</label>
+            <input type="text" name="nlsSecretKey" id="nlsSecretKey" value="<?= $nlsSecretKey ?>">
+            <br>
+
             <label for="nlsWebServiceDomain">Domain</label>
             <input type="text" name="nlsWebServiceDomain" id="nlsWebServiceDomain" value="<?= $nlsWebServiceDomain ?>">
             <br>

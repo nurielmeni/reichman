@@ -36,6 +36,7 @@ class NlsHunterFbf_Admin
     const NLS_WEB_SERVICE_DOMAIN = 'nlsWebServiceDomain';
     const NLS_SECURITY_USERNAME = 'nlsSecurityUsername';
     const NLS_SECURITY_PASSWORD = 'nlsSecurityPassword';
+    const NLS_SECRET_KEY = 'nlsSecretKey';
     const NLS_JOBS_COUNT = 'nlsJobsCount';
     const NLS_HOT_JOBS_COUNT = 'nlsHotJobsCount';
     const NLS_EMPLOYERS_COUNT = 'nlsEmployersCount';
@@ -170,6 +171,7 @@ class NlsHunterFbf_Admin
         $nlsWebServiceDomain = $this->getFieldValue(self::NLS_WEB_SERVICE_DOMAIN);
         $nlsSecurityUsername = $this->getFieldValue(self::NLS_SECURITY_USERNAME);
         $nlsSecurityPassword = $this->getFieldValue(self::NLS_SECURITY_PASSWORD);
+        $nlsSecretKey = $this->getFieldValue(self::NLS_SECRET_KEY);
         $nlsJobsCount = $this->getFieldValue(self::NLS_JOBS_COUNT);
         $nlsHotJobsCount = $this->getFieldValue(self::NLS_HOT_JOBS_COUNT);
         $nlsEmployersCount = $this->getFieldValue(self::NLS_EMPLOYERS_COUNT);

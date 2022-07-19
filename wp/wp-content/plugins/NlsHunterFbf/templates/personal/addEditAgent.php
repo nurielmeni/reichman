@@ -28,20 +28,20 @@
         'model' => $model,
         'searchParams' => $searchParams
       ]) ?>
+
+      <?= render('form/nlsInputField', [
+        'name' => 'agent-name',
+        'type' => 'text',
+        'placeHolder' => __('Agent Name', 'NlsHunterFbf'),
+        'wrapperClass' => 'md:mr-10 rtl:mr-0 md:rtl:ml-10 mt-px w-full',
+        'class' => 'py-2 rounded-xl',
+        'validators' => 'required',
+        'value' => key_exists('agent-name', $searchParams) ? $searchParams['agent-name'] : '',
+      ]) ?>
     </div>
 
-    <?= render('form/nlsInputField', [
-      'label' => __('Agent Name', 'NlsHunterFbf'),
-      'name' => 'agent-name',
-      'type' => 'text',
-      //'placeHolder' => __('Agent Name', 'NlsHunterFbf'),
-      'wrapperClass' => 'md:mr-10 rtl:mr-0 md:rtl:ml-10 w-full',
-      'class' => 'text-xl py-2 rounded-xl',
-      'validators' => 'required',
-      'value' => key_exists('agent-name', $searchParams) ? $searchParams['agent-name'] : '',
-    ]) ?>
 
-    <div class="flex justify-start items-center gap-4">
+    <div class="flex justify-start items-center gap-4 mt-24">
       <?= render('form/nlsCheckbox', [
         'label' => __('Happy to get Email updates', 'NlsHunterFbf'),
         'name' => 'approve-email',

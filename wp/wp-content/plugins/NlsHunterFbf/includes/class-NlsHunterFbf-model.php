@@ -16,7 +16,7 @@ class NlsHunterFbf_model
     const STATUS_OPEN = 1;
 
 
-    private $nlsSecutity;
+    private $nlsSecurity;
     private $auth;
     private $nlsCards;
     private $nlsSearch;
@@ -33,7 +33,7 @@ class NlsHunterFbf_model
     public function __construct()
     {
         try {
-            $this->nlsSecutity = new NlsSecurity();
+            $this->nlsSecurity = new NlsSecurity();
         } catch (\Exception $e) {
             $this->nlsAdminNotice(
                 __('Could not create Model.', 'NlsHunterFbf'),
@@ -41,19 +41,17 @@ class NlsHunterFbf_model
             );
             return null;
         }
-        $this->auth = $this->nlsSecutity->isAuth();
+        $this->auth = $this->nlsSecurity->isAuth();
         $this->countPerPage = get_option(NlsHunterFbf_Admin::NLS_JOBS_COUNT, 10);
         $this->countHotJobs = get_option(NlsHunterFbf_Admin::NLS_HOT_JOBS_COUNT, 6);
         $this->supplierId = $this->queryParam('sid', get_option(NlsHunterFbf_Admin::NSOFT_SUPPLIER_ID));
         $this->nlsFlashCache = $this->queryParam('flash-cache', false) ? true : false;
 
         if (!$this->auth) {
-            $username = get_option(NlsHunterFbf_Admin::NLS_SECURITY_USERNAME);
-            $password = get_option(NlsHunterFbf_Admin::NLS_SECURITY_PASSWORD);
-            $this->auth = $this->nlsSecutity->authenticate($username, $password);
+            $this->auth = $this->nlsSecurity->authenticate();
 
             // Check if Auth is OK and convert to object
-            if ($this->nlsSecutity->isAuth() === false) {
+            if ($this->nlsSecurity->isAuth() === false) {
                 $this->nlsAdminNotice('Authentication Error', 'Can not connect to Niloos Service.');
                 $this->nlsPublicNotice('Authentication Error', 'Can not connect to Niloos Service.');
             }
@@ -61,6 +59,28 @@ class NlsHunterFbf_model
 
         // Load data on ajax calls
         if (!wp_doing_ajax()) {
+        }
+    }
+
+    /**
+     * @param $user NlsUser Object
+     */
+    public function jobHuntersGetForUser($user)
+    {
+        if (!$user) throw new Exception('User was not initialized');
+        $userAuth = $user->getAuth($this->nlsSecurity);
+        if (!$userAuth) throw new Exception('Could not authenticate user: ' . $user->userName);
+
+        $this->initSearchService($userAuth);
+
+        try {
+            $res = $this->nlsSearch->JobHuntersGetForUser();
+        } catch (\Exception $e) {
+            $this->nlsAdminNotice(
+                __('Could not fetch users hunters', 'NlsHunterFbf'),
+                'Error: jobHuntersGetForUser'
+            );
+            return null;
         }
     }
 
@@ -127,12 +147,11 @@ class NlsHunterFbf_model
 
     public function front_add_message()
     {
-        add_filter('the_content', 'front_display_message');
+        add_filter('the_content', [$this, 'front_display_message']);
     }
 
     public function front_display_message($content)
     {
-
         $content = "<div class='your-message'>You did it!</div>\n\n" . $content;
         return $content;
     }
@@ -257,12 +276,13 @@ class NlsHunterFbf_model
     /**
      * Init search service
      */
-    public function initSearchService()
+    public function initSearchService($auth = null)
     {
+        $auth = !$auth ? $auth : $this->auth;
         try {
-            if ($this->auth !== false && !$this->nlsSearch) {
+            if ($auth !== $this->auth || !$this->nlsSearch) {
                 $this->nlsSearch = new NlsSearch([
-                    'auth' => $this->auth,
+                    'auth' => $auth,
                 ]);
             }
         } catch (\Exception $e) {
@@ -472,7 +492,7 @@ class NlsHunterFbf_model
 
     public function getJobHunterExecuteNewQuery2($searchParams, $hunterId = null, $page = 0, $resultRowLimit = null)
     {
-        $this->initSearchService();
+        $this->initSearchService($this->auth);
         $resultRowLimit = $resultRowLimit ? $resultRowLimit : $this->nlsGetCountPerPage();
         $resultRowOffset = is_int($page) ? $page * $resultRowLimit : false;
 
@@ -504,7 +524,7 @@ class NlsHunterFbf_model
 
 
         if (false === $jobs) {
-            if (!$this->initSearchService()) return ['totalHits' => 0, 'list' => []];
+            if (!$this->initSearchService($this->auth)) return ['totalHits' => 0, 'list' => []];
 
             if (!is_array($searchParams)) $jobs = [];
             $filter = new NlsFilter();
@@ -779,7 +799,7 @@ class NlsHunterFbf_model
             $res = $this->nlsCards->getFileList($userCardId);
             $fileList = new stdClass();
             $fileList->list = count(get_object_vars($res->FilesListGetResult)) === 0 ? [] : (is_array($res->FilesListGetResult) ? $res->FilesListGetResult : [$res->FilesListGetResult]);
-            $fileList->totalNumResults = count($fileList->list); //$res->totalNumResults ? $res->totalNumResults :
+            $fileList->totalNumResults = $res->totalNumResults ? $res->totalNumResults : count($fileList->list);
 
             wp_cache_set($cacheKey, $fileList, 'card', 20 * 60);
         }
@@ -833,7 +853,7 @@ class NlsHunterFbf_model
 
     public function searchApplicantsByName($name)
     {
-        $this->initSearchService();
+        $this->initSearchService($this->auth);
         return $this->nlsCards->SearchApplicantsByName($name);
     }
 

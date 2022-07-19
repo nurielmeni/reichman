@@ -23,6 +23,7 @@ class NlsBoardItem
 
 class NlsUser
 {
+    private $userAuth;
     public $requestUserId;
     public $userId;
     public $cardId;
@@ -79,8 +80,14 @@ class NlsUser
         $this->mapUserData($userData);
     }
 
-    public function getAuth()
+    public function getAuth($nlsSecurity)
     {
+        if (!$this->userAuth) {
+            $usernameDirectoy = get_option(NlsHunterFbf_Admin::NLS_WEB_SERVICE_DOMAIN) . '\\' . $this->userName;
+            $this->userAuth = $nlsSecurity->authenticateByConsumerKeyAndSecretKey($usernameDirectoy);
+        }
+
+        return $this->userAuth;
     }
 
     public function logout()
