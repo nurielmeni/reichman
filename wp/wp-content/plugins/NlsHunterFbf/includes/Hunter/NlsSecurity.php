@@ -78,8 +78,8 @@ class NlsSecurity
         try {
             $param = array(
                 'userName' => $userName,
-                "ConsumerKey" => 'C57986DC-1665-44B3-B84B-77929A046035',
-                "SecretKey" => 'E40AF7B4-D1FF-4CE9-8614-0AA9DAFFEBDD',
+                "ConsumerKey" => get_option(NlsHunterFbf_Admin::NLS_CONSUMER_KEY),
+                "SecretKey" => get_option(NlsHunterFbf_Admin::NLS_SECRET_KEY),
                 "ipAddress" => "127.0.0.1",
                 'transactionCode' => $transactionCode
             );
