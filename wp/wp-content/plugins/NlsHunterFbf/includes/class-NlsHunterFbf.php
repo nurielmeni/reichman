@@ -334,6 +334,9 @@ class NlsHunterFbf
 		// THE AJAX NEW FILE
 		$this->loader->add_action('wp_ajax_new_file', $plugin_public, 'new_file');
 		$this->loader->add_action('wp_ajax_nopriv_new_file', $plugin_public, 'new_file');
+		// THE AJAX NEW HUNTER
+		$this->loader->add_action('wp_ajax_add_edit_hunter', $plugin_public, 'add_edit_hunter');
+		$this->loader->add_action('wp_ajax_nopriv_add_edit_hunter', $plugin_public, 'add_edit_hunter');
 	}
 
 	/**

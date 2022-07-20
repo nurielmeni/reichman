@@ -43,6 +43,14 @@
   }
 }
 
+.m-inline-ea {
+  margin-inline-end: auto;
+}
+
+.m-inline-sa {
+  margin-inline-start: auto;
+}
+
 .nls-hunter .entry-content ul a.text-white {
   color: white;
 }

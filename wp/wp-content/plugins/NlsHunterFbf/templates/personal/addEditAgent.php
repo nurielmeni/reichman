@@ -58,8 +58,8 @@
       ]) ?>
     </div>
 
-    <div class="flex justify-center md:justify-start mt-6">
-      <button type="button" class="btn search text-2xl px-16 py-2 rounded-xl"><?= __('Save smart agent', 'NlshunterFbf') ?></button>
+    <div class="flex justify-center md:justify-start mt-6 relative z-50">
+      <button type="button" data-hunter-id="" class="btn search text-2xl px-16 py-2 rounded-xl"><?= __('Save smart agent', 'NlsHunterFbf') ?></button>
     </div>
   </form>
 </article>

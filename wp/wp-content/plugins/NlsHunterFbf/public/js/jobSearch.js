@@ -10,7 +10,7 @@ var JobSearch =
         var jocCardsDetailsBtn = '.job-card button.additional-details',
             jocCardsCancelBtn = '.job-card button.cancel',
             jobSearchForm = '.nls-hunter-search-wrapper form',
-            detailsClasses = 'details md:col-span-2 lg:col-span-3 md:p-8 animate-expand',
+            detailsClasses = 'details md:col-span-2 md:col-span-3 md:p-8 animate-expand',
             applyBtn = '.job-card button.apply',
             moreResultsBtn = '.search-results-wrapper .footer button.more-results',
             jobCategory = '.nls-hunter-search-wrapper select[name="job-category[]"]',

@@ -1,5 +1,5 @@
 <section class="flex flex-col justify-center items-center my-8">
-    <div class="double-doted-border border-light min-w-[94%] lg:min-w-[70%]">
+    <div class="double-doted-border border-light min-w-[94%] md:min-w-[70%]">
         <div class="flex justify-between py-4 bg-sliderbg ">
             <div class="text-center w-1/3 cv">
                 <p class="text-2xl md:text-6xl"><?= $data['cv'] ?></p>

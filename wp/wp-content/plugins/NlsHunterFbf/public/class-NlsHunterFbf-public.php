@@ -400,6 +400,20 @@ class NlsHunterFbf_Public
         wp_send_json($response);
     }
 
+    public function add_edit_hunter()
+    {
+        $formData = $_POST;
+
+        $response = [
+            'status' => self::STATUS_SUCCESS,
+            'html' => 'SUCCESS',
+            'params' => [
+                'fileId' => '1',
+            ]
+        ];
+        wp_send_json($response);
+    }
+
     /**
      * Mail
      */

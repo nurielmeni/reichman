@@ -95,7 +95,7 @@ module.exports = {
     },
     screens: {
       sm: "640px",
-      md: "768px",
+      md: "880px",
       lg: "1280px",
       xl: tailpress.theme("settings.layout.wideSize", theme),
     },

@@ -51,19 +51,16 @@ class NlsSearch extends NlsService
         }
     }
 
-    public function JobHunterCreateOrUpdate($user_name, $filter, $hunterStatus)
+    public function JobHunterCreateOrUpdate($name = null, $hunterId = null, $filter = [], $hunterStatus = null)
     {
-
         $transactionCode = NlsHelper::newGuid();
-        $hunter_id = null;
+        $hunterId = $hunterId ? $hunterId : NlsHelper::newGuid();
         try {
-
-            $hunter_id = NlsHelper::newGuid();
             $params = array(
                 "transactionCode" => $transactionCode,
-                "hunterId" => $hunter_id,
+                "hunterId" => $hunterId,
                 "hunterStatus" => $hunterStatus,
-                "name" => null,
+                "name" => $name,
                 "jobId" => null,
                 "externalId" => null,
                 "userDefined1" => null,
@@ -73,7 +70,7 @@ class NlsSearch extends NlsService
 
             $res = $this->client->JobHunterCreateOrUpdate($params);
 
-            return $hunter_id;
+            return $res;
         } catch (SoapFault $ex) {
             //var_dump($ex);
             throw new Exception('Error: SOAP Error: Check the log for more details.');

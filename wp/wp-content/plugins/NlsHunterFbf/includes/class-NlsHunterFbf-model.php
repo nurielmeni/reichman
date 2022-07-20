@@ -490,31 +490,100 @@ class NlsHunterFbf_model
         $arr[] = $field;
     }
 
+    private function createFilter($searchParams)
+    {
+        if (!is_array($searchParams)) $jobs = [];
+        $filter = new NlsFilter();
+
+        $filter->addSuplierIdFilter($this->nlsGetSupplierId());
+
+        if ($searchParams['category']) {
+            $filterField = new FilterField('JobProfessionalFields', SearchPhrase::EXACT, $searchParams['category'], NlsFilter::NESTED);
+            $nestedFilterField = new FilterField('JobProfessionalFieldInfo_CategoryId', SearchPhrase::ALL, $searchParams['category'], NlsFilter::NUMERIC_VALUES);
+            $filterField->setNested($nestedFilterField);
+            $filter->addWhereFilter($filterField, is_array($filterField) ? WhereCondition::C_OR : WhereCondition::C_AND);
+        }
+
+        if ($searchParams['scope']) {
+            $filterField = [];
+            foreach ($searchParams['scope'] as $value) {
+                $filterFieldOption = new FilterField('JobScope', SearchPhrase::EXACT, $value, NlsFilter::NUMERIC_VALUES);
+                $filterField[] = $filterFieldOption;
+            }
+            $filter->addWhereFilter($filterField, is_array($filterField) ? WhereCondition::C_OR : WhereCondition::C_AND);
+        }
+
+        if ($searchParams['rank']) {
+            $filterField = new FilterField('Rank', SearchPhrase::EXACT, $searchParams['rank'], NlsFilter::NUMERIC_VALUES);
+            $filter->addWhereFilter($filterField, is_array($filterField) ? WhereCondition::C_OR : WhereCondition::C_AND);
+        }
+
+        if ($searchParams['dateRange']) {
+            // date("m/d/Y", $start) . " - " . date("m/d/Y", $end)
+            $now = new DateTime('now');
+            $endDate = $now->modify('+1 day')->format('m/d/Y');
+
+            switch ($searchParams['dateRange']) {
+                case 'today':
+                    $startDate = $now->format('m/d/Y');
+                    break;
+                case 'lastWeek':
+                    $startDate = $now->modify('-7 day')->format('m/d/Y');
+                    break;
+                case 'lastMonth':
+                    $startDate = $now->modify('-1 month')->format('m/d/Y');
+                    break;
+                default:
+                    return;
+            }
+
+            $dateSpan = $startDate . '-' . $endDate;
+
+            $filterField = new FilterField('UpdateDate', SearchPhrase::BETWEEN_DATES, $dateSpan, NlsFilter::DATE_TIME_RANGE);
+            $filter->addWhereFilter($filterField, is_array($filterField) ? WhereCondition::C_OR : WhereCondition::C_AND);
+        }
+
+        if ($searchParams['employmentForm']) {
+            $filterField = new FilterField('EmploymentForm', SearchPhrase::EXACT, $searchParams['employmentForm'], NlsFilter::NUMERIC_VALUES);
+            $filter->addWhereFilter($filterField, is_array($filterField) ? WhereCondition::C_OR : WhereCondition::C_AND);
+        }
+
+        if ($searchParams['keyword']) {
+            $keywords = preg_split("/[\s,]+/", $searchParams['keyword']);
+            $fields = [];
+
+            foreach ($keywords as $term) {
+                $this->addSearchTerm($fields, $term);
+            }
+            $filter->addWhereFilter($fields, WhereCondition::C_OR);
+        }
+
+        return $filter;
+    }
+
     public function getJobHunterExecuteNewQuery2($searchParams, $hunterId = null, $page = 0, $resultRowLimit = null)
     {
-        $this->initSearchService($this->auth);
         $resultRowLimit = $resultRowLimit ? $resultRowLimit : $this->nlsGetCountPerPage();
         $resultRowOffset = is_int($page) ? $page * $resultRowLimit : false;
 
         if (!is_array($searchParams)) return [];
 
-        $filter = new NlsFilter();
-
-        $keyword = key_exists('keyword', $searchParams) && strlen($searchParams['keyword']) > 0 ? $searchParams['keyword'] : false;
-        $category = key_exists('category', $searchParams) && count($searchParams['category']) > 0 ? $searchParams['category'] : false;
-        $scope = key_exists('scope', $searchParams) && count($searchParams['scope']) > 0 ? $searchParams['scope'] : false;
-        $rank = key_exists('rank', $searchParams) && count($searchParams['rank']) > 0 ? $searchParams['rank'] : false;
-        $dateRange = key_exists('date-range', $searchParams) && strlen($searchParams['date-range']) > 0 ? $searchParams['date-range'] : false;
-        $employmentForm = key_exists('employmentForm', $searchParams) && strlen($searchParams['employmentForm']) > 0 ? $searchParams['employmentForm'] : false;
-        $employmentType = key_exists('employmentType', $searchParams) && count($searchParams['employmentType']) > 0 ? $searchParams['employmentType'] : false;
+        $searchParams['keyword'] = key_exists('keyword', $searchParams) && strlen($searchParams['keyword']) > 0 ? $searchParams['keyword'] : false;
+        $searchParams['category'] = key_exists('category', $searchParams) && count($searchParams['category']) > 0 ? $searchParams['category'] : false;
+        $searchParams['scope'] = key_exists('scope', $searchParams) && count($searchParams['scope']) > 0 ? $searchParams['scope'] : false;
+        $searchParams['rank'] = key_exists('rank', $searchParams) && count($searchParams['rank']) > 0 ? $searchParams['rank'] : false;
+        $searchParams['dateRange'] = key_exists('date-range', $searchParams) && strlen($searchParams['date-range']) > 0 ? $searchParams['date-range'] : false;
+        $searchParams['employmentForm'] = key_exists('employmentForm', $searchParams) && strlen($searchParams['employmentForm']) > 0 ? $searchParams['employmentForm'] : false;
+        $searchParams['employmentType'] = key_exists('employmentType', $searchParams) && count($searchParams['employmentType']) > 0 ? $searchParams['employmentType'] : false;
 
         $cache_key = 'nls_hunter_jobs_';
-        $cache_key .= $category ? $this->joinVals($category) : '';
-        $cache_key .= $scope ? $this->joinVals($scope) : '';
-        $cache_key .= $rank ? $this->joinVals($rank) : '';
-        $cache_key .= $dateRange ? $this->joinVals($dateRange) : '';
-        $cache_key .= $employmentType ? $this->joinVals($employmentType) : '';
-        $cache_key .= $keyword ? $keyword : '';
+        $cache_key .= $searchParams['category'] ? $this->joinVals($searchParams['category']) : '';
+        $cache_key .= $searchParams['scope'] ? $this->joinVals($searchParams['scope']) : '';
+        $cache_key .= $searchParams['rank'] ? $this->joinVals($searchParams['rank']) : '';
+        $cache_key .= $searchParams['dateRange'] ? $this->joinVals($searchParams['dateRange']) : '';
+        $cache_key .= $searchParams['employmentForm'] ? $this->joinVals($searchParams['employmentForm']) : '';
+        $cache_key .= $searchParams['employmentType'] ? $this->joinVals($searchParams['employmentType']) : '';
+        $cache_key .= $searchParams['keyword'] ? $searchParams['keyword'] : '';
         $cache_key .= $resultRowOffset . '_' . $resultRowLimit;
         $hashedKey = hash('md5', $cache_key);
 
@@ -526,71 +595,7 @@ class NlsHunterFbf_model
         if (false === $jobs) {
             if (!$this->initSearchService($this->auth)) return ['totalHits' => 0, 'list' => []];
 
-            if (!is_array($searchParams)) $jobs = [];
-            $filter = new NlsFilter();
-
-            $filter->addSuplierIdFilter($this->nlsGetSupplierId());
-
-            if ($category) {
-                $filterField = new FilterField('JobProfessionalFields', SearchPhrase::EXACT, $category, NlsFilter::NESTED);
-                $nestedFilterField = new FilterField('JobProfessionalFieldInfo_CategoryId', SearchPhrase::ALL, $category, NlsFilter::NUMERIC_VALUES);
-                $filterField->setNested($nestedFilterField);
-                $filter->addWhereFilter($filterField, is_array($filterField) ? WhereCondition::C_OR : WhereCondition::C_AND);
-            }
-
-            if ($scope) {
-                $filterField = [];
-                foreach ($scope as $value) {
-                    $filterFieldOption = new FilterField('JobScope', SearchPhrase::EXACT, $value, NlsFilter::NUMERIC_VALUES);
-                    $filterField[] = $filterFieldOption;
-                }
-                $filter->addWhereFilter($filterField, is_array($filterField) ? WhereCondition::C_OR : WhereCondition::C_AND);
-            }
-
-            if ($rank) {
-                $filterField = new FilterField('Rank', SearchPhrase::EXACT, $rank, NlsFilter::NUMERIC_VALUES);
-                $filter->addWhereFilter($filterField, is_array($filterField) ? WhereCondition::C_OR : WhereCondition::C_AND);
-            }
-
-            if ($dateRange) {
-                // date("m/d/Y", $start) . " - " . date("m/d/Y", $end)
-                $now = new DateTime('now');
-                $endDate = $now->modify('+1 day')->format('m/d/Y');
-
-                switch ($dateRange) {
-                    case 'today':
-                        $startDate = $now->format('m/d/Y');
-                        break;
-                    case 'lastWeek':
-                        $startDate = $now->modify('-7 day')->format('m/d/Y');
-                        break;
-                    case 'lastMonth':
-                        $startDate = $now->modify('-1 month')->format('m/d/Y');
-                        break;
-                    default:
-                        return;
-                }
-
-                $dateSpan = $startDate . '-' . $endDate;
-
-                $filterField = new FilterField('UpdateDate', SearchPhrase::BETWEEN_DATES, $dateSpan, NlsFilter::DATE_TIME_RANGE);
-                $filter->addWhereFilter($filterField, is_array($filterField) ? WhereCondition::C_OR : WhereCondition::C_AND);
-            }
-
-            if ($employmentForm) {
-                $filterField = new FilterField('EmploymentForm', SearchPhrase::EXACT, $employmentForm, NlsFilter::NUMERIC_VALUES);
-                $filter->addWhereFilter($filterField, is_array($filterField) ? WhereCondition::C_OR : WhereCondition::C_AND);
-            }
-
-            if ($keyword) {
-                $keywords = preg_split("/[\s,]+/", $keyword);
-                $fields = [];
-
-                foreach ($keywords as $term) {
-                    $this->addSearchTerm($fields, $term);
-                }
-                $filter->addWhereFilter($fields, WhereCondition::C_OR);
-            }
+            $filter = $this->createFilter($searchParams);
 
             try {
                 $res = $this->nlsSearch->JobHunterExecuteNewQuery2(
@@ -616,9 +621,18 @@ class NlsHunterFbf_model
             }
         }
 
-
-
         return $jobs;
+    }
+
+    public function jobHunterCreateOrUpdate($user, $searchParams, $name = null, $hunterId = null)
+    {
+        if (!$user) throw new Exception('User was not initialized');
+        $userAuth = $user->getAuth($this->nlsSecurity);
+        if (!$userAuth) throw new Exception('Could not authenticate user: ' . $user->userName);
+
+        $this->initSearchService($userAuth);
+        $filter = $this->createFilter($searchParams);
+        $res = $this->nlsSearch->JobHunterCreateOrUpdate($name, $hunterId, $filter);
     }
 
     public function getCardProfessinalField($cardId)

@@ -179,6 +179,33 @@ var Agent =
             fileInput.remove();
         }
 
+        function showAgent(event) {
+            var el = event.target;
+
+            // 1. Show the form and focus first input
+            $('section.add-edit-smart-agent').slideDown().find('input').get(0).focus();
+        }
+
+        function addEditAgent(event) {
+            var el = event.target;
+            var formData = $(el).parents('form').serialize();
+            formData += '&action=add_edit_hunter';
+
+            $.ajax({
+                url: frontend_ajax.url,
+                data: formData,
+                method: 'post',
+                cache: false
+            })
+                .done(function (res) {
+                    console.debug('res', res);
+                })
+                .fail(function (res) {
+                    console.debug('res', res);
+                });
+
+        }
+
         function registerEventListeners() {
             /**
              * User Actions
@@ -228,6 +255,16 @@ var Agent =
 
                 newFile(fileType, fileCardsEl);
             });
+
+            /**
+             * Show add/edit Agent
+             */
+            $('.smart-agent-card button.new-agent').on('click', showAgent);
+
+            /**
+             * Add Edit Agent
+             */
+            $('form[name="nls-agent-add-edit"] button.search').on('click', addEditAgent);
 
             /**
              * Close error

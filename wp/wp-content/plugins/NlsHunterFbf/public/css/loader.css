@@ -26,7 +26,7 @@
 .loader {
   color: var(--nls-plugin-primary);
   text-indent: -9999em;
-  margin: 20px auto 0;
+  margin: 22px auto -5em;
   position: relative;
   font-size: 11px;
   -webkit-transform: translateZ(0);
@@ -34,6 +34,7 @@
   transform: translateZ(0);
   -webkit-animation-delay: -0.16s;
   animation-delay: -0.16s;
+  min-height: 5em;
 }
 
 .loader:before,

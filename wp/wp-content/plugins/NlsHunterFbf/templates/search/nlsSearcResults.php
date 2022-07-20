@@ -11,7 +11,7 @@ include_once ABSPATH . 'wp-content/plugins/NlsHunterFbf/includes/Hunter/NlsHelpe
         <span><?= $jobs['totalHits'] ?></span><span class="mx-2"><?= __('Jobs', 'NlsHunterFbf') ?></span>
     </div>
     <?= render('job/nlsJobApplyForm', ['nlsJobApplyUrl' => '#']) ?>
-    <ul class="job-list grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <ul class="job-list grid grid-cols-1 md:grid-cols-2 md:grid-cols-3 gap-6">
         <?php foreach ($jobs['list'] as $job) : ?>
             <?= render('job/nlsJobCard', [
                 'model' => $model,

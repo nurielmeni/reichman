@@ -18,7 +18,7 @@ include_once 'includes/SocialWalker.php';
 		<?= _e('Contact us', 'reichman') ?>
 	</div>
 
-	<div class="container mx-auto flex flex-col justify-center lg:flex-row lg:justify-between items-top primary text-white">
+	<div class="container mx-auto flex flex-col justify-center md:flex-row md:justify-between items-top primary text-white">
 		<?php
 		wp_nav_menu(
 			array(
@@ -49,7 +49,7 @@ include_once 'includes/SocialWalker.php';
 			array(
 				'container_id'    => 'footer-social',
 				'container_class' => 'mt-1 mb-2',
-				'menu_class'      => 'flex justify-start lg:flex-col',
+				'menu_class'      => 'flex justify-start md:flex-col',
 				'theme_location'  => 'footer-social',
 				'li_class'        => 'px-2 mt-2',
 				'walker' => new social_walker,
