@@ -17,26 +17,26 @@
       'type' => 'text',
       'placeHolder' => __('Search by name/Job details/Company', 'NlsHunterFbf'),
       'wrapperClass' => 'md:mr-10 rtl:mr-0 md:rtl:ml-10 w-full',
-      'class' => 'text-lg md:text-2xl py-2 md:py-3 rounded-md md:rounded-xl w-full',
+      'class' => 'py-2 md:rounded-xl w-full',
       'validators' => 'required',
       'value' => key_exists('keywords', $searchParams) ? $searchParams['keywords'] : '',
       'prepend' => plugins_url('NlsHunterFbf/public/images/search.svg'),
     ]) ?>
 
     <div class="search-advanced flex justify-start gap-4 w-full mt-5 <?= wp_is_mobile() ? 'overflow-auto' : '' ?>">
+      <?= render('form/nlsInputField', [
+        'name' => 'hunter-name',
+        'type' => 'text',
+        'placeHolder' => __('Agent Name', 'NlsHunterFbf'),
+        'wrapperClass' => 'mt-px ',
+        'class' => 'py-2 border-none rounded-xl',
+        'validators' => 'required',
+        'value' => key_exists('agent-name', $searchParams) ? $searchParams['agent-name'] : '',
+      ]) ?>
+
       <?= render('search/nlsAdvancedSearch', [
         'model' => $model,
         'searchParams' => $searchParams
-      ]) ?>
-
-      <?= render('form/nlsInputField', [
-        'name' => 'agent-name',
-        'type' => 'text',
-        'placeHolder' => __('Agent Name', 'NlsHunterFbf'),
-        'wrapperClass' => 'md:mr-10 rtl:mr-0 md:rtl:ml-10 mt-px w-full',
-        'class' => 'py-2 rounded-xl',
-        'validators' => 'required',
-        'value' => key_exists('agent-name', $searchParams) ? $searchParams['agent-name'] : '',
       ]) ?>
     </div>
 

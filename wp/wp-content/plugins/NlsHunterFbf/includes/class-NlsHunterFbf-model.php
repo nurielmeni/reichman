@@ -82,6 +82,7 @@ class NlsHunterFbf_model
             );
             return null;
         }
+        return $res;
     }
 
     public function queryParam($param, $default = '', $post = false)
@@ -129,7 +130,8 @@ class NlsHunterFbf_model
         $params['scope'] = $this->queryParam('job-scope', [], $post);
         $params['rank'] = $this->queryParam('job-rank', [], $post);
         $params['date-range'] = $this->queryParam('date-range', '', $post);
-        $params['employmentType'] = $this->queryParam('employments-type', [], $post);
+        $params['employment-type'] = $this->queryParam('employments-type', [], $post);
+        $params['employment-form'] = $this->queryParam('employments-form', [], $post);
         $params['location'] = $this->queryParam('job-location', [], $post);
 
         return $params;
@@ -492,7 +494,7 @@ class NlsHunterFbf_model
 
     private function createFilter($searchParams)
     {
-        if (!is_array($searchParams)) $jobs = [];
+        if (!is_array($searchParams)) return [];
         $filter = new NlsFilter();
 
         $filter->addSuplierIdFilter($this->nlsGetSupplierId());
@@ -543,6 +545,11 @@ class NlsHunterFbf_model
             $filter->addWhereFilter($filterField, is_array($filterField) ? WhereCondition::C_OR : WhereCondition::C_AND);
         }
 
+        if ($searchParams['employmentType']) {
+            $filterField = new FilterField('EmploymentType', SearchPhrase::EXACT, $searchParams['employmentType'], NlsFilter::NUMERIC_VALUES);
+            $filter->addWhereFilter($filterField, is_array($filterField) ? WhereCondition::C_OR : WhereCondition::C_AND);
+        }
+
         if ($searchParams['employmentForm']) {
             $filterField = new FilterField('EmploymentForm', SearchPhrase::EXACT, $searchParams['employmentForm'], NlsFilter::NUMERIC_VALUES);
             $filter->addWhereFilter($filterField, is_array($filterField) ? WhereCondition::C_OR : WhereCondition::C_AND);
@@ -561,20 +568,24 @@ class NlsHunterFbf_model
         return $filter;
     }
 
+    public function cleanSearchParams(&$searchParams)
+    {
+        $searchParams['keyword'] = key_exists('keyword', $searchParams) && strlen($searchParams['keyword']) > 0 ? $searchParams['keyword'] : false;
+        $searchParams['category'] = key_exists('category', $searchParams) && count($searchParams['category']) > 0 ? $searchParams['category'] : false;
+        $searchParams['scope'] = key_exists('scope', $searchParams) && count($searchParams['scope']) > 0 ? $searchParams['scope'] : false;
+        $searchParams['rank'] = key_exists('rank', $searchParams) && count($searchParams['rank']) > 0 ? $searchParams['rank'] : false;
+        $searchParams['dateRange'] = key_exists('date-range', $searchParams) && strlen($searchParams['date-range']) > 0 ? $searchParams['date-range'] : false;
+        $searchParams['employmentForm'] = key_exists('employment-form', $searchParams) && is_array($searchParams['employment-form']) && count($searchParams['employment-form']) > 0 ? $searchParams['employmentForm'] : false;
+        $searchParams['employmentType'] = key_exists('employment-type', $searchParams) && is_array($searchParams['employment-type']) && count($searchParams['employment-type']) > 0 ? $searchParams['employmentType'] : false;
+    }
+
     public function getJobHunterExecuteNewQuery2($searchParams, $hunterId = null, $page = 0, $resultRowLimit = null)
     {
         $resultRowLimit = $resultRowLimit ? $resultRowLimit : $this->nlsGetCountPerPage();
         $resultRowOffset = is_int($page) ? $page * $resultRowLimit : false;
 
         if (!is_array($searchParams)) return [];
-
-        $searchParams['keyword'] = key_exists('keyword', $searchParams) && strlen($searchParams['keyword']) > 0 ? $searchParams['keyword'] : false;
-        $searchParams['category'] = key_exists('category', $searchParams) && count($searchParams['category']) > 0 ? $searchParams['category'] : false;
-        $searchParams['scope'] = key_exists('scope', $searchParams) && count($searchParams['scope']) > 0 ? $searchParams['scope'] : false;
-        $searchParams['rank'] = key_exists('rank', $searchParams) && count($searchParams['rank']) > 0 ? $searchParams['rank'] : false;
-        $searchParams['dateRange'] = key_exists('date-range', $searchParams) && strlen($searchParams['date-range']) > 0 ? $searchParams['date-range'] : false;
-        $searchParams['employmentForm'] = key_exists('employmentForm', $searchParams) && strlen($searchParams['employmentForm']) > 0 ? $searchParams['employmentForm'] : false;
-        $searchParams['employmentType'] = key_exists('employmentType', $searchParams) && count($searchParams['employmentType']) > 0 ? $searchParams['employmentType'] : false;
+        $this->cleanSearchParams($searchParams);
 
         $cache_key = 'nls_hunter_jobs_';
         $cache_key .= $searchParams['category'] ? $this->joinVals($searchParams['category']) : '';
@@ -624,6 +635,14 @@ class NlsHunterFbf_model
         return $jobs;
     }
 
+    public function jobHunterGetInfo($hunterId)
+    {
+        // Make sure serach service is initilized
+        $res = $this->nlsSearch->JobHunterGetInfo($hunterId);
+        $res->JobHunterGetInfoResult->hunterId = $hunterId;
+        return $res;
+    }
+
     public function jobHunterCreateOrUpdate($user, $searchParams, $name = null, $hunterId = null)
     {
         if (!$user) throw new Exception('User was not initialized');
@@ -633,6 +652,19 @@ class NlsHunterFbf_model
         $this->initSearchService($userAuth);
         $filter = $this->createFilter($searchParams);
         $res = $this->nlsSearch->JobHunterCreateOrUpdate($name, $hunterId, $filter);
+        return $res;
+    }
+
+    public function jobHunterDelete($user, $hunterId)
+    {
+        if (!$user) throw new Exception('User was not initialized');
+        if (!$hunterId) throw new Exception('jobHunterDelete: Hunter Id was not provided');
+        $userAuth = $user->getAuth($this->nlsSecurity);
+        if (!$userAuth) throw new Exception('Could not authenticate user: ' . $user->userName);
+
+        $this->initSearchService($userAuth);
+        $res = $this->nlsSearch->JobHunterDelete($hunterId);
+        return $res;
     }
 
     public function getCardProfessinalField($cardId)

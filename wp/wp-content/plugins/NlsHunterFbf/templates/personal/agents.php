@@ -2,11 +2,11 @@
     <?php foreach ($agents as $agent) : ?>
         <?= render(
             'personal/agent',
-            $agent
+            ['agent' => $agent]
         ) ?>
     <?php endforeach; ?>
 
-    <div class="smart-agent-card flex justify-center items-center bg-white min-h-[12rem] m-0">
+    <article class="smart-agent-card flex justify-center items-center bg-white min-h-[12rem] m-0">
         <button type="button" class="new-agent text-[10rem] leading-none">+</button>
-    </div>
+    </article>
 </article>

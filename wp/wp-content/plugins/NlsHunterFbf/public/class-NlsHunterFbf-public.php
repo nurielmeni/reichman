@@ -402,7 +402,31 @@ class NlsHunterFbf_Public
 
     public function add_edit_hunter()
     {
-        $formData = $_POST;
+        $searchParams = $this->model->searchParams(true);
+        $this->model->cleanSearchParams($searchParams);
+        $hunterId = $this->model->queryParam('hunter-id', null, true);
+        $hunterName = $this->model->queryParam('hunter-name', null, true);
+        // 1- Daily 2- Weekly 3- Monthly
+        $emailFrequency = $this->model->queryParam('approve-email', null, true) === "on" ? $this->model->queryParam('email-frequency', '1', true) : false;
+        $user = $this->NlsHunterFbf->getNlsUser();
+
+        $res = $this->model->jobHunterCreateOrUpdate($user, $searchParams, $hunterName, $hunterId);
+
+        $response = [
+            'status' => self::STATUS_SUCCESS,
+            'html' => 'SUCCESS',
+            'params' => [
+                'fileId' => '1',
+            ]
+        ];
+        wp_send_json($response);
+    }
+
+    public function delete_hunter()
+    {
+        $hunterId = $this->model->queryParam('hunter-id', null, true);
+        $user = $this->NlsHunterFbf->getNlsUser();
+        $res = $this->model->jobHunterDelete($user, $hunterId);
 
         $response = [
             'status' => self::STATUS_SUCCESS,

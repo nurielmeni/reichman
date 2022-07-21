@@ -206,6 +206,29 @@ var Agent =
 
         }
 
+        function deleteAgent(event) {
+            var el = event.target;
+            var agentId = $(el).parents('.smart-agent-card').data('agent-id');
+            $.ajax({
+                url: frontend_ajax.url,
+                data: {
+                    action: 'delete_hunter',
+                    'hunter-id': agentId
+                },
+                method: 'post',
+                cache: false
+            })
+                .done(function (res) {
+                    if (res.status === 'success') {
+                        $(el).parents('.smart-agent-card').remove();
+                    }
+                    console.log('res', res);
+                })
+                .fail(function (res) {
+                    console.debug('res', res);
+                });
+        }
+
         function registerEventListeners() {
             /**
              * User Actions
@@ -265,6 +288,11 @@ var Agent =
              * Add Edit Agent
              */
             $('form[name="nls-agent-add-edit"] button.search').on('click', addEditAgent);
+
+            /**
+             * Delete Agent
+             */
+            $('article.smart-agent-card button.delete').on('click', deleteAgent);
 
             /**
              * Close error

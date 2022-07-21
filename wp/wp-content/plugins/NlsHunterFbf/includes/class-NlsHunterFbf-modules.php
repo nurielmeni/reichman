@@ -97,17 +97,36 @@ class NlsHunterFbf_modules
         return ob_get_clean();
     }
 
+    private function getTemporaryAgents($agents)
+    {
+        return $agents && property_exists($agents, 'temporaryHunters') && property_exists($agents->temporaryHunters, 'HunterListItem') ? $agents->temporaryHunters->HunterListItem : [];
+    }
+
+    private function getTemporaryAgentsDetails($agents)
+    {
+        $temporaryAgents = $this->getTemporaryAgents($agents);
+        $res = [];
+
+        foreach ($temporaryAgents as $temporaryAgent) {
+            $hunterId = $temporaryAgent->Value;
+            $agent = $this->model->jobHunterGetInfo($hunterId);
+            if ($agent && property_exists($agent, 'JobHunterGetInfoResult'))
+                $res[] = $agent->JobHunterGetInfoResult;
+        }
+        return $res;
+    }
+
     public function nlsHunterPersonalModule_render()
     {
         $agents = $this->model->jobHuntersGetForUser($this->nlsUser);
-        $agents = !$agents ? [] : (is_array($agents) ? $agents : [$agents]);
+        $agentsDetails = $this->getTemporaryAgentsDetails($agents);
 
         ob_start();
 
         echo render('personal/module', [
             'model' => $this->model,
             'searchParams' =>  $this->model->searchParams(),
-            'agents' => $agents,
+            'agents' => $agentsDetails,
             'user' => $this->nlsUser,
             'personalPageUrl' => $this->model->getPersonalPageUrl(),
             'modalId' => 'fileManagerModal'

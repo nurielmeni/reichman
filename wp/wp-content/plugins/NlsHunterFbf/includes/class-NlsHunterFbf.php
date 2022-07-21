@@ -337,6 +337,9 @@ class NlsHunterFbf
 		// THE AJAX NEW HUNTER
 		$this->loader->add_action('wp_ajax_add_edit_hunter', $plugin_public, 'add_edit_hunter');
 		$this->loader->add_action('wp_ajax_nopriv_add_edit_hunter', $plugin_public, 'add_edit_hunter');
+		// THE AJAX DELETE HUNTER
+		$this->loader->add_action('wp_ajax_delete_hunter', $plugin_public, 'delete_hunter');
+		$this->loader->add_action('wp_ajax_nopriv_delete_hunter', $plugin_public, 'delete_hunter');
 	}
 
 	/**

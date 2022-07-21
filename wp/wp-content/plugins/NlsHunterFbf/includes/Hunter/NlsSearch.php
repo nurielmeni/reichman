@@ -151,6 +151,47 @@ class NlsSearch extends NlsService
         }
     }
 
+
+    public function JobHunterGetInfo($hunterId)
+    {
+        $transactionCode = NlsHelper::newGuid();
+        try {
+            $params = [
+                "hunterId" => $hunterId,
+                "transactionCode" => $transactionCode,
+            ];
+
+            $res = $this->client->JobHunterGetInfo($params);
+
+            return $res;
+        } catch (SoapFault $ex) {
+            throw new Exception('Error: Niloos services are not availiable, try later.');
+        } catch (Exception $ex) {
+            $ex->transactionCode = $transactionCode;
+            throw $ex;
+        }
+    }
+
+    public function JobHunterDelete($hunterId)
+    {
+        $transactionCode = NlsHelper::newGuid();
+        try {
+            $params = [
+                "hunterId" => $hunterId,
+                "transactionCode" => $transactionCode,
+            ];
+
+            $res = $this->client->JobHunterDelete($params);
+
+            return $res;
+        } catch (SoapFault $ex) {
+            throw new Exception('Error: Niloos services are not availiable, try later.');
+        } catch (Exception $ex) {
+            $ex->transactionCode = $transactionCode;
+            throw $ex;
+        }
+    }
+
     public function AutomaticHunterConfirmReset($hunter_id)
     {
         $transactionCode = NlsHelper::newGuid();
