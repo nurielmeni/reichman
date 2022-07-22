@@ -7,10 +7,10 @@ include_once NLS__PLUGIN_PATH . '/includes/Hunter/NlsHelper.php'
         <img class="w-[86%] h-[86%]" src="<?= NlsHelper::proprtyValue($statItem, 'image') ?>" alt="">
     </div>
     <div class="flex flex-row md:flex-col justify-center items-center md:items-start mx-2">
-        <p class="text-2xl md:text-5xl px-2">
+        <p class="count text-2xl md:text-5xl px-2">
             <?= NlsHelper::proprtyValue($statItem, 'count') ?>
         </p>
-        <p class="font-bold md:text-xl px-2">
+        <p class="label font-bold md:text-xl px-2">
             <?= __(NlsHelper::proprtyValue($statItem, 'label'), 'NlsHunterFbf') ?>
         </p>
     </div>

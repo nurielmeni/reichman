@@ -212,9 +212,18 @@ class NlsHunterFbf_model
         $name = pathinfo($file['name'], PATHINFO_FILENAME);
         $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
         $fileContent = file_get_contents($file['tmp_name']);
+        $this->initCardService();
         return $this->nlsCards->insertNewFile($cardId, $fileContent, $name, $ext, $isCvFile);
     }
 
+    /**
+     * Get last cv
+     */
+    public function cvInfoGetLast($cardId)
+    {
+        $this->initCardService();
+        return $this->nlsCards->CvInfoGetLast($cardId);
+    }
     /**
      * Init cards service
      */
@@ -844,7 +853,7 @@ class NlsHunterFbf_model
         if (false === $fileList) {
             $res = $this->nlsCards->getFileList($userCardId);
             $fileList = new stdClass();
-            $fileList->list = count(get_object_vars($res->FilesListGetResult)) === 0 ? [] : (is_array($res->FilesListGetResult) ? $res->FilesListGetResult : [$res->FilesListGetResult]);
+            $fileList->list = property_exists($res, 'FilesListGetResult') && property_exists($res->FilesListGetResult, 'FileInfo') ? $res->FilesListGetResult->FileInfo : [];
             $fileList->totalNumResults = $res->totalNumResults ? $res->totalNumResults : count($fileList->list);
 
             wp_cache_set($cacheKey, $fileList, 'card', 20 * 60);

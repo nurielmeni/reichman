@@ -215,7 +215,7 @@ class NlsHunterFbf_Public
     {
         $this->verifyUserIsSet();
         $user = $this->NlsHunterFbf->getNlsUser();
-        $files = $this->model->getFilesInfo($isCvFiles ? $user->cvList->list : $user->fileList->list, $user->cardId);
+        $files = $this->model->getFilesInfo($isCvFiles ? $user->getUserCvList()->list : $user->getUserFileList()->list, $user->cardId);
         $response = [
             'status' => self::STATUS_SUCCESS,
             'html' => render('personal/fileList', [
@@ -223,8 +223,8 @@ class NlsHunterFbf_Public
                 'type' => $isCvFiles ? 'cv-list' : 'file-list'
             ]),
             'params' => [
-                'count' => $isCvFiles ? $user->cvList->count : $user->fileList->count,
-                'label' => __($isCvFiles ? $user->cvList->label : $user->fileList->label, 'NlsHunterFbf'),
+                'count' => $isCvFiles ? $user->getUserCvList()->count : $user->getUserFileList()->count,
+                'label' => __($isCvFiles ? $user->getUserCvList()->label : $user->getUserFileList()->label, 'NlsHunterFbf'),
             ]
         ];
         wp_send_json($response);
@@ -344,10 +344,8 @@ class NlsHunterFbf_Public
         if (!$fileId || !$user->cardId) {
             $response = [
                 'status' => self::STATUS_ERROR,
-                'html' => '<p>Something went wrong: file delete error.</p>',
-                'params' => [
-                    'fileId' => $fileId
-                ]
+                'title' => '<p>Something went wrong: file delete error.</p>',
+                'message' => ''
             ];
             wp_send_json($response);
         }
@@ -357,9 +355,7 @@ class NlsHunterFbf_Public
         $response = [
             'status' => self::STATUS_SUCCESS,
             'fileUrl' => $file,
-            'params' => [
-                'fileName' => $file,
-            ]
+            'params' => []
         ];
         wp_send_json($response);
     }
@@ -370,15 +366,22 @@ class NlsHunterFbf_Public
         $type = $this->model->queryParam('type', false, true);
         $user = $this->NlsHunterFbf->getNlsUser();
         if ($file && $user->cardId) {
-            $res = $this->model->insertNewFile($user, $file, $type === 'cv-list');
+            try {
+                $res = $this->model->insertNewFile($user, $file, $type === 'cv-list');
+                if ($res && $type === 'cv-list') {
+                    $cvInfo = $this->model->cvInfoGetLast($user->cardId);
+                    $res = $cvInfo ? $cvInfo->FileId : null;
+                }
+            } catch (\Throwable $th) {
+                $res = null;
+                $message = $th->getMessage();
+            }
         }
         if (!$res) {
             $response = [
                 'status' => self::STATUS_ERROR,
-                'html' => '<p>Something went wrong: file upload error.</p>',
-                'params' => [
-                    'file' => $file
-                ]
+                'title' => 'Something went wrong: file upload error.',
+                'message' => $message ?: '',
             ];
             wp_send_json($response);
         }
@@ -395,6 +398,7 @@ class NlsHunterFbf_Public
             'html' => render('personal/fileItem', ['fileObj' => $fileObj]),
             'params' => [
                 'fileId' => $res,
+                'type' => $type
             ]
         ];
         wp_send_json($response);

@@ -31,7 +31,7 @@ class NlsService
      *
      * @var SOAP client object
      */
-    public $client;
+    protected $client;
 
     /**
      *

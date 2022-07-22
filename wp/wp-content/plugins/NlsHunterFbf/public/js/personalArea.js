@@ -17,6 +17,9 @@ var Agent =
                 action: action
             };
 
+            $('.nls-modal header h3').text('');
+            $('.nls-modal').data('action', action);
+
             console.log('getUserData: ', action);
             return new Promise((resolve, reject) => {
                 $.post(
@@ -37,6 +40,7 @@ var Agent =
         function myCvFiles() {
             getUserData('get_user_cv_files')
                 .then(function (res) {
+                    $('.nls-modal header h3').text(res.params.label);
                     $('.nls-modal article.body').html(res.html);
                     console.log('cv_files', res);
                 })
@@ -48,6 +52,7 @@ var Agent =
         function myFileList() {
             getUserData('get_user_file_list')
                 .then(function (res) {
+                    $('.nls-modal header h3').text(res.params.label);
                     $('.nls-modal article.body').html(res.html);
                     console.log('file_list', res);
                 })
@@ -59,6 +64,7 @@ var Agent =
         function myAppliedJobs() {
             getUserData('get_user_applied_jobs')
                 .then(function (res) {
+                    $('.nls-modal header h3').text(res.params.label);
                     $('.nls-modal article.body').html(res.html);
                     console.log('applied_jobs', res);
                 })
@@ -70,6 +76,7 @@ var Agent =
         function myAgentJobs() {
             getUserData('get_user_agent_jobs')
                 .then(function (res) {
+                    $('.nls-modal header h3').text(res.params.label);
                     $('.nls-modal article.body').html(res.html);
                     console.log('agent_jobs', res);
                 })
@@ -81,6 +88,7 @@ var Agent =
         function myAreaJobs() {
             getUserData('get_user_area_jobs')
                 .then(function (res) {
+                    $('.nls-modal header h3').text(res.params.label);
                     $('.nls-modal article.body').html(res.html);
                     console.log('area_jobs', res);
                 })
@@ -120,6 +128,7 @@ var Agent =
                 })
                 .fail(function (res) {
                     console.debug('res', res);
+                    showError('#fileManagerModal footer', res.title, res.message);
                 });
         }
 
@@ -145,6 +154,12 @@ var Agent =
             downloadLink.remove();
         }
 
+        function updateCounter(el, addVal) {
+            var stats = $('section.stats ' + el + ' p.count').text();
+
+
+        }
+
         function newFile(fileType, fileCardsEl) {
             var fileInput = document.createElement('input');
             document.body.appendChild(fileInput);
@@ -167,12 +182,15 @@ var Agent =
                 })
                     .done(function (res) {
                         if (res && res.status === 'success') {
-
                             $(fileCardsEl).append(res.html);
                         } else {
-                            console.debug('fileUpload: error', res);
+                            showError('#fileManagerModal footer', res.title, res.message);
                         }
                     })
+                    .fail(function (res) {
+                        console.debug('res', res);
+                        showError('#fileManagerModal footer', 'Error', 'Insert File Error');
+                    });
             });
 
             fileInput.click();

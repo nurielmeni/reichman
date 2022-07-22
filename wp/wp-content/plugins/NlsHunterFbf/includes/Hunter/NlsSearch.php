@@ -141,7 +141,8 @@ class NlsSearch extends NlsService
                 "queryConfig" => ["ResultRowLimit" => $resultRowLimit, "ResultRowOffset" => $resultRowOffset],
                 "oQueryInfo" => $filter
             ];
-            $res = $this->client->JobHunterExecuteNewQuery2($params)->JobHunterExecuteNewQuery2Result; //->Results;
+            $res = $this->client->JobHunterExecuteNewQuery2($params);
+            $res = property_exists($res, 'JobHunterExecuteNewQuery2Result') ? $res->JobHunterExecuteNewQuery2Result : []; //->Results;
             return $res;
         } catch (SoapFault $ex) {
             //var_dump($ex);

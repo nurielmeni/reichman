@@ -98,10 +98,11 @@ class NlsCards extends NlsService
                     ),
                 );
                 $res = $this->client->FileInsertBinary($params);
+                $res = $res && property_exists($res, 'FileInsertBinaryResult') ? $res->FileInsertBinaryResult : null;
             }
-            return $res->FileInsertBinaryResult;
+            return $res;
         } catch (Exception $ex) {
-            throw new Exception("Error: CardService: InsertNewCvFile: Could not insert new file. \n\rTC: $transactionCode \nrCardId: $user->cardId");
+            throw new Exception('Error: CardService: InsertNewCvFile: Could not insert new file: ' . $ex->getMessage());
         }
     }
 
@@ -554,8 +555,8 @@ class NlsCards extends NlsService
                 'transactionCode' => $transactionCode,
             ];
             $res = $this->client->CvInfoGetLast($params);
-            $res = json_decode(json_encode($res), TRUE);
-            return ['res' => $res, 'Params' => $params];
+            $fileInfo = $res && property_exists($res, 'CvInfoGetLastResult') ? $res->CvInfoGetLastResult : null;
+            return $fileInfo;
         } catch (Exception $ex) {
             /**
              * var_dump($ex);
@@ -876,6 +877,9 @@ class NlsCards extends NlsService
             $params = array(
                 "transactionCode" => $transactionCode,
                 "ParentId" => $userCardId,
+                "fromRow" => 0,
+                "toRow" => 1000,
+                "sortColumn" => 'Name',
                 "filter" => []
             );
             $res = $this->client->FilesListGet($params);

@@ -155,8 +155,9 @@ function start_my_session()
 
 add_action('init', 'start_my_session', 1);
 
-function end_my_session()
+function end_my_session($id)
 {
+	if (!session_id()) return;
 	// Remove all the tmp files created by the user
 	$userTmpDir = NLS__PLUGIN_PATH . 'public/tmp/' . session_id();
 	if (!is_dir('userTmpDir')) {
