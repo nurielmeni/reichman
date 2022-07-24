@@ -99,7 +99,8 @@ class NlsHunterFbf_modules
 
     private function getTemporaryAgents($agents)
     {
-        return $agents && property_exists($agents, 'temporaryHunters') && property_exists($agents->temporaryHunters, 'HunterListItem') ? $agents->temporaryHunters->HunterListItem : [];
+        $hunters = $agents && property_exists($agents, 'temporaryHunters') && property_exists($agents->temporaryHunters, 'HunterListItem') ? $agents->temporaryHunters->HunterListItem : [];
+        return is_array($hunters) ? $hunters : [$hunters];
     }
 
     private function getTemporaryAgentsDetails($agents)

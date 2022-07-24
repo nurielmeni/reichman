@@ -62,7 +62,7 @@ class NlsSecurity
             $options = new SoapVar($param, SOAP_ENC_OBJECT, null, null);
 
             $this->auth  = json_encode($this->client->__soapCall("Authenticate2", array($options)));
-            update_option(NlsService::AUTH_KEY, $this->auth);
+            update_option(NlsService::AUTH_KEY . 'SERVICE', $this->auth);
             return strpos($this->auth, 'faultstring') !== false ? false : $this->auth;
         } catch (\Exception $e) {
             $this->auth = false;
@@ -83,8 +83,8 @@ class NlsSecurity
                 "ipAddress" => "127.0.0.1",
                 'transactionCode' => $transactionCode
             );
-            $res = $this->client->AuthenticateByConsumerKeyAndSecretKey($param);
-            return $res;
+            $res = json_encode($this->client->AuthenticateByConsumerKeyAndSecretKey($param));
+            return strpos($res, 'faultstring') !== false ? false : $res;
         } catch (Exception $e) {
             $this->auth = false;
             $e->transactionCode = $transactionCode;
@@ -104,10 +104,11 @@ class NlsSecurity
      * if not valid Authenticates
      * 
      * @return boolian true if authenticated
+     * @param String $authType SERVICE/userId
      */
-    public function isAuth()
+    public function isAuth($authType = 'SERVICE')
     {
-        $this->auth = json_decode(get_option(NlsService::AUTH_KEY));
+        $this->auth = json_decode(get_option(NlsService::AUTH_KEY . $authType));
         try {
             if (!$this->auth || property_exists($this->auth, 'faultcode') || $this->auth->Authenticate2Result != "Success") {
                 add_action('admin_notices', [$this, 'nls_auth_error_admin_notice']);
