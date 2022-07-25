@@ -83,8 +83,8 @@ class NlsSecurity
                 "ipAddress" => "127.0.0.1",
                 'transactionCode' => $transactionCode
             );
-            $res = json_encode($this->client->AuthenticateByConsumerKeyAndSecretKey($param));
-            return strpos($res, 'faultstring') !== false ? false : $res;
+            $res = $this->client->AuthenticateByConsumerKeyAndSecretKey($param);
+            return $res;
         } catch (Exception $e) {
             $this->auth = false;
             $e->transactionCode = $transactionCode;
