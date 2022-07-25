@@ -78,6 +78,40 @@ class NlsHunterFbf_modules
         return ob_get_clean();
     }
 
+    public function nlsHunterSearchResults_render()
+    {
+        $searchParams = $this->model->searchParams();
+        $page = $this->model->queryParam('page', 0);
+        $jobs = $this->model->getJobHunterExecuteNewQuery2($searchParams, null, $page);
+
+        $jobDetailsPageUrl = $this->model->getJobDetailsPageUrl();
+
+        ob_start();
+
+        echo render('search/nlsJobSearch', [
+            'model' => $this->model,
+            'searchParams' => $searchParams,
+            'searcResultsPageUrl' => $this->model->getSearchResultsPageUrl()
+        ]);
+
+        if (!$jobs) {
+            echo "An error occured on the search attempt";
+            return ob_get_clean();
+        }
+
+        echo render('search/nlsSearcResults', [
+            'model' => $this->model,
+            'jobs' => $jobs,
+            'jobDetailsPageUrl' => $jobDetailsPageUrl
+        ]);
+
+        echo render('job/applyForJobs', [
+            'supplierId' => $this->model->nlsGetSupplierId(),
+        ]);
+
+        return ob_get_clean();
+    }
+
     private function getTemporaryAgents($agents)
     {
         $hunters = $agents && property_exists($agents, 'temporaryHunters') && property_exists($agents->temporaryHunters, 'HunterListItem') ? $agents->temporaryHunters->HunterListItem : [];
@@ -131,40 +165,6 @@ class NlsHunterFbf_modules
             'user' => $this->nlsUser,
             'personalPageUrl' => $this->model->getPersonalPageUrl(),
             'modalId' => 'fileManagerModal'
-        ]);
-
-        return ob_get_clean();
-    }
-
-    public function nlsHunterSearchResults_render()
-    {
-        $searchParams = $this->model->searchParams();
-        $page = $this->model->queryParam('page', 0);
-        $jobs = $this->model->getJobHunterExecuteNewQuery2($searchParams, null, $page);
-
-        $jobDetailsPageUrl = $this->model->getJobDetailsPageUrl();
-
-        ob_start();
-
-        echo render('search/nlsJobSearch', [
-            'model' => $this->model,
-            'searchParams' => $searchParams,
-            'searcResultsPageUrl' => $this->model->getSearchResultsPageUrl()
-        ]);
-
-        if (!$jobs) {
-            echo "An error occured on the search attempt";
-            return ob_get_clean();
-        }
-
-        echo render('search/nlsSearcResults', [
-            'model' => $this->model,
-            'jobs' => $jobs,
-            'jobDetailsPageUrl' => $jobDetailsPageUrl
-        ]);
-
-        echo render('job/applyForJobs', [
-            'supplierId' => $this->model->nlsGetSupplierId(),
         ]);
 
         return ob_get_clean();

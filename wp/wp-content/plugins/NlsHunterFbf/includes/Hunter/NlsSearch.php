@@ -81,12 +81,8 @@ class NlsSearch extends NlsService
 
     public function JobHunterExecuteByHunterId2($hunter_id, $from, $ofset, $sinceLastQuery = true)
     {
-
-
         $transactionCode = NlsHelper::newGuid();
         try {
-
-
             $params = array(
                 "transactionCode" => $transactionCode,
                 "HunterId" => $hunter_id,
