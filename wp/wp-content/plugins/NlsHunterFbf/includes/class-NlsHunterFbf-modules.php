@@ -78,25 +78,6 @@ class NlsHunterFbf_modules
         return ob_get_clean();
     }
 
-    public function nlsHunterPersonalDashboard_render()
-    {
-        $data = [
-            'cv' => 2,
-            'hunted-jobs' => 30,
-            'applied-jobs' => 12
-        ];
-
-        ob_start();
-
-        echo render('personal/dashboard', [
-            'model' => $this->model,
-            'data' => $data,
-            'personalPageUrl' => $this->model->getPersonalPageUrl()
-        ]);
-
-        return ob_get_clean();
-    }
-
     private function getTemporaryAgents($agents)
     {
         $hunters = $agents && property_exists($agents, 'temporaryHunters') && property_exists($agents->temporaryHunters, 'HunterListItem') ? $agents->temporaryHunters->HunterListItem : [];
@@ -115,6 +96,25 @@ class NlsHunterFbf_modules
                 $res[] = $agent->JobHunterGetInfoResult;
         }
         return $res;
+    }
+
+    public function nlsHunterPersonalDashboard_render()
+    {
+        $data = [
+            'cv' => 2,
+            'hunted-jobs' => 30,
+            'applied-jobs' => 12
+        ];
+
+        ob_start();
+
+        echo render('personal/dashboard', [
+            'model' => $this->model,
+            'data' => $data,
+            'personalPageUrl' => $this->model->getPersonalPageUrl()
+        ]);
+
+        return ob_get_clean();
     }
 
     public function nlsHunterPersonalModule_render()

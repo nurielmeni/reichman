@@ -593,6 +593,8 @@ class NlsHunterFbf_model
         $resultRowLimit = $resultRowLimit ? $resultRowLimit : $this->nlsGetCountPerPage();
         $resultRowOffset = is_int($page) ? $page * $resultRowLimit : false;
 
+        $hunterId = $hunterId ?: NlsHelper::newGuid();
+
         if (!is_array($searchParams)) return [];
         $this->cleanSearchParams($searchParams);
 
