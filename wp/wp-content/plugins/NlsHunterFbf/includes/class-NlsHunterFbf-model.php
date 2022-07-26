@@ -15,7 +15,6 @@ class NlsHunterFbf_model
 {
     const STATUS_OPEN = 1;
 
-
     private $nlsSecurity;
     private $auth;
     private $nlsCards;
@@ -62,6 +61,7 @@ class NlsHunterFbf_model
         }
     }
 
+
     /**
      * @param $user NlsUser Object
      */
@@ -82,6 +82,13 @@ class NlsHunterFbf_model
             );
             return null;
         }
+        return $res;
+    }
+
+    public function jobHunterExecuteByHunterId2($hunterId)
+    {
+        $this->initSearchService();
+        $res = $this->nlsSearch->jobHunterExecuteByHunterId2($hunterId);
         return $res;
     }
 
@@ -627,6 +634,9 @@ class NlsHunterFbf_model
                     $filter
                 );
 
+                // Remove the saved hunter
+                $this->nlsSearch->JobHunterDelete($hunterId);
+
                 $jobs['totalHits'] = $res && property_exists($res, 'TotalHits') ? $res->TotalHits : 0;
 
                 if ($jobs['totalHits'] === 0) {
@@ -870,42 +880,6 @@ class NlsHunterFbf_model
 
         $res = $this->nlsCards->fileDelete($cardId, $fileId);
         return $res;
-    }
-
-    public function getAgents()
-    {
-        return [
-            [
-                'id' => '132434-354235235-25353',
-                'name' => 'סוכן 1',
-                'date' => '15/12/2021'
-            ],
-            [
-                'id' => '132434-354235235-25353',
-                'name' => 'סוכן 2',
-                'date' => '15/12/2021'
-            ],
-            [
-                'id' => '132434-354235235-25353',
-                'name' => 'סוכן 3',
-                'date' => '15/12/2021'
-            ],
-            [
-                'id' => '132434-354235235-25353',
-                'name' => 'סוכן 4',
-                'date' => '15/12/2021'
-            ],
-            [
-                'id' => '132434-354235235-25353',
-                'name' => 'סוכן 5',
-                'date' => '15/12/2021'
-            ],
-            [
-                'id' => '132434-354235235-25353',
-                'name' => 'סוכן 6',
-                'date' => '15/12/2021'
-            ],
-        ];
     }
 
     public function searchApplicantsByName($name)
