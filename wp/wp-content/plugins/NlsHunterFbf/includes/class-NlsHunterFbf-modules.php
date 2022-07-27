@@ -135,9 +135,9 @@ class NlsHunterFbf_modules
     public function nlsHunterPersonalDashboard_render()
     {
         $data = [
-            'cv' => 2,
-            'hunted-jobs' => 30,
-            'applied-jobs' => 12
+            'cv' => '...',
+            'hunted-jobs' => '...',
+            'applied-jobs' => '...'
         ];
 
         ob_start();
@@ -154,7 +154,8 @@ class NlsHunterFbf_modules
     public function nlsHunterPersonalModule_render()
     {
         $agents = $this->model->jobHuntersGetForUser($this->nlsUser);
-        $agentsDetails = $this->getTemporaryAgentsDetails($agents);
+        //$agentsDetails = $this->getTemporaryAgentsDetails($agents);
+        $agentsDetails = $this->getTemporaryAgents($agents);
 
         ob_start();
 

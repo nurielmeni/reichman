@@ -69,7 +69,7 @@ class NlsSearch extends NlsService
             );
 
             $res = $this->client->JobHunterCreateOrUpdate($params);
-
+            $res->Value = $hunterId;
             return $res;
         } catch (SoapFault $ex) {
             //var_dump($ex);

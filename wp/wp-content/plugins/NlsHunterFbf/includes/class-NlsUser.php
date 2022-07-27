@@ -159,7 +159,7 @@ class NlsUser
     {
         if ($this->appliedJobs) return $this->appliedJobs;
 
-        $res = $this->cardId ? $this->model->getAppliedJobs($this->cardId) : (object) ['list' => [], 'totalNumResults' => 0];
+        $res = $this->cardId ? $this->model->getAppliedJobs($this) : (object) ['list' => [], 'totalNumResults' => 0];
         $this->appliedJobs = new NlsBoardItem('applied-jobs', $res, __('Jobs I applied to', 'NlsHunterFbf'), 0, 'fileManagerModal');
         return $this->appliedJobs;
     }

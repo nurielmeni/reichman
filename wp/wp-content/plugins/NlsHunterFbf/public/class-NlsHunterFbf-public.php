@@ -100,6 +100,7 @@ class NlsHunterFbf_Public
         wp_enqueue_style('sumoselect', plugin_dir_url(__FILE__) . 'css/sumoselect.min.css', array(), $this->version, 'all');
         wp_enqueue_style('front-page-loader', plugin_dir_url(__FILE__) . 'css/loader.css', array(), $this->version, 'all');
         wp_enqueue_style('slick', plugin_dir_url(__FILE__) . 'css/slick.css', array(), $this->version, 'all');
+        wp_enqueue_style('growl', plugin_dir_url(__FILE__) . 'css/jquery.growl.css', array(), $this->version, 'all');
 
         if (is_rtl()) {
             wp_enqueue_style('sumoselect-rtl', plugin_dir_url(__FILE__) . 'css/sumoselect-rtl.css', array(), $this->version, 'all');
@@ -115,7 +116,6 @@ class NlsHunterFbf_Public
      */
     public function enqueue_scripts()
     {
-
         /**
          * This function is provided for demonstration purposes only.
          *
@@ -132,7 +132,7 @@ class NlsHunterFbf_Public
         wp_enqueue_script('nls-sumo-select', plugin_dir_url(__FILE__) . 'js/jquery.sumoselect.min.js', array('jquery'), $this->version, false);
         wp_enqueue_script('mobile-check-js', plugin_dir_url(__FILE__) . 'js/mobileCheck.js', array('jquery'), $this->version, false);
         wp_enqueue_script('nls-swipe-detect', plugin_dir_url(__FILE__) . 'js/swipeDetect.js', array('jquery'), $this->version, false);
-        //wp_enqueue_script('jquery-ui-datepicker');
+        wp_enqueue_script('jquery-growl', plugin_dir_url(__FILE__) . 'js/jquery.growl.js', array('jquery'), $this->version, false);
         wp_enqueue_script('slick-js', plugin_dir_url(__FILE__) . 'js/slick.min.js', array('jquery'), $this->version, false);
         wp_enqueue_script('nls-jquery-js', plugin_dir_url(__FILE__) . 'js/nlsJquery.js', array('jquery'), $this->version, false);
 
@@ -232,6 +232,9 @@ class NlsHunterFbf_Public
 
     public function get_user_applied_jobs()
     {
+        $this->verifyUserIsSet();
+        $user = $this->NlsHunterFbf->getNlsUser();
+        $appliedJobs = $user->getUserAppliedJobs();
         $response = [
             'status' => self::STATUS_SUCCESS,
             'html' => '<p>APPLIED JOBS</p>',
@@ -415,12 +418,14 @@ class NlsHunterFbf_Public
         $user = $this->NlsHunterFbf->getNlsUser();
 
         $res = $this->model->jobHunterCreateOrUpdate($user, $searchParams, $hunterName, $hunterId);
+        $res->Text = $hunterName;
 
         $response = [
             'status' => self::STATUS_SUCCESS,
-            'html' => 'SUCCESS',
+            'html' => render('personal/agent', ['agent' => $res]),
             'params' => [
-                'fileId' => '1',
+                'hunterId' => $res->Value,
+                'name' => $hunterName,
             ]
         ];
         wp_send_json($response);

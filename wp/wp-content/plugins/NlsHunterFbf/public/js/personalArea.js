@@ -12,6 +12,18 @@ var Agent =
             'my-area-jobs': myAreaJobs
         }
 
+        function getPersonalDashboardData(dashboard) {
+            getUserData('get_user_cv_files').then(function (res) {
+                $(dashboard).find('.cv-files .count').text(res.params.count).removeClass('animate-pulse');
+                console.log('cv_files', res);
+            })
+                .catch(function (res) {
+                    console.debug('get_user_cv_files:error', res);
+                    $.growl.error('Get userCV files', res);
+                });
+
+        }
+
         function getUserData(action) {
             var data = {
                 action: action
@@ -217,9 +229,21 @@ var Agent =
             })
                 .done(function (res) {
                     console.debug('res', res);
+                    if (res.status === 'success') {
+                        $('section.smart-agents > article').prepend(res.html);
+                    } else {
+                        $.growl.error({
+                            title: 'Something Went Wrong',
+                            message: res
+                        })
+                    }
                 })
                 .fail(function (res) {
                     console.debug('res', res);
+                    $.growl.error({
+                        title: 'Something Went Wrong',
+                        message: res
+                    })
                 });
 
         }
@@ -310,7 +334,7 @@ var Agent =
             /**
              * Delete Agent
              */
-            $('article.smart-agent-card button.delete').on('click', deleteAgent);
+            $(document).on('click', 'article.smart-agent-card button.delete', deleteAgent);
 
             /**
              * Close error
@@ -325,6 +349,11 @@ var Agent =
 
             rtl = $('html').attr('dir') === 'rtl';
             lang = $('html').attr('lang');
+
+            var dashboard = $('section.personal-dashboard').get(0);
+            if (dashboard) {
+                getPersonalDashboardData(dashboard);
+            }
 
             registerEventListeners()
         }

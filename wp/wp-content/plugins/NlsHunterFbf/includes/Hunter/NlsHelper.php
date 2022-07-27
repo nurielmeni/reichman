@@ -126,6 +126,13 @@ class NlsHelper
             : $object->$property;
     }
 
+    public static function arrayValue($array, $key, $default = '')
+    {
+        return isset($array) && is_array($array) && key_exists($key, $array)
+            ? $array[$key]
+            : $default;
+    }
+
     public static function dateFormat($str, $default = '')
     {
         $time = strtotime($str);

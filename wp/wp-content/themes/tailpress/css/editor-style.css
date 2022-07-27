@@ -220,12 +220,12 @@
   margin-top: 1.5rem
 }
 
-.mt-4 {
-  margin-top: 1rem
+.mt-auto {
+  margin-top: auto
 }
 
-.ml-auto {
-  margin-left: auto
+.mt-4 {
+  margin-top: 1rem
 }
 
 .mr-4 {
@@ -250,10 +250,6 @@
 
 .mb-12 {
   margin-bottom: 3rem
-}
-
-.mt-auto {
-  margin-top: auto
 }
 
 .block {
@@ -501,6 +497,23 @@
 .animate-spin {
   -webkit-animation: spin 1s linear infinite;
           animation: spin 1s linear infinite
+}
+
+@-webkit-keyframes pulse {
+  50% {
+    opacity: .5
+  }
+}
+
+@keyframes pulse {
+  50% {
+    opacity: .5
+  }
+}
+
+.animate-pulse {
+  -webkit-animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+          animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite
 }
 
 .cursor-pointer {
@@ -1080,13 +1093,13 @@
   outline-style: solid
 }
 
-.drop-shadow-lg {
-  --tw-drop-shadow: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+.drop-shadow-md {
+  --tw-drop-shadow: drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.06));
   filter: var(--tw-filter)
 }
 
-.drop-shadow-md {
-  --tw-drop-shadow: drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.06));
+.drop-shadow-lg {
+  --tw-drop-shadow: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
   filter: var(--tw-filter)
 }
 
@@ -1310,10 +1323,6 @@ body {
     height: 10rem
   }
 
-  .md\:h-full {
-    height: 100%
-  }
-
   .md\:h-auto {
     height: auto
   }
@@ -1473,11 +1482,6 @@ body {
     padding: 0px
   }
 
-  .md\:py-3 {
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem
-  }
-
   .md\:px-20 {
     padding-left: 5rem;
     padding-right: 5rem
@@ -1491,6 +1495,11 @@ body {
   .md\:py-8 {
     padding-top: 2rem;
     padding-bottom: 2rem
+  }
+
+  .md\:py-3 {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem
   }
 
   .md\:pb-2 {

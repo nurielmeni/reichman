@@ -234,10 +234,11 @@ class NlsHunterFbf_model
     /**
      * Init cards service
      */
-    public function initCardService()
+    public function initCardService($auth = null)
     {
+        $auth = !$auth ? $auth : $this->auth;
         try {
-            if ($this->auth !== false && !$this->nlsCards) {
+            if ($auth !== $this->auth || !$this->nlsCards) {
                 $this->nlsCards = new NlsCards([
                     'auth' => $this->auth,
                 ]);
@@ -962,16 +963,20 @@ class NlsHunterFbf_model
     /**
      * Get user applied jobs
      */
-    public function getAppliedJobs($userCardId)
+    public function getAppliedJobs($user)
     {
-        $this->initCardService();
+        if (!$user) throw new Exception('User was not initialized');
+        $userAuth = $user->getAuth($this->nlsSecurity);
+        if (!$userAuth) throw new Exception('Could not authenticate user: ' . $user->userName);
 
-        $cacheKey = 'USER_APPLIED_JOBS' . $userCardId;
+        $this->initCardService($userAuth);
+
+        $cacheKey = 'USER_APPLIED_JOBS' . $user->cardId;
 
         $userAppliedJobs = wp_cache_get($cacheKey);
 
         if (false === $userAppliedJobs) {
-            $res = $this->nlsCards->getAppliedJobs($userCardId);
+            $res = $this->nlsCards->getAppliedJobs($user->cardId);
             wp_cache_set($cacheKey, $userAppliedJobs, 'card', 20 * 60);
             return $res;
         }
