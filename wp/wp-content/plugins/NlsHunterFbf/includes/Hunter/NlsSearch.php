@@ -51,7 +51,7 @@ class NlsSearch extends NlsService
         }
     }
 
-    public function JobHunterCreateOrUpdate($name = null, $hunterId = null, $filter = [], $hunterStatus = null)
+    public function JobHunterCreateOrUpdate($name = null, $hunterId = null, $filter = [], $hunterStatus = 'Saved')
     {
         $transactionCode = NlsHelper::newGuid();
         $hunterId = $hunterId ? $hunterId : NlsHelper::newGuid();

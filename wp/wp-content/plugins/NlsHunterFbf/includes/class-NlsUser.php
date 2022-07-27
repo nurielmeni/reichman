@@ -17,7 +17,7 @@ class NlsBoardItem
         $this->label = is_string($label) ? $label : '';
         $this->count = is_int($count) ? $count : count($this->list);
         $this->modalToggle = $modalToggle;
-        $this->image = is_string($image) && !empty($image) ? $image : NLS__PLUGIN_URL . '/public/images/personal/matched.svg';
+        $this->image = is_string($image) && !empty($image) ? $image : NLS__PLUGIN_URL . 'public/images/personal/' . $name . '.svg';
     }
 }
 
@@ -103,15 +103,6 @@ class NlsUser
         return !empty($this->userId);
     }
 
-    // public function getUserData()
-    // {
-    //     $this->getUserCvList();
-    //     $this->getUserFileList();
-    //     $this->getUserAppliedJobs();
-    //     $this->getUserAgentJobs();
-    //     $this->getUserMyAreaJobs();
-    // }
-
     public function getFullName()
     {
         return $this->firstName . ($this->lastName ? ' ' . $this->lastName : '');
@@ -177,7 +168,7 @@ class NlsUser
     {
         if ($this->myAreaJobs) return $this->myAreaJobs;
 
-        $res = []; //$this->cardId ? $this->model->getUserAppliedJobs($this->cardId) : (object) ['list' => [], 'totalNumResults' => 0];
+        $res = []; //$this->cardId ? $this->model->getUserAppliedJobs($this) : (object) ['list' => [], 'totalNumResults' => 0];
         $this->myAreaJobs = new NlsBoardItem('my-area-jobs', $res, __('Jobs by My Area', 'NlsHunterFbf'), 0);
         return $this->myAreaJobs;
     }

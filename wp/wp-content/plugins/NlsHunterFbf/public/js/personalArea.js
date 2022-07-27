@@ -19,9 +19,18 @@ var Agent =
             })
                 .catch(function (res) {
                     console.debug('get_user_cv_files:error', res);
-                    $.growl.error('Get userCV files', res);
+                    $.growl.error({ title: 'Get userCV files', message: res });
                 });
 
+            getUserData('get_user_applied_jobs')
+                .then(function (res) {
+                    $(dashboard).find('.applied-jobs .count').text(res.params.count).removeClass('animate-pulse');
+                    console.log('applied-jobs', res);
+                })
+                .catch(function (res) {
+                    console.debug('get_user_applied_jobs:error', res);
+                    $.growl.error({ title: 'Get user applied jobs', message: res });
+                });
         }
 
         function getUserData(action) {

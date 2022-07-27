@@ -112,19 +112,19 @@ class NlsHunterFbf_modules
         return ob_get_clean();
     }
 
-    private function getTemporaryAgents($agents)
+    //'HunterListItem'
+    private function getAgentsByType($agents, $type = 'savedHunters')
     {
-        $hunters = $agents && property_exists($agents, 'temporaryHunters') && property_exists($agents->temporaryHunters, 'HunterListItem') ? $agents->temporaryHunters->HunterListItem : [];
+        $hunters = $agents && property_exists($agents, $type) && property_exists($agents->$type, 'HunterListItem') ? $agents->$type->HunterListItem : [];
         return is_array($hunters) ? $hunters : [$hunters];
     }
 
-    private function getTemporaryAgentsDetails($agents)
+    private function getAgentsDetails($agents)
     {
-        $temporaryAgents = $this->getTemporaryAgents($agents);
         $res = [];
 
-        foreach ($temporaryAgents as $temporaryAgent) {
-            $hunterId = $temporaryAgent->Value;
+        foreach ($agents as $agent) {
+            $hunterId = $agent->Value;
             $agent = $this->model->jobHunterGetInfo($hunterId);
             if ($agent && property_exists($agent, 'JobHunterGetInfoResult'))
                 $res[] = $agent->JobHunterGetInfoResult;
@@ -154,15 +154,15 @@ class NlsHunterFbf_modules
     public function nlsHunterPersonalModule_render()
     {
         $agents = $this->model->jobHuntersGetForUser($this->nlsUser);
-        //$agentsDetails = $this->getTemporaryAgentsDetails($agents);
-        $agentsDetails = $this->getTemporaryAgents($agents);
+        //$agentsDetails = $this->getAgentsDetails($agents);
+        $savedAgents = $this->getAgentsByType($agents, 'savedHunters');
 
         ob_start();
 
         echo render('personal/module', [
             'model' => $this->model,
             'searchParams' =>  $this->model->searchParams(),
-            'agents' => $agentsDetails,
+            'agents' => $savedAgents,
             'user' => $this->nlsUser,
             'personalPageUrl' => $this->model->getPersonalPageUrl(),
             'modalId' => 'fileManagerModal'

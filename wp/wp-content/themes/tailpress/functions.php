@@ -160,7 +160,7 @@ function end_my_session($id)
 	if (!session_id()) return;
 	// Remove all the tmp files created by the user
 	$userTmpDir = NLS__PLUGIN_PATH . 'public/tmp/' . session_id();
-	if (!is_dir('userTmpDir')) {
+	if (is_dir($userTmpDir)) {
 		rmdir($userTmpDir);
 	}
 

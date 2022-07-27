@@ -635,9 +635,6 @@ class NlsHunterFbf_model
                     $filter
                 );
 
-                // Remove the saved hunter
-                $this->nlsSearch->JobHunterDelete($hunterId);
-
                 $jobs['totalHits'] = $res && property_exists($res, 'TotalHits') ? $res->TotalHits : 0;
 
                 if ($jobs['totalHits'] === 0) {
